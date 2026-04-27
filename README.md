@@ -55,18 +55,20 @@ La tecnologia utilizzata per il PoC è Astro in combinazione con Payload CMS. As
 * **`Developer-focused`**: Astro punta fortemente sulla Developer Experience (DX). Fornisce una CLI, un'estensione ufficiale per VS Code con supporto TypeScript/Intellisense e una documentazione complessa. Il progetto è supportato da una community attiva.
 
 
-### Direttivo Common
-
-### Direttive Client e Direttive Server
-
-La differenza fondamentale sta in **dove** e **cosa** viene eseguito:
-
-* **Direttive Client (`client:load`, `client:visible`, ecc.)**: Riguardano il **JavaScript**. Dicono al *browser* quando deve scaricare ed eseguire il codice JavaScript necessario per rendere un componente interattivo (es. far funzionare un bottone React o Vue). L'HTML è già lì, ma è inerte finché non viene "idratato".
-* **Direttive Server (`server:defer`)**: Riguardano l'**HTML**. Dicono al *server* di non far aspettare l'utente. Il componente è puro HTML generato dal server (nessun JavaScript pesante inviato al client per farlo funzionare), ma la sua generazione viene ritardata e iniettata in modo asincrono.
-
+## Direttive: 
 All'interno di un file .astro si possono implementare i meccanismi di rendering inserendo attributi HTML in un elemento o componente. Possono implementare compiler feature o modificare il comportamente delle componenti. Perché sia valida la direttiva deve essere nella forma *X:Y*, alcune posso prendere valori custom <X client:load /> (takes no value) <X class:list={['some-css-class']} /> (takes an array).
 
-## Le Direttive Client in Astro (Client Islands)
+### Direttive Common
+
+* **`set:html`**: Permette di iniettare stringhe HTML (potrebbero essere state memorizzate in un database) non processate direttamente in un componente.
+
+* **`server:defer`**: Indica al server di non bloccare il rendering della pagina principale in attesa di quel componente ma di renderizzare un fallback temporaneo.
+
+* **`define:vars`**: Crea un ponte diretto tra client e server. Permette di passare variabili calcolate sul server direttamente all'interno dei tag <script> '<style>' lato client.
+
+* **`class:list`**: Una utility che permette di passare array, oggetti o condizioni per applicare classi CSS senza dover scrivere complesse interpolazioni di stringhe
+
+### Le Direttive Client in Astro (Client Islands)
 
 * **`client:load`**: Carica e idrata il JavaScript del componente immediatamente al caricamento della pagina. È la priorità più alta.
 
@@ -78,9 +80,17 @@ All'interno di un file .astro si possono implementare i meccanismi di rendering 
 
 * **`client:only={framework}`**: Salta completamente il Server-Side Rendering (SSR) per quel componente. Il componente viene renderizzato esclusivamente sul client. Poiché Astro non sa quale framework usare in assenza di SSR, devi specificarlo (es. `client:only="react"` o `client:only="vue"`).
 
-## Le Direttive Server in Astro (Server Islands)
+### Le Direttive Server in Astro (Server Islands)
 
 A differenza delle direttive client che gestiscono una moltitudine di casistiche di caricamento, lato server esiste un'unica direttiva principale, accompagnata da uno slot speciale:
 
 * **`server:defer`**: Indica ad Astro di non bloccare il caricamento della pagina principale per aspettare che questo componente sia pronto. La pagina (la "shell") viene inviata all'utente immediatamente (spesso statica e velocissima). Nel frattempo, il server calcola l'HTML del componente isolato e lo inietta nella pagina in un secondo momento, non appena è pronto.
 * **`slot="fallback"`**: Non è una direttiva vera e propria, ma è lo strumento integrato per gestire l'attesa di `server:defer`. Permette di mostrare un contenuto temporaneo (come uno spinner di caricamento o uno scheletro UI) finché il server non ha finito di renderizzare il componente reale.
+
+
+------------------------------------------------------------------------------
+
+## Payload.csm
+Paylod è un progetto open source di tipo headless quindi non si occupa di generare le pagine web visibili all'utente finale, ma fornisce i dati tramite API. 
+
+### Design Principles
