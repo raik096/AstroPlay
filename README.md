@@ -35,3 +35,52 @@ Il problema nasce dal primo principio, quello del pre-rendering. Infatti la comp
 Il termine "component island" è stato coniato da Katie Sylor-Miller nel 2019. Questa architettura ibrida prevede la renderizzazione delle pagine HTML nel server, inserendo dei placeholders o slots intorno a regioni altamente dinamiche. Queste regioni hanno un trattamento diverso dal resto della pagina (che rimane statica aggiornata a tempo di build) aggiornandosi run-time. 
 
 L'idea quindi è andare contro ai web frameworks che renderizzano l'intera pagina contingendo questo comportamento a zone controllate. 
+
+
+
+------------------------------------------------------------------------------
+
+## Astro
+La tecnologia utilizzata per il PoC è Astro in combinazione con Payload CMS. Astro è un web framework che utilizza il principio della Island Architecture , senza obbligare lo sviluppatore a una particolare libreria UI, offrendo quindi la libertà di utilizzare React, Preact, Svelte, Vue, ecc.
+
+### Design Principles
+* **`Content-driven`**: Si discosta dai framework web orientati alle web application complesse (come software gestionali o dashboard SaaS), che non rappresentano il punto forte di Astro. Il limite principale riguarda la comunicazione tra le isole: far dialogare componenti interattivi diversi richiede l'uso di librerie esterne per la gestione dello stato, aumentando la complessità. Astro è consigliabile quando i componenti JS (anche se rappresentano il 50/60% della pagina) operano in modo indipendente. Al contrario, è meno adatto in scenari interconnessi: ad esempio un form di ricerca avanzata, in cui filtri, liste di risultati e paginazione devono aggiornarsi costantemente e simultaneamente.
+
+* **`Server-first`**: Astro (e in generale l'approccio Jamstack) mira ad alleggerire il carico computazionale lato client. A differenza di framework spesso usati per creare SPA (Single Page Application) che caricano bundle JavaScript per gestire il routing nel browser, Astro adotta un'architettura MPA (Multi-Page Application). Questo approccio riduce all'osso il rendering client-side, sacrificando la fluidità ininterrotta delle SPA.
+
+* **`Fast by default`**: Grazie ai principi appena descritti, Astro registra benchmark prestazionali nettamente superiori per i siti guidati dai contenuti. L'obiettivo strutturale del framework è garantire che le performance ottimali riscontrate in ambiente di sviluppo si riflettano sul servizio deployato.
+
+* **`Easy to use`**: La sintassi nativa .astro è un superset dell'HTML arricchito con espressioni in stile JSX e CSS con scope locale. Poiché il grosso del lavoro avviene sul server, si elimina la complessità della reattività lato client (come gli hook di React).
+
+* **`Developer-focused`**: Astro punta fortemente sulla Developer Experience (DX). Fornisce una CLI, un'estensione ufficiale per VS Code con supporto TypeScript/Intellisense e una documentazione complessa. Il progetto è supportato da una community attiva.
+
+
+### Direttivo Common
+
+### Direttive Client e Direttive Server
+
+La differenza fondamentale sta in **dove** e **cosa** viene eseguito:
+
+* **Direttive Client (`client:load`, `client:visible`, ecc.)**: Riguardano il **JavaScript**. Dicono al *browser* quando deve scaricare ed eseguire il codice JavaScript necessario per rendere un componente interattivo (es. far funzionare un bottone React o Vue). L'HTML è già lì, ma è inerte finché non viene "idratato".
+* **Direttive Server (`server:defer`)**: Riguardano l'**HTML**. Dicono al *server* di non far aspettare l'utente. Il componente è puro HTML generato dal server (nessun JavaScript pesante inviato al client per farlo funzionare), ma la sua generazione viene ritardata e iniettata in modo asincrono.
+
+All'interno di un file .astro si possono implementare i meccanismi di rendering inserendo attributi HTML in un elemento o componente. Possono implementare compiler feature o modificare il comportamente delle componenti. Perché sia valida la direttiva deve essere nella forma *X:Y*, alcune posso prendere valori custom <X client:load /> (takes no value) <X class:list={['some-css-class']} /> (takes an array).
+
+## Le Direttive Client in Astro (Client Islands)
+
+* **`client:load`**: Carica e idrata il JavaScript del componente immediatamente al caricamento della pagina. È la priorità più alta.
+
+* **`client:idle`**: Carica e idrata il componente solo quando la pagina ha finito il caricamento iniziale e il main thread del browser è libero (in "idle"). Ottimo per componenti interattivi che non sono vitali fin dal primissimo istante.
+
+* **`client:visible`**: Idrata il componente solo quando entra nella porzione di schermo visibile all'utente (usa l'Intersection Observer). Se l'utente non fa mai scroll fino a quel componente, il suo JavaScript non verrà mai scaricato.
+
+* **`client:media={string}`**: Idrata il componente solo se una specifica CSS media query è vera (es. `client:media="(max-width: 768px)"`). Perfetto per componenti interattivi esclusivi per mobile (come un menu hamburger) o desktop.
+
+* **`client:only={framework}`**: Salta completamente il Server-Side Rendering (SSR) per quel componente. Il componente viene renderizzato esclusivamente sul client. Poiché Astro non sa quale framework usare in assenza di SSR, devi specificarlo (es. `client:only="react"` o `client:only="vue"`).
+
+## Le Direttive Server in Astro (Server Islands)
+
+A differenza delle direttive client che gestiscono una moltitudine di casistiche di caricamento, lato server esiste un'unica direttiva principale, accompagnata da uno slot speciale:
+
+* **`server:defer`**: Indica ad Astro di non bloccare il caricamento della pagina principale per aspettare che questo componente sia pronto. La pagina (la "shell") viene inviata all'utente immediatamente (spesso statica e velocissima). Nel frattempo, il server calcola l'HTML del componente isolato e lo inietta nella pagina in un secondo momento, non appena è pronto.
+* **`slot="fallback"`**: Non è una direttiva vera e propria, ma è lo strumento integrato per gestire l'attesa di `server:defer`. Permette di mostrare un contenuto temporaneo (come uno spinner di caricamento o uno scheletro UI) finché il server non ha finito di renderizzare il componente reale.
