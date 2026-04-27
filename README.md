@@ -93,4 +93,30 @@ A differenza delle direttive client che gestiscono una moltitudine di casistiche
 ## Payload.csm
 Paylod è un progetto open source di tipo headless quindi non si occupa di generare le pagine web visibili all'utente finale, ma fornisce i dati tramite API. 
 
-### Design Principles
+### Concepts
+
+* **`Config-based & Code-first`**: L'intera architettura di Payload è centralizzata in file di configurazione tipizzati (TypeScript/JavaScript). A differenza dei CMS tradizionali, la struttura del database e l'interfaccia di amministrazione si costruiscono scrivendo codice.
+
+* **`API-First`**: Qualsiasi dato inserito viene automaticamente esposto tramite API (REST e GraphQL), rendendo Payload la "Single Source of Truth".
+
+* **`Admin UI Autogenerata`**: Payload genera automaticamente un pannello di amministrazione visivo, fornendo agli editor un'interfaccia per inserire i contenuti.
+
+* **`DB-Agnostic`**: Non è vincolato a una specifica tecnologia di archiviazione. Interagisce con il database tramite dei Database Adapters, un layer intermedio che traduce le strutture dati interne di Payload in quelle native del database scelto. La scelta del database può ricadere sulla dinamicità dei campi e l'interconnessione delle tabelle.
+
+* **`Collection Configs`**: Una collezione è un insieme di records, chiamati documenti, quindi un App in payload è un insieme di documenti, memorizzati nel DB, basati sui campi che sono stati definiti, generando local API necessari alla gestione dei documenti stessi. Queste collection sono quindi dei raggruppamenti di dati ricorrenti, ogni collection ha una tabella nel database e le sue API. 
+
+* **`Globals`**: Nel caso i dati non fossero ricorrenti, Payload mette a disposizione i Globals che gestiscono entità uniche (singletons). Si comportano esattamente come le Collections, utilizzando gli stessi Fields per definire lo schema dei dati, ma corrispondono a un singolo documento persistente all'interno del database. Sono lo strumento principale per strutturare dati che esistono in singola copia a livello applicativo, come ad esempio il menu di navigazione principale (Header e Footer).
+
+* **`Fields`**: In Payload, i "Fields" sono i mattoni fondamentali. Configurare un campo significa istruire contemporaneamente il database su come salvare un dato e il pannello di amministrazione su come disegnarlo (es. casella di testo, calendario, upload di file).
+
+* **`Hooks`**: Strumenti per intercettare specifici eventi nel ciclo di vita dei dati, per eseguire logiche personalizzate. Possono intercettare eventi globali (come gli errori), eventi sulle collection, le global o i field. Questi Hook per design sono esclusivamente calcolati sul server backend, per garantire la massima sicurezza. 
+
+* **`Authentication:`**: L'autenticazione è una funzionalità nativa di Payload che permette di gestire login, registrazione e sessioni utente. Qualsiasi Collection può essere trasformata in un'entità in grado di autenticarsi aggiungendo l'opzione auth: true alla sua configurazione. Quando l'opzione viene abilitata vengono aggiunti nativamente al database i campi email, password.
+
+* **`Access Control:`**: L'accesso è valutato dinamicamente prima dell'esecuzione di una funzione JS/ TS, e questi permessi possono essere a livello di collection, globals o fields. Di default se non è presente un utente autenticato, le chiamate API vengono tutte bloccate (tranne nel caso delle local API quindi dal codice server-side).
+
+* **`Admin Panel:`**: Payload genera automaticamente un Admin Panel, costruita in React che restituisce il live preview, adattandosi ai permessi dell'utente che fa il login.
+
+* **`Data Retrieval:`**: L'interazione con il database di Payload viene data su 3 lvelli di API distinti, local API, rest API, GraphQL API. Dove la prima offre un accesso diretto al database tramite Node.js, bypassando il protocollo HTTP. È scritta nativamente in TypeScript. La rest API è l'approccio HTTP standard. Payload monta automaticamente endpoint RESTful (es. /api/collezione) per ogni Collection creata. Usata per chiamate client-side. La terza viene esposta per applicazioni che necessitano di recuperare strutture complesse con una singola chiamata.
+
+* **`Modularity:`**: 
