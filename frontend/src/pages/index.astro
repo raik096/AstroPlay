@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Greeting from '../components/Greeting';
+
+// 1. Chiamata API verso Payload (eseguita sul server)
+const response = await fetch('http://localhost:3000/api/users');
+const datiPayload = await response.json();
+console.log("Dati ricevuti da Payload:", datiPayload);
+
+const pageTitle = "Home Page";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  
+  <h2>My awesome blog subtitle</h2>
+  <Greeting client:load messages={["Hi", "Hello", "Howdy", "Hey there"]} />
+
+  <hr style="margin: 2rem 0;" />
+
+  <h1>Utenti registrati nel CMS</h1>
+  
+  {datiPayload.docs && datiPayload.docs.length > 0 ? (
+    <ul>
+      {datiPayload.docs.map((utente: any) => (
+        <li>
+          <strong>Email:</strong> {utente.email} <br/>
+          <small>ID: {utente.id}</small>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>Nessun utente trovato. Vai su localhost:3000/admin e creane uno!</p>
+  )}
+
+</BaseLayout>
