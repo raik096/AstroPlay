@@ -1,0 +1,34 @@
+---
+// src/pages/stress.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FriendsLive from '../components/FriendsLive.jsx';
+import DummyCard from '../components/DummyCard.astro';
+
+// Creiamo un array vuoto di 2000 elementi
+const dummyArray = Array.from({ length: 2000 });
+---
+
+<BaseLayout pageTitle="PoC Astro - STRESS">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1>Test delle Performance (SOTTO SFORZO)</h1>
+    <a 
+      href="/" 
+      style="padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; color: white; background: #10b981;"
+    >
+      🛑 Torna alla Pagina Normale
+    </a>
+  </div>
+
+  <FriendsLive client:load />
+
+  <hr style="margin: 2rem 0;" />
+
+  <div>
+    <h3 style="color: red;">⚠️ Modalità Stress: Renderizzati 1000 componenti statici!</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px;">
+      {dummyArray.map((_, i) => (
+        <DummyCard index={i + 1} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

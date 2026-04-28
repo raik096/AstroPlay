@@ -1,0 +1,11 @@
+---
+// src/components/DummyCard.astro
+const { index } = Astro.props;
+---
+
+<div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 5px; border-radius: 4px; background: #fafafa;">
+  <h4 style="margin: 0; color: #333;">📦 Componente Statico #{index}</h4>
+  <p style="margin: 5px 0 0; font-size: 0.8rem; color: #666;">
+    Puro HTML generato dal server. Nessun impatto su JavaScript.
+  </p>
+</div>

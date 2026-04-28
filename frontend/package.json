@@ -16,5 +16,8 @@
     "@astrojs/rss": "^4.0.18",
     "astro": "^6.1.8",
     "preact": "^10.29.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14"
   }
 }

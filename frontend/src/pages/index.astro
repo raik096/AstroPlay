@@ -1,36 +1,22 @@
 ---
-import '../styles/global.css';
+// src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Greeting from '../components/Greeting';
-
-// 1. Chiamata API verso Payload (eseguita sul server)
-const response = await fetch('http://localhost:3000/api/users');
-const datiPayload = await response.json();
-console.log("Dati ricevuti da Payload:", datiPayload);
-
-const pageTitle = "Home Page";
+import FriendsLive from '../components/FriendsLive.jsx';
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-  
-  <h2>My awesome blog subtitle</h2>
-  <Greeting client:load messages={["Hi", "Hello", "Howdy", "Hey there"]} />
+<BaseLayout pageTitle="PoC Astro - Normale">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1>Test delle Performance</h1>
+    <a 
+      href="/stress" 
+      style="padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; color: white; background: #ef4444;"
+    >
+      🔥 Vai alla Pagina Stress (1000 Componenti)
+    </a>
+  </div>
+
+  <FriendsLive client:load />
 
   <hr style="margin: 2rem 0;" />
-
-  <h1>Utenti registrati nel CMS</h1>
-  
-  {datiPayload.docs && datiPayload.docs.length > 0 ? (
-    <ul>
-      {datiPayload.docs.map((utente: any) => (
-        <li>
-          <strong>Email:</strong> {utente.email} <br/>
-          <small>ID: {utente.id}</small>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p>Nessun utente trovato. Vai su localhost:3000/admin e creane uno!</p>
-  )}
-
+  <p>La pagina al momento è super leggera. Il Delta dovrebbe essere perfetto.</p>
 </BaseLayout>
