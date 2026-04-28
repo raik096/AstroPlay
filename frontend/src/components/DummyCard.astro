@@ -1,11 +1,31 @@
 ---
 // src/components/DummyCard.astro
 const { index } = Astro.props;
+
+// --- INIZIO LOGICA JAVASCRIPT SERVER-SIDE ---
+// Tutto questo codice viene polverizzato da Astro durante la build.
+// Non arriverà MAI al browser dell'utente!
+
+// 1. Simuliamo un'operazione matematica inutile ma pesante per la CPU
+const arrayDiNumeri = Array.from({ length: 500 }, () => Math.floor(Math.random() * 1000));
+const arrayOrdinato = arrayDiNumeri.sort((a, b) => a - b);
+const valoreMassimo = arrayOrdinato[arrayOrdinato.length - 1];
+
+// 2. Generiamo un hash/token finto per ogni singola card
+const tokenUnivoco = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+// 3. Facciamo un controllo condizionale logico
+const isPari = index % 2 === 0;
+const etichetta = isPari ? 'Pari' : 'Dispari';
+// --- FINE LOGICA JAVASCRIPT ---
 ---
 
 <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 5px; border-radius: 4px; background: #fafafa;">
-  <h4 style="margin: 0; color: #333;">📦 Componente Statico #{index}</h4>
-  <p style="margin: 5px 0 0; font-size: 0.8rem; color: #666;">
-    Puro HTML generato dal server. Nessun impatto su JavaScript.
+  <h4 style="margin: 0 0 5px 0; color: #333;">
+    📦 Box #{index} <span style="font-size: 0.7em; color: #999;">({etichetta})</span>
+  </h4>
+  <p style="margin: 0; font-size: 0.8rem; color: #555;">
+    <strong>Hash:</strong> <span style="font-family: monospace;">{tokenUnivoco}</span><br />
+    <strong>Calcolo Max:</strong> {valoreMassimo}
   </p>
 </div>

@@ -24,7 +24,11 @@ const dummyArray = Array.from({ length: 2000 });
   <hr style="margin: 2rem 0;" />
 
   <div>
-    <h3 style="color: red;">⚠️ Modalità Stress: Renderizzati 1000 componenti statici!</h3>
+    {/* Titolo aggiornato per spiegare esattamente la magia di Astro! */}
+    <h3 style="color: red;">
+      ⚠️ Modalità Stress: Renderizzati 2000 componenti statici (ognuno dei quali esegue pesanti calcoli matematici lato server, inviando 0 Byte di JavaScript al browser!)
+    </h3>
+    
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px;">
       {dummyArray.map((_, i) => (
         <DummyCard index={i + 1} />
