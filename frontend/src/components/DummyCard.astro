@@ -2,9 +2,6 @@
 // src/components/DummyCard.astro
 const { index } = Astro.props;
 
-// --- INIZIO LOGICA JAVASCRIPT SERVER-SIDE ---
-// Tutto questo codice viene polverizzato da Astro durante la build.
-// Non arriverà MAI al browser dell'utente!
 
 // 1. Simuliamo un'operazione matematica inutile ma pesante per la CPU
 const arrayDiNumeri = Array.from({ length: 500 }, () => Math.floor(Math.random() * 1000));
@@ -17,7 +14,6 @@ const tokenUnivoco = Math.random().toString(36).substring(2, 15) + Math.random()
 // 3. Facciamo un controllo condizionale logico
 const isPari = index % 2 === 0;
 const etichetta = isPari ? 'Pari' : 'Dispari';
-// --- FINE LOGICA JAVASCRIPT ---
 ---
 
 <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 5px; border-radius: 4px; background: #fafafa;">
