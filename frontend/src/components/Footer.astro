@@ -1,20 +1,30 @@
 ---
-import Social from '../components/Social.astro';
+// src/components/Footer.astro
+import DocLink from './Social.astro';
 ---
 <style>
   footer {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 4rem;
+    padding: 2rem;
+    border-top: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+  .links {
+    display: flex;
+    gap: 0.75rem;
   }
 </style>
 
 <footer>
-    <p> 
-        Check my socials!
-        <Social platform="twitter" username="astrodotbuild" />
-        <Social platform="github" username="withastro" />
-        <Social platform="youtube" username="astrodotbuild" />
-    
-    </p>
+    <p>Risorse ufficiali per l'architettura PoC:</p>
+    <div class="links">
+        <DocLink title="Astro Docs" url="https://docs.astro.build" />
+        <DocLink title="Payload CMS Docs" url="https://payloadcms.com/docs" />
+        <DocLink title="GitHub Repo" url="https://github.com/withastro/astro" />
+    </div>
 </footer>

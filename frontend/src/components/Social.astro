@@ -1,12 +1,23 @@
 ---
-const { platform, username } = Astro.props;
+// src/components/DocLink.astro
+const { title, url } = Astro.props;
 ---
-<a href={`https://www.${platform}.com/${username}`}>{platform}</a>
+<a href={url} target="_blank" rel="noopener noreferrer">
+  {title}
+</a>
+
 <style>
   a {
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     color: white;
-    background-color: #4c1d95;
+    background-color: #0f172a; /* Blu scuro (accent-color) */
     text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  a:hover {
+    background-color: #334155;
   }
 </style>

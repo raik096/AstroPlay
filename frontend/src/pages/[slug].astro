@@ -1,0 +1,46 @@
+---
+// src/pages/[slug].astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export const prerender = false; // Fondamentale per l'SSR
+
+const { slug } = Astro.params;
+
+let pageData = null;
+
+try {
+    // Interroghiamo Payload cercando la pagina che ha quello specifico slug
+    const response = await fetch(`http://localhost:3000/api/pages?where[slug][equals]=${slug}`);
+    const data = await response.json();
+    
+    // Payload restituisce sempre un array 'docs'. Prendiamo il primo risultato.
+    pageData = data.docs[0];
+} catch (e) {
+    console.error("Errore fetch pagina:", e);
+}
+
+// Se la pagina non esiste nel CMS, mandiamo l'utente alla 404
+if (!pageData) {
+    return Astro.redirect('/404');
+}
+---
+
+<BaseLayout pageTitle={pageData.title}>
+    <article class="dynamic-page">
+        <header class="page-header">
+            <h1>{pageData.title}</h1>
+        </header>
+
+        <section class="content">
+            <div class="rich-text-container">
+                {JSON.stringify(pageData.content)} 
+            </div>
+        </section>
+    </article>
+</BaseLayout>
+
+<style>
+    .dynamic-page { max-width: 800px; margin: 4rem auto; padding: 0 1rem; }
+    .page-header { border-bottom: 2px solid #e2e8f0; margin-bottom: 2rem; padding-bottom: 1rem; }
+    h1 { font-size: 3rem; color: #0f172a; }
+</style>

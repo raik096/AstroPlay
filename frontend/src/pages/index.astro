@@ -2,21 +2,153 @@
 // src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FriendsLive from '../components/FriendsLive.jsx';
+
+const pageTitle = "Dashboard Performance | Baseline";
 ---
 
-<BaseLayout pageTitle="PoC Astro - Normale">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-    <h1>Test delle Performance</h1>
-    <a 
-      href="/stress" 
-      style="padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; color: white; background: #ef4444;"
-    >
-      🔥 Vai alla Pagina Stress (1000 Componenti)
-    </a>
-  </div>
+<BaseLayout pageTitle={pageTitle}>
+    
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-titles">
+                <h1>Monitoraggio Performance (Baseline)</h1>
+                <p class="subtitle">Analisi del Client-Side Rendering (CSR) e disponibilità del Main Thread.</p>
+            </div>
+            
+            <a href="/stress" class="btn-stress">
+                <span class="icon">⚠️</span> Esegui Stress Test (2000 Nodi)
+            </a>
+        </header>
 
-  <FriendsLive client:load />
+        <section class="info-card">
+            <h4>Analisi Architetturale: Isole Frontend (CSR) e Main Thread</h4>
+            <div class="doc-content">
+                <div class="doc-column">
+                    <span class="tag csr">Idratazione Client-Side</span>
+                    <p>Il componente interattivo sottostante utilizza la direttiva <code>client:load</code>. A differenza dell'SSR, qui Astro invia un segnaposto HTML vuoto e delega al browser dell'utente il compito di scaricare ed eseguire il runtime JavaScript (React) per inizializzare l'interfaccia e la logica di fetching.</p>
+                </div>
+                
+                <div class="doc-column">
+                    <span class="tag base">DOM Leggero (Baseline)</span>
+                    <p>Attualmente l'albero DOM è ridotto al minimo. In queste condizioni, il <strong>Main Thread</strong> del browser è libero da calcoli di layout. Il timer JavaScript (<code>setInterval</code>) allocato nell'Isola viene eseguito in maniera prioritaria, producendo un delta di latenza trascurabile (≤ 10ms).</p>
+                </div>
 
-  <hr style="margin: 2rem 0;" />
-  <p>La pagina al momento è super leggera. Il Delta dovrebbe essere perfetto.</p>
+                <div class="doc-column">
+                    <span class="tag pro">Isolamento Garantito (Il Test)</span>
+                    <p>Nelle SPA tradizionali, inondare il DOM satura il Main Thread a causa dell'overhead del Virtual DOM, rallentando le Isole. Nel prossimo test inietteremo <strong>2000 nodi DOM</strong>. Poiché Astro li calcola lato server inviando puro HTML inerte, il Main Thread resterà libero e la metrica di latenza dell'Isola non subirà alterazioni.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="live-metrics">
+            <div class="metrics-header">
+                <h3>Isola Interattiva: Monitoraggio Latenza Main Thread</h3>
+                <span class="pulse-indicator"></span>
+            </div>
+            
+            <div class="island-container">
+                <FriendsLive client:load />
+            </div>
+        </section>
+
+    </main>
+
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent-color: #0f172a;
+            --btn-danger: #dc2626;
+            --btn-danger-hover: #b91c1c;
+        }
+
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.5rem;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .header-titles h1 { font-size: 1.8rem; margin: 0 0 0.4rem 0; color: var(--accent-color); letter-spacing: -0.02em; }
+        .subtitle { color: var(--text-muted); font-size: 1rem; margin: 0; }
+
+        .btn-stress {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--btn-danger);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+        }
+
+        .btn-stress:hover {
+            background-color: var(--btn-danger-hover);
+            transform: translateY(-1px);
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .info-card h4 { margin: 0 0 1.25rem 0; font-size: 1.1rem; color: #1e3a8a; }
+
+        .doc-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .doc-column p { margin: 0.75rem 0 0 0; font-size: 0.9rem; line-height: 1.6; color: #334155; }
+
+        .tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 4px; display: inline-block;}
+        .tag.csr { background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; }
+        .tag.base { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+        .tag.pro { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+
+        code { font-family: ui-monospace, SFMono-Regular, monospace; background-color: #f1f5f9; padding: 0.2em 0.4em; border-radius: 4px; font-size: 0.85em; color: #2563eb; border: 1px solid #e2e8f0; }
+
+        .live-metrics {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .metrics-header { background-color: #f8fafc; border-bottom: 1px solid var(--border-color); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .metrics-header h3 { margin: 0; font-size: 0.95rem; color: #334155; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .pulse-indicator { width: 10px; height: 10px; background-color: #10b981; border-radius: 50%; animation: pulse-green 2s infinite; }
+        @keyframes pulse-green { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+
+        .island-container { padding: 2rem; background-color: white; }
+
+        @media (max-width: 900px) {
+            .doc-content { grid-template-columns: 1fr; }
+            .dashboard-header { flex-direction: column; align-items: flex-start; }
+            .btn-stress { width: 100%; justify-content: center; }
+        }
+    </style>
 </BaseLayout>

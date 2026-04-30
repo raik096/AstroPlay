@@ -1,76 +1,302 @@
 ---
-import { fontData } from "astro:assets";
 import '../styles/global.css';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
-import Header from "../components/Header.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-
-const pageTitle = "About";
-
-const identity = {
-    firstName: "Andres",
-    country: "Pisa",
-    occupation: "Technical Writer",
-    hobbies: ["photography", "birdwatching", "baseball"],
-};
-
-const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
-
-const happy = true;
-const finished = false;
-const goal = 3;
-
-const skillColor = "crimson";
-const fontWeight = "bold";
-const textCase = "uppercase";
+const pageTitle = "Documentazione Tecnica Definitiva PoC";
 ---
 
-<BaseLayout pageTitle={pageTitle} >
+<BaseLayout pageTitle={pageTitle}>
     
-    <body>
-        <style define:vars={{skillColor, fontWeight, textCase}}>
-            h1 {
-                color: purple;
-                font-size: 4rem;
-            }
-            .skill {
-                color: var(--skillColor);
-                font-weight: var(--fontWeight);
-                text-transform: var(--textCase);
-    
-            }
-        </style>    
-        <h1>PoC</h1>
-        <h2>... Astro & Payload.CMS</h2>
-    
-        <p>
-            Testiamo Astro e Payload in 3 diverse modalità: 
-        </p>
-        <ul>
-            <li>Contenuti statici a tempo di build.</li>
-            <li>Contenuti ad alta frequenza di rendering client-side</li>
-            <li>Contenuti ad alta frequenza di rendering server-side</li>
-        </ul>
-        <p>My skills are:</p>
-        <ul>
-            {skills.map((skill) => <li class="skill">{skill}</li>)}
-        </ul>
-        {happy && <p>I am happy to be learning Astro!</p>}
-    
-        {finished && <p>I finished this tutorial!</p>}
-    
-        {
-            goal === 3 ? (
-                <p>My goal is to finish in 3 days.</p>
-            ) : (
-                <p>My goal is not 3 days.</p>
-            )
+    <main class="report-container">
+        <header class="report-header">
+            <h1>Architettura e Paradigmi di Rendering</h1>
+            <p class="subtitle">Documentazione tecnica definitiva: Astro, Payload CMS e le strategie di Data Fetching.</p>
+        </header>
+
+        <section class="card summary-card">
+            <h2>Introduzione all'Architettura Disaccoppiata (Headless)</h2>
+            <p>
+                Questo Proof of Concept abbandona l'approccio monolitico tradizionale (es. WordPress) in favore di un'architettura <strong>Headless</strong>. 
+                Le responsabilità sono rigidamente separate:
+            </p>
+            <ul class="tech-list">
+                <li><strong>Backend (Payload CMS):</strong> Un'applicazione Node.js pura. Funge da "Single Source of Truth", gestendo il database (SQLite/PostgreSQL), l'autenticazione, la validazione dei dati e l'esposizione delle API (REST/GraphQL). Non ha alcuna competenza su come i dati appariranno a schermo.</li>
+                <li><strong>Frontend (Astro):</strong> Un meta-framework Multi-Page Application (MPA). Consuma le API del backend e si occupa esclusivamente del rendering (HTML/CSS) e dell'orchestrazione delle interattività (JavaScript client-side).</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>1. Static Site Generation (SSG)</h2>
+            <p>Il paradigma di base di Astro. Consiste nel calcolare l'intera pagina una sola volta, prima che il sito vada online.</p>
+            
+            <div class="flow-box">
+                <h4>Il Ciclo di Vita (Build Time)</h4>
+                <ol>
+                    <li>Lo sviluppatore lancia il comando di build (<code>npm run build</code>).</li>
+                    <li>Il server Node.js interroga Payload CMS per scaricare tutti i dati necessari.</li>
+                    <li>Astro "stampa" questi dati all'interno dei componenti e genera file <code>.html</code> puri.</li>
+                    <li>I file vengono caricati su un server web o una CDN. A runtime (quando l'utente visita il sito), non c'è alcun database da interrogare: il server restituisce solo testo statico.</li>
+                </ol>
+            </div>
+
+            <h4>Analisi Architetturale</h4>
+            <ul class="tradeoff-list">
+                <li><span class="tag pro">Performance Massima</span> Il TTFB (Time To First Byte) è imbattibile. È la soluzione ideale per blog, documentazioni e landing page.</li>
+                <li><span class="tag pro">Costi Infrastrutturali Zero</span> Un sito SSG può essere ospitato gratuitamente ovunque, non richiedendo server computazionali.</li>
+                <li><span class="tag con">Dato Stantio (Stale Data)</span> Se un redattore modifica un articolo sul CMS, la modifica non sarà visibile sul sito finché non viene lanciata (spesso via Webhook) una nuova build dell'intero progetto.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>2. Client-Side Rendering (Isole Frontend)</h2>
+            <p>La strategia utilizzata per componenti altamente interattivi o dati che cambiano frequentemente (es. chat, notifiche, metriche in tempo reale). Astro delega il rendering a framework UI (come React, Preact o Vue) esclusivamente in piccole porzioni della pagina, chiamate <strong>Isole</strong>.</p>
+            
+            <div class="flow-box">
+                <h4>Il Ciclo di Vita (Runtime Browser)</h4>
+                <ol>
+                    <li>Astro invia lo scheletro HTML statico della pagina.</li>
+                    <li>In corrispondenza dell'isola (direttiva <code>client:load</code>), il browser scarica un pacchetto JavaScript.</li>
+                    <li>Il processo di <strong>Idratazione</strong> aggancia il codice JS al frammento HTML, "risvegliando" il componente.</li>
+                    <li>Il componente esegue una chiamata <code>fetch()</code> dal browser verso le API per ottenere i dati aggiornati e re-renderizza il DOM locale.</li>
+                </ol>
+            </div>
+
+            <h4>Sicurezza e Pattern BFF (Backend For Frontend)</h4>
+            <p>Eseguire chiamate dal client espone nativamente gli URL del backend e le logiche API nel tab "Network" del browser. Per mitigare questo rischio, si adotta il pattern <strong>API Proxy</strong>:</p>
+            <ul class="tech-list">
+                <li>Il client non interroga mai Payload direttamente. Interroga invece una rotta API interna di Astro (es. <code>/api/metrics</code>).</li>
+                <li>Il server Astro agisce da scudo: riceve la chiamata dal client, vi inietta chiavi segrete o token e interroga Payload di nascosto.</li>
+            </ul>
+
+            <h4>Analisi Architetturale</h4>
+            <ul class="tradeoff-list">
+                <li><span class="tag pro">Reattività</span> L'utente interagisce con il dato senza mai ricaricare la pagina.</li>
+                <li><span class="tag con">Overhead JS</span> Maggiore è il numero di isole, maggiore sarà la CPU e la RAM consumata dal dispositivo dell'utente.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>3. Server-Side Rendering (SSR) & Server Islands</h2>
+            <p>Il rendering avviene su richiesta (On-Demand). Il server Astro "fabbrica" la pagina HTML esatta nel millisecondo in cui l'utente la richiede, attingendo dati freschi dal database.</p>
+            
+            <div class="flow-box">
+                <h4>Il Ciclo di Vita (Runtime Server)</h4>
+                <ol>
+                    <li>Il client fa una richiesta HTTP alla pagina.</li>
+                    <li>Astro inizia istantaneamente a inviare al browser le parti statiche (Header, Footer).</li>
+                    <li>Per le <strong>Server Islands</strong> (direttiva <code>server:defer</code>), Astro invia un blocco HTML di fallback temporaneo (es. un'animazione di caricamento).</li>
+                    <li>Dietro le quinte, Astro interroga il database in modo asincrono.</li>
+                    <li>Una volta ottenuti i dati, Astro genera il pezzo mancante di HTML e lo "inietta" direttamente nello stream della pagina sul browser, senza far scaricare 1 singolo byte di JavaScript all'utente.</li>
+                </ol>
+            </div>
+
+            <h4>Strategie di Fetching: REST API vs Local API</h4>
+            <ul class="tech-list">
+                <li><strong>Local API:</strong> Interroga direttamente il database via Node.js, azzerando i tempi di rete. Velocissima, ma richiede che Astro e Payload condividano lo stesso processo.</li>
+                <li><strong>REST API (Fetch):</strong> Interroga Payload tramite HTTP. Nel caso di database basati su file singolo come <strong>SQLite</strong>, è l'unico approccio sicuro per evitare errori di <em>Lock (SQLITE_BUSY)</em> causati dalla concorrenza tra processi diversi.</li>
+            </ul>
+
+            <h4>Analisi Architetturale</h4>
+            <ul class="tradeoff-list">
+                <li><span class="tag pro">Dato Sempre Fresco</span> Ideal per dashboard private, carrelli e-commerce e news dell'ultimo minuto.</li>
+                <li><span class="tag pro">Zero JS</span> Prestazioni eccezionali sui dispositivi mobili di fascia bassa, poiché l'elaborazione è interamente a carico del server.</li>
+                <li><span class="tag con">Costi Server</span> Richiede server attivi (Node.js/Edge) sempre in esecuzione per processare le richieste.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>4. Sicurezza e Autenticazione (Cookie-Based)</h2>
+            <p>Il PoC dimostra l'eccellenza della protezione delle rotte tramite autenticazione Server-Side, delegando la crittografia a Payload CMS.</p>
+            
+            <ul class="tech-list">
+                <li><strong>Zero custom crypto:</strong> Payload gestisce internamente bcrypt e la generazione di JWT (JSON Web Tokens), sollevando lo sviluppatore da complessi oneri di sicurezza.</li>
+                <li><strong>Protezione HttpOnly:</strong> Il token di sessione viene salvato in un cookie <code>HttpOnly</code>. Questo significa che nessuno script JavaScript malevolo (XSS) eseguito nel browser può rubare la sessione dell'utente.</li>
+                <li><strong>Server-Side Guard:</strong> Poiché Astro gira in SSR, può leggere il cookie prima ancora di generare l'HTML. Se il cookie manca o non è valido, l'HTML della dashboard contenente i dati sensibili non viene letteralmente mai assemblato né inviato al client, azzerando le probabilità di data-leak.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --border-color: #cbd5e1;
+            --accent-color: #0f172a;
+            --code-bg: #f1f5f9;
+            --pro-color: #15803d;
+            --con-color: #b91c1c;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-    </body>
 
+        .report-container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            background-color: var(--bg-color);
+        }
+
+        .report-header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .report-header h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem 0;
+            color: var(--accent-color);
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            margin: 0;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .summary-card {
+            background: linear-gradient(to bottom right, #ffffff, #f1f5f9);
+            border-left: 6px solid #2563eb;
+        }
+
+        .card h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: var(--accent-color);
+        }
+
+        .card h4 {
+            font-size: 1.1rem;
+            margin: 2rem 0 1rem 0;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.85em;
+            color: #b91c1c;
+            border: 1px solid #e2e8f0;
+        }
+
+        .flow-box {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+        }
+
+        .flow-box h4 {
+            margin-top: 0;
+            color: #475569;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .flow-box ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .flow-box li {
+            margin-bottom: 0.75rem;
+            color: #334155;
+        }
+
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .tech-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tech-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        .tradeoff-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .tradeoff-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .tradeoff-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            margin-right: 1rem;
+            min-width: 100px;
+            text-align: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pro {
+            background-color: #dcfce7;
+            color: var(--pro-color);
+            border: 1px solid #bbf7d0;
+        }
+
+        .con {
+            background-color: #fee2e2;
+            color: var(--con-color);
+            border: 1px solid #fecaca;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #0f172a;
+        }
+    </style>
 </BaseLayout>
-
-
-

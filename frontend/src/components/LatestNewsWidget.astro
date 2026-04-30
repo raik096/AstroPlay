@@ -1,0 +1,49 @@
+---
+// src/components/LatestNewsWidget.astro
+
+let latestNews = [];
+let errorMessage = null;
+
+try {
+    // 1. Ritardo artificiale per dimostrare il Server Island
+    await new Promise(resolve => setTimeout(resolve, 2500));
+
+    // 2. Usiamo la fetch standard (Server-to-Server communication)
+    // Interroghiamo il processo backend sulla porta 3000
+    const response = await fetch('http://localhost:3000/api/news?limit=3&sort=-createdAt');
+    
+    if (!response.ok) {
+        throw new Error(`Errore HTTP: ${response.status}`);
+    }
+
+    const data = await response.json();
+    latestNews = data.docs;
+
+} catch (error: any) {
+    console.error("🚨 ERRORE WIDGET:", error);
+    errorMessage = error.message;
+}
+---
+
+<div class="widget-container">
+    <div class="widget-header">
+        <span class="live-dot" style={errorMessage ? "background-color: #ef4444;" : "background-color: #22c55e;"}></span>
+        <h3>Ultime Notizie (Isola Server)</h3>
+    </div>
+    
+    {errorMessage ? (
+        <div class="error-box">
+            <p>Impossibile caricare le news.</p>
+            <small>{errorMessage}</small>
+        </div>
+    ) : (
+        <ul class="widget-list">
+            {latestNews.map((item: any) => (
+                <li class="widget-item">
+                    <span class="widget-date">{new Date(item.createdAt).toLocaleDateString()}</span>
+                    <h4 class="widget-title">{item.title}</h4>
+                </li>
+            ))}
+        </ul>
+    )}
+</div>
