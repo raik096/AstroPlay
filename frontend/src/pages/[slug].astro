@@ -6,6 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/blocks/Hero.astro';
 import TextImage from '../components/blocks/TextImage.astro';
 import FormBlock from '../components/blocks/FormBlock.astro';
+import ServiziSection from '../components/blocks/ServiziSection.astro';
 
 export const prerender = false;
 
@@ -13,7 +14,6 @@ const { slug } = Astro.params;
 let pageData = null;
 
 try {
-    // Usiamo 127.0.0.1 per evitare i timeout di Node.js/IPv6
     const response = await fetch(`http://127.0.0.1:3000/api/pages?where[slug][equals]=${slug}`);
     const data = await response.json();
     pageData = data.docs[0];
@@ -26,17 +26,17 @@ if (!pageData) {
 }
 
 // 2. LA MAPPA DEI COMPONENTI
-// Collega lo 'slug' del blocco in Payload al componente Astro fisico
 const blockComponents = {
     hero: Hero,
     textImage: TextImage,
-    formBlock: FormBlock, // Assicurati che lo slug in Payload sia identico a questo
+    formBlock: FormBlock, 
+    // 👇 AGGIUNGI QUESTA RIGA 👇 (Assicurati che la chiave sia lo slug esatto usato in Payload)
+    serviziSection: ServiziSection, 
 };
 ---
 
 <BaseLayout pageTitle={pageData.title}>
     <article class="dynamic-page">
-        {/* 3. IL MOTORE DI RENDERING DINAMICO */}
         {pageData.layout && pageData.layout.map((block: any) => {
             const Component = blockComponents[block.blockType as keyof typeof blockComponents];
             
@@ -48,15 +48,12 @@ const blockComponents = {
                 );
             }
 
-            // Passiamo tutti i dati del blocco direttamente come props tramite {...block}
             return <Component {...block} />;
         })}
     </article>
 </BaseLayout>
 
 <style>
-    /* Rimuoviamo il max-width fisso qui, perché i blocchi (come l'Hero) 
-       spesso devono andare a tutta larghezza (full-width) */
     .dynamic-page { 
         width: 100%;
         margin: 0 auto;
