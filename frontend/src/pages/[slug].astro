@@ -2,7 +2,6 @@
 // src/pages/[slug].astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// 1. IMPORTA I TUOI COMPONENTI (I "Mattoncini")
 import Hero from '../components/blocks/Hero.astro';
 import TextImage from '../components/blocks/TextImage.astro';
 import FormBlock from '../components/blocks/FormBlock.astro';
@@ -25,12 +24,10 @@ if (!pageData) {
     return Astro.redirect('/404');
 }
 
-// 2. LA MAPPA DEI COMPONENTI
 const blockComponents = {
     hero: Hero,
     textImage: TextImage,
     formBlock: FormBlock, 
-    // 👇 AGGIUNGI QUESTA RIGA 👇 (Assicurati che la chiave sia lo slug esatto usato in Payload)
     serviziSection: ServiziSection, 
 };
 ---

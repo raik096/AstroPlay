@@ -4,6 +4,7 @@ import type { CollectionConfig } from 'payload'
 import { HeroBlock } from '../blocks/HeroBlock'
 import { TextImageBlock } from '../blocks/TextImageBlock'
 import { FormBlock } from '../blocks/FormBlock'
+import { ServiziSectionBlock } from '../blocks/ServiziSectionBlock'
 
 
 const triggerVercelBuild = async () => {
@@ -39,15 +40,12 @@ export const Pages: CollectionConfig = {
   
   hooks: {
     afterChange: [
-      // ▼ ABBIAMO TRASFORMATO LA FUNZIONE IN "async" E AGGIUNTO "req" ▼
       async ({ doc, operation, req }) => {
         
-        // 1. Lancia il webhook di Vercel ad ogni salvataggio (creazione o modifica)
         if (operation === 'create' || operation === 'update') {
           triggerVercelBuild();
         }
 
-        // 2. NUOVO AUTOMATISMO: Inserisce la pagina nel Menu SOLO quando viene creata
         if (operation === 'create') {
           try {
             await req.payload.create({
@@ -86,7 +84,8 @@ export const Pages: CollectionConfig = {
       blocks: [
         HeroBlock,
         TextImageBlock,
-        FormBlock
+        FormBlock,
+        ServiziSectionBlock,
       ],
     },
   ],

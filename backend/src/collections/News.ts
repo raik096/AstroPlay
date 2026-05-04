@@ -26,7 +26,6 @@ export const News: CollectionConfig = {
               collection: 'news',
               data: {
                 title: post.title,
-                // Ora excerpt ha il suo campo corrispondente nello schema in basso!
                 excerpt: post.body.substring(0, 100) + '...',
                 category: 'tech',
               },
@@ -56,12 +55,10 @@ export const News: CollectionConfig = {
         required: true,
         label: 'Titolo Articolo',
     },
-    // Aggiunto il campo excerpt che stavi usando nello script di seed!
     {
         name: 'excerpt',
         type: 'textarea',
         label: 'Riassunto (Excerpt)',
-        // L'ho reso opzionale per flessibilità, ma puoi metterlo required: true
     },
     {
       name: 'publishedDate',
@@ -74,8 +71,6 @@ export const News: CollectionConfig = {
       name: 'content',
       type: 'richText',
       label: 'Contenuto dell\'Articolo',
-      // RIMOSSO required: true, altrimenti lo script di seed fallisce 
-      // non potendo inserire un formato richText complesso in automatico.
     },
     {
       name: 'category',

@@ -2,19 +2,15 @@
 // src/pages/news/[id].astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// ▼ LA DIRETTIVA CHE ATTIVA L'SSR ▼
-// Dice ad Astro: "Non cercare di compilare questa pagina in anticipo, 
-// elaborala sul server Node.js ogni volta che qualcuno la richiede."
+
 export const prerender = false;
 
-// 1. Estraiamo l'ID dall'URL (es. /news/3 -> id = 3)
 const { id } = Astro.params;
 
 let article = null;
 let errorMessage = null;
 
 try {
-    // 2. Chiamiamo l'endpoint specifico di Payload per quell'ID
     const response = await fetch(`http://localhost:3000/api/news/${id}`);
     
     if (!response.ok) {

@@ -3,10 +3,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LatestNewsWidget from '../components/LatestNewsWidget.astro';
 
-// ▼ AGGIUNGI QUESTA RIGA MAGICA ▼
 export const prerender = false;
 
-// 1. GESTIONE DELLA PAGINAZIONE SSR
 const searchParams = Astro.url.searchParams;
 const currentPage = parseInt(searchParams.get('page') || '1', 10);
 const limit = 4; // 4 elementi per pagina = 2 colonne x 2 righe
@@ -16,8 +14,7 @@ let totalPages = 1;
 let errorMessage = null;
 
 try {
-    // 2. FETCH SINCRONO (Elenco principale)
-    // Passiamo limit e page a Payload CMS
+
     const response = await fetch(`http://localhost:3000/api/news?limit=${limit}&page=${currentPage}&sort=-createdAt`);
     //const response = await fetch(`http://127.0.0.1:3000/api/news?limit=${limit}&page=${currentPage}&sort=-createdAt`);
     
@@ -267,7 +264,6 @@ const pageTitle = "Dashboard News | Paginazione SSR,";
 
         .news-card:hover .card-action { color: #1d4ed8; text-decoration: underline; }
 
-        /* STILI PAGINAZIONE */
         .pagination-container {
             display: flex;
             justify-content: space-between;

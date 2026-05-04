@@ -3,15 +3,12 @@
 const { index } = Astro.props;
 
 
-// 1. Simuliamo un'operazione matematica inutile ma pesante per la CPU
 const arrayDiNumeri = Array.from({ length: 500 }, () => Math.floor(Math.random() * 1000));
 const arrayOrdinato = arrayDiNumeri.sort((a, b) => a - b);
 const valoreMassimo = arrayOrdinato[arrayOrdinato.length - 1];
 
-// 2. Generiamo un hash/token finto per ogni singola card
 const tokenUnivoco = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-// 3. Facciamo un controllo condizionale logico
 const isPari = index % 2 === 0;
 const etichetta = isPari ? 'Pari' : 'Dispari';
 ---

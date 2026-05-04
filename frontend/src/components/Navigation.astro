@@ -4,7 +4,6 @@
 let menuItems = [];
 
 try {
-  // Aggiungiamo depth=1 per farci espandere la relazione e ottenere lo 'slug' della pagina
   const response = await fetch('http://127.0.0.1:3000/api/navigation?sort=order&depth=1');
   const data = await response.json();
   menuItems = data.docs;

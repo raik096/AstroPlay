@@ -19,7 +19,7 @@ export const Navigation: CollectionConfig = {
     {
       name: 'page',
       type: 'relationship',
-      relationTo: 'pages', // Collega il menu alla pagina reale
+      relationTo: 'pages',
       required: true,
       label: 'Pagina di destinazione',
     },

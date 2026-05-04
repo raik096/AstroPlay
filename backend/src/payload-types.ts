@@ -257,6 +257,22 @@ export interface Page {
             blockName?: string | null;
             blockType: 'formBlock';
           }
+        | {
+            titoloSezione?: string | null;
+            listaServizi?:
+              | {
+                  nomeServizio: string;
+                  descrizioneBreve?: string | null;
+                  linkURL?: string | null;
+                  classeIcona?: string | null;
+                  tagUtente?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'serviziSection';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -462,6 +478,23 @@ export interface PagesSelect<T extends boolean = true> {
               formTitle?: T;
               formType?: T;
               showPrivacyCheckbox?: T;
+              id?: T;
+              blockName?: T;
+            };
+        serviziSection?:
+          | T
+          | {
+              titoloSezione?: T;
+              listaServizi?:
+                | T
+                | {
+                    nomeServizio?: T;
+                    descrizioneBreve?: T;
+                    linkURL?: T;
+                    classeIcona?: T;
+                    tagUtente?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };

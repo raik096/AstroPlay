@@ -5,11 +5,9 @@ let latestNews = [];
 let errorMessage = null;
 
 try {
-    // 1. Ritardo artificiale per dimostrare il Server Island
     await new Promise(resolve => setTimeout(resolve, 2500));
 
-    // 2. Usiamo la fetch standard (Server-to-Server communication)
-    // Interroghiamo il processo backend sulla porta 3000
+
     const response = await fetch('http://localhost:3000/api/news?limit=3&sort=-createdAt');
     //const response = await fetch('http://127.0.0.1:3000/api/news?limit=3&sort=-createdAt');
     
