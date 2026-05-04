@@ -1,21 +1,161 @@
 ---
-import Menu from './Menu.astro';
-import Navigation from './Navigation.astro';
-import ThemeIcon from './ThemeIcon.astro';
+import Navigation from './Navigation.astro'; 
 ---
-<header>
-  <nav>
-    <div>
-      <ThemeIcon />
-      <Menu />
+
+
+<nav aria-label="Collegamenti Veloci" class="bg-dark quick-access-nav text-center text-white" id="quickAccessNav">
+  <a class="d-block p-2 sr-only sr-only-focusable text-reset" href="#main-content">
+    Salta al contenuto principale
+  </a>
+</nav>
+
+<header class="rt-header" id="banner">
+  <div class="rt-navbar navbar navbar-classic navbar-top py-3">
+    <div class="rt-container-fluid rt-header__top-area rt-header__bar custom-header-width">
+      
+      <div class="align-items-center autofit-row left-logos">
+        <a class="rt-header__logo-regione" href="https://www.regione.toscana.it/" title="Vai al Portale di Regione Toscana">
+          <img alt="Logo Regione Toscana" class="rt-image-scroll" src="/images/logo-regione-mobile.png" srcset="/images/logo-regione-mobile@2x.png 2x">
+        </a>
+        <a class="rt-header__logo-toscana-digitale" href="https://digitale.toscana.it/" title="Vai a Toscana Digitale">
+          <img alt="Logo Toscana Digitale" class="rt-image-scroll secondary" src="/images/toscana-digitale-logo.png">
+        </a>
+      </div>    
+
+      <a accesskey="H" class="rt-header__site-logo center-logo" href="/" title="Vai alla homepage di Open Toscana">
+        <img alt="Open Toscana" src="/images/open-toscana-logo@2x.png" srcset="/images/open-toscana-logo@2x.png 2x">
+      </a>
+
+      <div class="autofit-col rt-header__social align-items-center right-social">
+        <div class="rt-social-media social-media-wrapper">
+          <h2 class="rt-social-media__title">seguici su</h2>
+          <ul class="rt-social-media__list">
+            <li id="facebook" class="rt-social-media__item">
+              <a title="Vai alla pagina Facebook" href="http://www.facebook.com/opentoscana" rel="noopener noreferrer" target="_blank" aria-label="link new tab" class="rt-social-media-icon rt-social-media-icon__facebook">
+                <i aria-hidden="true" class="fab fa-facebook-f"></i><span class="hide">Facebook</span>
+              </a>
+            </li>
+            <li id="twitter" class="rt-social-media__item">
+              <a title="Vai al profilo Twitter" href="http://twitter.com/opentoscana" rel="noopener noreferrer" target="_blank" aria-label="link new tab" class="rt-social-media-icon rt-social-media-icon__twitter">
+                <i aria-hidden="true" class="fab fa-twitter"></i><span class="hide">Twitter</span>
+              </a>
+            </li>
+            <li id="linkedin" class="rt-social-media__item">
+              <a title="Vai alla pagina Linkedin" href="http://www.linkedin.com/in/opentoscana" rel="noopener noreferrer" target="_blank" aria-label="link new tab" class="rt-social-media-icon rt-social-media-icon__linkedin">
+                <i aria-hidden="true" class="fab fa-linkedin-in"></i><span class="hide">Linkedin</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
     </div>
-    <Navigation />
-  </nav>
+  </div>
+
+  <div class="rt-responsive-header">
+    <a title="Vai al Portale di Regione Toscana" class="rt-logo-regione-mobile" href="https://www.regione.toscana.it/">
+      <img alt="Logo Regione Toscana" class="mr-2" height="56" src="/images/logo-regione-mobile.png" srcset="/images/logo-regione-mobile@2x.png 2x">
+    </a>
+    
+    <a class="logo custom-logo align-items-center d-inline-flex d-md-none logo-xs" href="/" rel="nofollow">
+      <img alt="Open Toscana" class="mr-2 rt-logo-mobile" height="56" src="/images/logo-mobile.png" srcset="/images/logo-mobile@2x.png 2x">
+      <img alt="Open Toscana Scroll" class="mr-2 rt-logo-mobile-scroll" height="56" src="/images/logo-mobile-scroll.png" srcset="/images/logo-mobile-scroll@2x.png 2x">
+    </a>
+    
+    <button id="search-toggle-mobile" class="rt-btn rt-btn-light rt-search-toggle">
+      <i class="far fa-search" aria-hidden="true"></i> 
+      <span class="rt-btn-accessible-label">Apri la ricerca</span>
+    </button>
+  </div>
 </header>
 
 <style>
-  div {
+  /* ====== FORZATURA LARGHEZZA ====== */
+  /* Sostituiamo la classe rt-container (che è stretta) con questa per occupare più spazio */
+  .custom-header-width {
+    width: 100%;
+    max-width: 1600px; /* Allarga questo valore se lo vuoi ancora più largo (es. 1920px o 100%) */
+    margin: 0 auto;
+    padding: 0 2rem; /* Margine laterale interno */
+  }
+
+  /* ====== FLEXBOX PER ALLARGARE GLI ELEMENTI ====== */
+  .rt-header__bar {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-between; /* Spinge gli elementi ai bordi */
+    align-items: center;
+  }
+
+  /* Area sinistra (Loghi piccoli) */
+  .left-logos {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1; /* Prende 1/3 dello spazio */
+    justify-content: flex-start;
+  }
+
+  /* Area centrale (Logo Open Toscana) */
+  .center-logo {
+    display: flex;
+    justify-content: center;
+    flex: 1; /* Prende 1/3 dello spazio */
+  }
+
+  /* Area destra (Social) */
+  .right-social {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1; /* Prende 1/3 dello spazio */
+  }
+
+  /* Dettagli Social */
+  .rt-social-media__list {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .rt-social-media-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .rt-social-media__title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* ====== MOBILE ====== */
+  @media (min-width: 769px) {
+    .rt-responsive-header { display: none; }
+  }
+  @media (max-width: 768px) {
+    .rt-navbar { display: none; }
+    .rt-responsive-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+    }
   }
 </style>
+
+<div class="rt-responsive-header">
+    </div>
+  
+  <button id="search-toggle-scroll" class="rt-btn rt-btn-light rt-search-toggle rt-search-toggle--scroll">
+    <i aria-hidden="true" class="far fa-search"></i>
+    <span class="rt-btn-accessible-label">Apri la ricerca</span>
+  </button>
+
+  <Navigation />
+
+</header>

@@ -11,6 +11,7 @@ try {
     // 2. Usiamo la fetch standard (Server-to-Server communication)
     // Interroghiamo il processo backend sulla porta 3000
     const response = await fetch('http://localhost:3000/api/news?limit=3&sort=-createdAt');
+    //const response = await fetch('http://127.0.0.1:3000/api/news?limit=3&sort=-createdAt');
     
     if (!response.ok) {
         throw new Error(`Errore HTTP: ${response.status}`);

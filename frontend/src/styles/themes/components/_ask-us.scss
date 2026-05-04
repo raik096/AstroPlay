@@ -1,0 +1,254 @@
+/**
+ * ASK-US
+ *
+ * Style for "chiedilo a noi" component
+ */
+
+/* ------------------------------------ *\
+   #ASK-US
+\* ------------------------------------ */
+
+.rt-ask-us {
+    .rt-ask-us__faqs {
+        position: relative;
+        padding-left: $spacing-unit*5;
+
+        .fa-comment-edit {
+            position: absolute;
+            left: 0;
+            font-size: 30px;
+        }
+    }
+
+    .rt-ask-us__title {
+        color: $color-text-yellow;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-l;
+    }
+
+    .rt-ask-us__text {
+        margin-bottom: $spacing-unit;
+        text-transform: uppercase;
+        font-size: $font-size-s;
+        line-height: 1.6;
+    }
+
+    &.rt-form,
+    .rt-ask-us__contact {
+        margin-bottom: $spacing-unit*6;
+        padding: $spacing-unit*3;
+        background: $color-text-yellow;
+        border-radius: 23px;
+        color: #ffffff;
+    }
+
+    .rt-ask-us__contact {
+        position: relative;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            position: absolute;
+            bottom: -$spacing-unit*3;
+            left: 0;
+            // border-top: 50px solid transparent;
+            border-left: 125px solid $color-text-yellow;
+            border-bottom: 55px solid transparent;
+            z-index: 2;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            width: 52px;
+            height: 8px;
+            position: absolute;
+            bottom: -$spacing-unit*3.5;
+            left: -$spacing-unit*2.6;
+            border-radius: 50%;
+            background: rgba(152,152,152,0.68);
+            filter: blur(5px);
+            z-index: 1;
+        }
+    }
+    
+    .rt-ask-us__contact-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: $spacing-unit*2;
+        position: relative;
+        z-index: 3;
+
+        .fa-comments {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: #ffffff;
+            border-radius: 50%;
+            color: $color-text;
+        }
+    }
+
+    .rt-go-to {
+        position: relative;
+        z-index: 3;
+    }
+
+    .rt-ask-us__contact-header-text {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        padding-left: $spacing-unit;
+    }
+
+    .lfr-ddm-form-page-title,
+    .rt-ask-us__contact-header-label {
+        font-size: $font-size-xs;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+    }
+
+    .lfr-ddm-form-page-description,
+    .rt-ask-us__contact-header-title {
+        margin-bottom: $spacing-unit/2;
+        font-size: $font-size-l;
+        text-transform: uppercase;
+        font-weight: $font-weight-light;
+    }
+
+    &.rt-form {
+        .ddm-form-name {
+            display: none;
+        }
+
+        .lfr-ddm-form-page-title {
+            
+        }
+    }
+
+    .lfr-ddm-form-pagination-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $spacing-unit*3 0 $spacing-unit;
+    }
+
+}
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+    .rt-ask-us {
+        .rt-ask-us__faqs {
+            margin-bottom: $spacing-unit*2;
+        }
+
+        .rt-ask-us__contact {
+            margin-left: $spacing-unit;
+        }
+
+        .lfr-ddm-form-submit {
+            width: 100%;
+        }
+
+
+        &.rt-form,
+        .rt-ask-us__contact {
+            padding: $spacing-unit*1.5 0;
+        }
+    }
+}
+
+@media all and (max-width: $breakpoint-smartphone-landscape) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+    .rt-ask-us {
+        &:not(.rt-form):not(.rt-ask-us--page) {
+            display: flex;
+        }
+
+        .rt-ask-us__faqs {
+            @include flex-item-width(50%);
+            padding-right: $spacing-unit*2;
+            padding-left: $spacing-unit*10;
+
+            .fa-comment-edit {
+                font-size: 52px;
+            }
+        }
+
+        .rt-ask-us__title {
+            font-size: $font-size-xl;
+        }
+
+        .rt-ask-us__text {
+            margin-bottom: $spacing-unit*1.5;
+        }
+
+        .rt-ask-us__contact {
+            flex: 1;
+        }
+
+        .lfr-ddm-form-submit {
+            width: 364px;
+        }
+
+        .lfr-ddm-form-pagination-controls {
+            padding: $spacing-unit*4 0 $spacing-unit*2;
+        }
+    }
+}
+
+@media all and (min-width: $breakpoint-laptop) {
+
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) and (max-width: $breakpoint-laptop-wide - 1) {
+}
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+    .rt-ask-us {
+        
+        .rt-ask-us__faqs {
+            @include flex-item-width(66.666%);
+        }
+
+        .rt-ask-us__contact-header {
+            .fa-comments {
+                width: 70px;
+                height: 70px;
+                font-size: $font-size-ll;
+            }
+        }
+
+        .lfr-ddm-form-page-description,
+        .rt-ask-us__contact-header-title {
+            font-size: $font-size-2m;
+        }
+
+        &.rt-ask-us--page {
+            .rt-ask-us__text {
+                margin-bottom: $spacing-unit*2.5;
+            }
+        }
+
+        .rt-ask-us__text {
+            font-size: $font-size-m;
+        }
+    }
+}
+
+@media all and (min-width: $ui-width) {
+}
+

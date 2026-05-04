@@ -1,0 +1,197 @@
+/**
+ * SEARCH PAGE
+ *
+ * Layout for search page
+ */
+
+/* ------------------------------------ *\
+   #SEARCH-PAGE
+\* ------------------------------------ */
+
+.rt-search-panel {
+    margin-top: $spacing-unit * 2;
+    background: #ffffff;
+    @include box-shadow-main;
+}
+
+.rt-search-panel__field {
+    .rt-search-panel__field-label {
+        margin-bottom: $spacing-unit/2;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-bold;
+        color: $color-text-light;
+    }
+}
+
+/* ------------------------------------ *\
+   #SEARCH-PAGE-RESULTS
+\* ------------------------------------ */
+
+.rt-search-results__result {
+    &:last-of-type {
+        .rt-search-results__result-wrapper {
+            border-bottom: none;
+        }
+    }
+}
+
+.rt-search-results__result-wrapper {
+    margin-bottom: $spacing-unit * 1.5;
+    padding-bottom: $spacing-unit/2;
+    border-bottom: 1px solid $color-text;
+}
+
+.rt-search-results__result-title {
+    font-size: $font-size-m;
+
+    a {
+        color: $color-text;
+    }
+}
+
+.rt-search-results__result-infos,
+.rt-search-results__result-province {
+    font-weight: $font-weight-light;
+    font-size: $font-size-s;
+    text-transform: uppercase;
+}
+
+.rt-search-results__result-infos {
+    display: flex;
+    padding: $spacing-unit/2 0;
+}
+
+.rt-search-results__result-filter {
+    padding-right: $spacing-unit/2;
+
+    & + .rt-search-results__result-category {
+        margin-left: $spacing-unit/2;
+        padding-left: $spacing-unit/2;
+        border-left: 1px solid $color-text;
+    }
+}
+
+.rt-btn.rt-toggle-filters-mobile {
+    display: none;
+}
+
+.rt-search-map-results__results {
+}
+
+.rt-search-map-result-box {
+    margin-bottom: $spacing-unit;
+    padding-bottom: $spacing-unit;
+    border-bottom: 2px solid $color-border-normal;
+
+    &:last-of-type {
+        border-bottom: none;
+    }
+}
+
+.rt-search-map-result-box__title {
+    margin-bottom: $spacing-unit/2;
+    font-size: $font-size-m;
+}
+
+.rt-search-map-result-box__subtitle,
+.rt-search-map-result-box__link {
+    margin-top: $spacing-unit/2;
+}
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+}
+
+@media all and (max-width: $breakpoint-smartphone-landscape) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+    .rt-search-panel {
+        margin-top: $spacing-unit * 3;
+    }
+
+    .rt-search-panel__form {
+        display: flex;
+        margin-top: $spacing-unit * 4;
+        margin-bottom: $spacing-unit * 2;
+    }
+
+    .rt-search-panel__form,
+    .rt-search-panel__field {
+        width: 100%;
+        max-width: 1008px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .rt-search-panel__field {
+        margin-top: $spacing-unit * 2;
+        margin-bottom: $spacing-unit * 4;
+
+        .rt-search-panel__field-label {
+            font-size: $font-size-m;
+        }
+    }
+
+    .rt-search-results__result-wrapper {
+        padding-bottom: $spacing-unit;
+    }
+
+    .rt-search-results__result-title {
+        font-size: $font-size-ml;
+    }
+
+    .rt-search-results__result-infos,
+    .rt-search-results__result-province {
+        font-size: $font-size-m;
+    }
+
+    .rt-search-results__result {
+        &:nth-last-of-type(2) {
+            .rt-search-results__result-wrapper {
+                border-bottom: none;
+            }
+        }
+    }
+
+    .rt-search-map-results {
+        display: flex;
+    }
+
+    .rt-search-map-results__map,
+    .rt-search-map-results__results {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .rt-search-map-result-box {
+        margin-bottom: $spacing-unit * 2;
+        padding-bottom: $spacing-unit * 2;
+    }
+
+    .rt-search-map-result-box__title {
+        margin-bottom: $spacing-unit;
+        font-size: $font-size-l;
+    }
+
+    .rt-search-map-result-box__subtitle,
+    .rt-search-map-result-box__link {
+        margin-top: $spacing-unit;
+    }
+    //:nth-last-of-type(-n+2)
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) and (max-width: $breakpoint-laptop-wide) {
+}
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+}

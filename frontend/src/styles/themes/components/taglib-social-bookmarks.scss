@@ -1,0 +1,114 @@
+/**
+ * TAGLIB-SOCIAL-BOOKMARKS
+ *
+ * TAGLIB-SOCIAL-BOOKMARKS customizations
+ */
+
+/* ------------------------------------ *\
+   #TAGLIB-SOCIAL-BOOKMARKS
+\* ------------------------------------ */
+
+.taglib-social-bookmarks {
+    display: none !important;
+    padding: $spacing-unit*5.8 $spacing-unit*8 $spacing-unit*3;
+    position: fixed;
+    @include position-centering;
+    z-index: $rt-modal-z-index;
+    background: #ffffff;
+    border-radius: 68px;
+
+    &.is-visible {
+        display: inline-flex !important;
+    }
+
+    .list-unstyled {
+        display: flex;
+    }
+
+    .btn-outline-secondary {
+        &:hover,
+        &:focus {
+            background: rgba(0,0,0,0.1);
+        }
+    }
+
+    .btn-monospaced {
+
+        &.btn-sm {
+            width: $spacing-unit*4.6;
+            height: $spacing-unit*4.6;
+            margin-right: $spacing-unit*2;
+        }
+
+        .lexicon-icon {
+            font-size: $font-size-xxl;
+        }
+    }
+
+    .dropdown {
+        .btn-sm {
+            margin-right: 0;
+        }
+    }
+
+    .lexicon-icon {
+        &.lexicon-icon-twitter {
+            color: #1da1f2;
+        }
+
+        &.lexicon-icon-social-facebook {
+            color: #3b5998;
+        }
+
+        &.lexicon-icon-social-linkedin {
+            color: #0077b5;
+        }
+
+        &.lexicon-icon-share {
+            color: $color-gray-04;
+        }
+    }
+
+    &::before {
+        content: 'Condividi';
+        display: block;
+        position: absolute;
+        top: $spacing-unit*3;
+        font-weight: $font-weight-medium;
+    }
+}
+
+.rt-social-share-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    @include hidden-element;
+    transition: all $transition-durations ease;
+
+    &.is-visible {
+        @include visible-element($rt-modal-z-index - 1);
+    }
+}
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+}
+
+@media all and (max-width: $breakpoint-smartphone-landscape) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+}
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+}
+

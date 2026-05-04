@@ -19,6 +19,7 @@ try {
     // 2. FETCH SINCRONO (Elenco principale)
     // Passiamo limit e page a Payload CMS
     const response = await fetch(`http://localhost:3000/api/news?limit=${limit}&page=${currentPage}&sort=-createdAt`);
+    //const response = await fetch(`http://127.0.0.1:3000/api/news?limit=${limit}&page=${currentPage}&sort=-createdAt`);
     
     if (!response.ok) {
         throw new Error(`Errore HTTP: ${response.status}`);
@@ -33,7 +34,7 @@ try {
     errorMessage = error.message;
 }
 
-const pageTitle = "Dashboard News | Paginazione SSR";
+const pageTitle = "Dashboard News | Paginazione SSR,";
 ---
 
 <BaseLayout pageTitle={pageTitle}>

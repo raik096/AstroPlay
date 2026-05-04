@@ -9,8 +9,10 @@ const pageTitle = "Documentazione Tecnica Definitiva PoC";
     
     <main class="report-container">
         <header class="report-header">
-            <h1>Architettura e Paradigmi di Rendering</h1>
-            <p class="subtitle">Documentazione tecnica definitiva: Astro, Payload CMS e le strategie di Data Fetching.</p>
+            <div class="header-content">
+                <h1>Architettura e Paradigmi di Rendering</h1>
+                <p class="subtitle">Documentazione tecnica definitiva: Astro, Payload CMS e le strategie di Data Fetching.</p>
+            </div>
         </header>
 
         <section class="card summary-card">
@@ -41,9 +43,9 @@ const pageTitle = "Documentazione Tecnica Definitiva PoC";
 
             <h4>Analisi Architetturale</h4>
             <ul class="tradeoff-list">
-                <li><span class="tag pro">Performance Massima</span> Il TTFB (Time To First Byte) è imbattibile. È la soluzione ideale per blog, documentazioni e landing page.</li>
-                <li><span class="tag pro">Costi Infrastrutturali Zero</span> Un sito SSG può essere ospitato gratuitamente ovunque, non richiedendo server computazionali.</li>
-                <li><span class="tag con">Dato Stantio (Stale Data)</span> Se un redattore modifica un articolo sul CMS, la modifica non sarà visibile sul sito finché non viene lanciata (spesso via Webhook) una nuova build dell'intero progetto.</li>
+                <li><span class="tag pro">Performance Massima</span> <span>Il TTFB (Time To First Byte) è imbattibile. È la soluzione ideale per blog, documentazioni e landing page.</span></li>
+                <li><span class="tag pro">Costi Zero</span> <span>Un sito SSG può essere ospitato gratuitamente ovunque, non richiedendo server computazionali.</span></li>
+                <li><span class="tag con">Dato Stantio</span> <span>Se un redattore modifica un articolo sul CMS, la modifica non sarà visibile sul sito finché non viene lanciata (spesso via Webhook) una nuova build dell'intero progetto.</span></li>
             </ul>
         </section>
 
@@ -70,8 +72,8 @@ const pageTitle = "Documentazione Tecnica Definitiva PoC";
 
             <h4>Analisi Architetturale</h4>
             <ul class="tradeoff-list">
-                <li><span class="tag pro">Reattività</span> L'utente interagisce con il dato senza mai ricaricare la pagina.</li>
-                <li><span class="tag con">Overhead JS</span> Maggiore è il numero di isole, maggiore sarà la CPU e la RAM consumata dal dispositivo dell'utente.</li>
+                <li><span class="tag pro">Reattività</span> <span>L'utente interagisce con il dato senza mai ricaricare la pagina.</span></li>
+                <li><span class="tag con">Overhead JS</span> <span>Maggiore è il numero di isole, maggiore sarà la CPU e la RAM consumata dal dispositivo dell'utente.</span></li>
             </ul>
         </section>
 
@@ -98,9 +100,9 @@ const pageTitle = "Documentazione Tecnica Definitiva PoC";
 
             <h4>Analisi Architetturale</h4>
             <ul class="tradeoff-list">
-                <li><span class="tag pro">Dato Sempre Fresco</span> Ideal per dashboard private, carrelli e-commerce e news dell'ultimo minuto.</li>
-                <li><span class="tag pro">Zero JS</span> Prestazioni eccezionali sui dispositivi mobili di fascia bassa, poiché l'elaborazione è interamente a carico del server.</li>
-                <li><span class="tag con">Costi Server</span> Richiede server attivi (Node.js/Edge) sempre in esecuzione per processare le richieste.</li>
+                <li><span class="tag pro">Dato Fresco</span> <span>Ideale per dashboard private, carrelli e-commerce e news dell'ultimo minuto.</span></li>
+                <li><span class="tag pro">Zero JS</span> <span>Prestazioni eccezionali sui dispositivi mobili di fascia bassa, poiché l'elaborazione è interamente a carico del server.</span></li>
+                <li><span class="tag con">Costi Server</span> <span>Richiede server attivi (Node.js/Edge) sempre in esecuzione per processare le richieste.</span></li>
             </ul>
         </section>
 
@@ -115,188 +117,369 @@ const pageTitle = "Documentazione Tecnica Definitiva PoC";
             </ul>
         </section>
 
+        <section class="card logic-card">
+            <h2>5. Data Stableness Inconsistency (Incoerenza del Dato)</h2>
+            <p>Un effetto collaterale architetturale tipico del Rendering Ibrido, che si verifica quando dati globali (es. il Menu di Navigazione) cambiano in un ecosistema in cui convivono pagine SSG e SSR.</p>
+            
+            <div class="grid-3-col">
+                <div class="grid-col">
+                    <span class="tag tech">Il Paradosso (SSG vs SSR)</span>
+                    <p>Le pagine statiche (SSG) "congelano" l'Header al momento della compilazione. Le rotte dinamiche (SSR) ricostruiscono l'Header ad ogni visita. Viaggiano a due velocità temporali diverse.</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag con">L'Incoerenza Visiva</span>
+                    <p>Se un redattore aggiunge la voce "Servizi", questa apparirà immediatamente nelle pagine SSR (es. i dettagli News), ma non sarà presente nella Home page (statica), creando un menu "mutante".</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag heart">Il Limite Architetturale</span>
+                    <p>Astro non può "forzare" il re-render di un singolo componente incorporato nativamente in una pagina statica. L'HTML statico è un monolite bloccato.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card logic-card">
+            <h2>6. Risoluzione dell'Incoerenza (Strategie)</h2>
+            <p>Per sincronizzare i componenti globali basati sui dati tra SSG e SSR, esistono tre approcci architetturali principali.</p>
+
+            <div class="grid-3-col">
+                <div class="grid-col">
+                    <span class="tag pro">1. Webhook (SSG Puro)</span>
+                    <p>Tramite un Hook nel CMS, si lancia un ping al server (es. Vercel) ad ogni salvataggio. Il server ri-compila <strong>tutte</strong> le pagine statiche. Massime performance runtime, ma enormi sprechi di calcolo per siti di grandi dimensioni.</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag con">2. L'Isola Client (CSR)</span>
+                    <p>L'Header viene lasciato vuoto a build-time. Il browser dell'utente scarica un componente React che fa un <code>fetch</code> a Payload a runtime. Dati sempre aggiornati, ma si perdono i vantaggi SEO e si satura il Main Thread.</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag tech">3. Server Islands (Moderno)</span>
+                    <p>La pagina SSG mantiene il suo HTML, ma ospita un "buco" (<code>server:defer</code>). Astro inietta il menu fresco lato server ad ogni richiesta. Unisce performance SSG, SEO e sincronizzazione in tempo reale.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card logic-card">
+            <h2>7. Il Ciclo di Vita del Dato (Payload CMS)</h2>
+            <p>Il CMS gestisce il salvataggio dei documenti attraverso un flusso controllato (Lifecycle). Gli "Hooks" permettono di intercettare il dato prima o dopo la transazione sul database.</p>
+            
+            <div class="grid-3-col">
+                <div class="grid-col">
+                    <span class="tag tech">Fase 1: beforeChange</span>
+                    <p>Viene eseguito <strong>prima</strong> della scrittura su disco. Usato per manipolare il dato internamente (es. crittografare una password, generare dinamicamente uno <em>slug</em> dal titolo o sanificare il Rich Text).</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag base">Fase 2: Commit su DB</span>
+                    <p>Payload esegue la validazione degli schemi e scrive fisicamente la transazione su SQLite o PostgreSQL. Se fallisce (es. vincoli di unicità violati), il ciclo si interrompe e genera un errore (400).</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag pro">Fase 3: afterChange</span>
+                    <p>Viene eseguito <strong>dopo</strong> che il dato è al sicuro. Usato per generare <em>Side Effects</em> sul mondo esterno: inviare email, aggiornare indici di ricerca (Algolia) o sparare Webhook verso l'hosting.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>8. Page Builder: Architettura a Blocchi (Blocks)</h2>
+            <p>Un approccio avanzato che supera il tradizionale campo "Rich Text", disaccoppiando completamente i dati dalla presentazione visiva. Il redattore costruisce la pagina impilando "mattoncini" logici.</p>
+            
+            <div class="grid-3-col">
+                <div class="grid-col">
+                    <span class="tag base">1. Payload (Backend)</span>
+                    <p>Definisce lo schema dati di ogni blocco (es. <code>HeroBlock</code> ha un Titolo e un'Immagine). Espone nell'API un array ordinato con la proprietà identificativa <code>blockType</code>.</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag heart">2. Redazione (Editor UI)</span>
+                    <p>Il redattore gode di un'esperienza "Drag & Drop". Invece di scrivere codice HTML, seleziona i blocchi semantici (es. "FAQ" o "Avviso") e compila campi guidati a prova di errore.</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag pro">3. Astro (Frontend)</span>
+                    <p>Mappa dinamicamente il JSON in arrivo. Legge il <code>blockType</code> ed esegue il rendering condizionale (es. <code>if (blockType === 'hero') return &lt;Hero /&gt;</code>), iniettando i dati nel componente React o Astro dedicato.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>9. Strutture Dati e Campi (Field Types)</h2>
+            <p>Payload CMS offre un arsenale di tipologie di campi che permettono di modellare sia strutture dati complesse che l'ergonomia dell'interfaccia amministrativa.</p>
+            
+            <ul class="tech-list">
+                <li><strong>Campi Base e Media:</strong> Testi, numeri, selettori di date, checkbox, select e campi <code>upload</code> (agganciati alla libreria media del CMS per immagini e documenti).</li>
+                <li><strong>Campi Relazionali:</strong> Il campo <code>relationship</code> permette di creare vincoli tra collezioni diverse (es. collegare una "News" a uno specifico "Autore").</li>
+                <li><strong>Campi Strutturali:</strong> L'elemento <code>array</code> permette di generare liste ripetibili all'infinito (ideale per tabelle orari o FAQ), mentre <code>blocks</code> abilita il page-building.</li>
+                <li><strong>Campi di Layout UI:</strong> Tipi di campo come <code>row</code>, <code>tabs</code> o <code>collapsible</code> non alterano il dato salvato, ma organizzano visivamente l'editor per evitare il disordine visivo.</li>
+                <li><strong>Campi Avanzati:</strong> <code>richText</code> (basato su Lexical editor), <code>code</code> (per snippet sintattici) e <code>point</code> (per coordinate GPS di mappe e URP).</li>
+            </ul>
+        </section>
+
+        <section class="card logic-card">
+            <h2>10. API REST ed Endpoints Custom (es. /seed)</h2>
+            <p>Un Endpoint personalizzato permette di estendere le capacità del CMS trasformando URL in veri e propri "trigger" per funzioni server-side complesse, aggirando le normali operazioni CRUD.</p>
+            
+            <div class="flow-box">
+                <h4>Il Ciclo di Esecuzione di uno Script via Endpoint</h4>
+                <ol>
+                    <li>Lo sviluppatore registra una nuova rotta API (es. <code>GET /api/news/seed</code>) all'interno della configurazione della Collection.</li>
+                    <li>Un client (o lo sviluppatore tramite browser) fa una richiesta HTTP verso quell'indirizzo ("bussa alla porta").</li>
+                    <li>Il router di Payload intercetta la chiamata ed esegue la funzione <code>handler</code> associata (es. uno script che fa il fetch da un'API esterna).</li>
+                    <li>Il server (Node.js) elabora asincronamente i dati, scrive fisicamente sul database usando le Local API (<code>req.payload.create</code>) bypassando la rete, e infine restituisce un payload JSON di successo.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>11. Workflow di Sviluppo: Dallo Schema al Pixel</h2>
+            <p>La costruzione di una pagina modulare segue un protocollo rigoroso suddiviso tra la definizione del dato (Payload) e la sua interpretazione visiva (Astro).</p>
+            
+            <div class="flow-box">
+                <h4>I 4 Step della Pipeline di Sviluppo</h4>
+                <ol>
+                    <li><strong>Definizione dello Schema (Backend):</strong> Si crea un file <code>Block</code> in Payload definendo i campi necessari (es. <em>titolo, immagine, colore_sfondo</em>). Questo genera la struttura nel database.</li>
+                    <li><strong>Registrazione nella Collection:</strong> Il blocco viene importato nel file <code>Pages.ts</code> e aggiunto all'array <code>blocks</code>. In questo momento l'interfaccia Admin diventa operativa per i redattori.</li>
+                    <li><strong>Sviluppo del Componente (Frontend):</strong> Si crea il file <code>.astro</code> corrispondente (es. <code>Hero.astro</code>). Questo componente è "puro": riceve dati tramite <code>Astro.props</code> e si occupa solo di HTML e CSS.</li>
+                    <li><strong>Mappatura nel Centralino:</strong> Nel file di routing dinamico (<code>[slug].astro</code>), si associa lo <em>slug</em> del blocco al componente fisico. Questa è la fase in cui il JSON "prende vita".</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="card logic-card">
+            <h2>12. Best Practices e Criticità nel Page Building</h2>
+            <p>Implementare un Page Builder Headless richiede accortezze tecniche per garantire stabilità, performance e facilità d'uso per il redattore.</p>
+            
+            <div class="grid-3-col">
+                <div class="grid-col">
+                    <span class="tag tech">Corrispondenza degli Slug</span>
+                    <p>È vitale che lo <code>slug</code> definito in Payload sia identico alla chiave usata nella mappa dei componenti in Astro. Un errore di battitura qui comporterebbe il mancato rendering del blocco senza errori espliciti nel terminale.</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag pro">Props Spreading</span>
+                    <p>Passare l'intero oggetto del blocco al componente Astro tramite l'operatore spread semplifica drasticamente il codice. Il componente figlio sceglierà autonomamente quali proprietà estrarre, rendendo il sistema più flessibile a modifiche future.</p>
+                </div>
+                <div class="grid-col">
+                    <span class="tag con">Isolamento dello Stile (CSS)</span>
+                    <p>Poiché i blocchi possono essere inseriti in qualsiasi ordine, il CSS deve essere rigorosamente <strong>scopato</strong> o basato su variabili globali. Bisogna evitare margini verticali rigidi che potrebbero creare buchi o sovrapposizioni a seconda della sequenza scelta dal redattore.</p>
+                </div>
+            </div>
+
+            <ul class="tech-list">
+                <li><strong>Gestione del Depth:</strong> Nelle chiamate API, è necessario impostare <code>depth=1</code> (o superiore) se un blocco contiene relazioni (es. un blocco "Staff" che punta alla collezione "Utenti"), altrimenti Astro riceverà solo gli ID invece dei dati completi.</li>
+                <li><strong>Fallback di Rendering:</strong> Implementare sempre un controllo nel ciclo <code>map</code> di Astro. Se un blocco non viene riconosciuto, è preferibile mostrare un avviso debug (in sviluppo) piuttosto che lasciare un vuoto inspiegabile nell'interfaccia utente.</li>
+                <li><strong>Validazione nell'Admin:</strong> Utilizzare campi come <code>admin.description</code> o <code>label</code> in Payload per spiegare al redattore come verrà usato quel dato, riducendo il carico di supporto tecnico.</li>
+            </ul>
+        </section>
+
     </main>
 
     <style>
         :root {
+            /* Palette colori ottimizzata per contrasto ed eleganza */
             --bg-color: #f8fafc;
-            --text-main: #1e293b;
-            --text-muted: #475569;
-            --border-color: #cbd5e1;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
             --accent-color: #0f172a;
+            --accent-highlight: #2563eb;
             --code-bg: #f1f5f9;
+            --code-text: #b91c1c;
+            
+            /* Colori per le etichette */
             --pro-color: #15803d;
+            --pro-bg: #dcfce7;
             --con-color: #b91c1c;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --con-bg: #fee2e2;
+            --tech-color: #b45309;
+            --tech-bg: #fef3c7;
+            --heart-color: #4338ca;
+            --heart-bg: #e0e7ff;
+            --base-color: #475569;
+            --base-bg: #f1f5f9;
+
+            /* Ombre morbide */
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.025);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
         }
 
+        /* TIPOGRAFIA DI BASE */
         .report-container {
-            max-width: 950px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 3rem 1.5rem;
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 4rem 2rem;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
             background-color: var(--bg-color);
         }
 
         .report-header {
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 1.5rem;
+            padding-bottom: 2rem;
+            position: relative;
         }
 
         .report-header h1 {
-            font-size: 2.25rem;
+            font-size: 2.75rem;
             font-weight: 800;
-            margin: 0 0 0.5rem 0;
+            margin: 0 0 0.75rem 0;
             color: var(--accent-color);
-            letter-spacing: -0.025em;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
 
         .subtitle {
             color: var(--text-muted);
-            font-size: 1.15rem;
+            font-size: 1.25rem;
+            font-weight: 400;
             margin: 0;
         }
 
+        /* CARDS */
         .card {
             background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2.5rem;
+            border-radius: 16px;
+            padding: 2.5rem 3rem;
             margin-bottom: 2.5rem;
             box-shadow: var(--card-shadow);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow-hover);
         }
 
         .summary-card {
-            background: linear-gradient(to bottom right, #ffffff, #f1f5f9);
-            border-left: 6px solid #2563eb;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-left: 6px solid var(--accent-highlight);
+        }
+
+        .logic-card {
+            border-left: 4px solid #f59e0b;
         }
 
         .card h2 {
             font-size: 1.75rem;
             font-weight: 700;
             margin-top: 0;
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
             color: var(--accent-color);
+            letter-spacing: -0.02em;
         }
 
         .card h4 {
-            font-size: 1.1rem;
-            margin: 2rem 0 1rem 0;
-            color: #1e3a8a;
+            font-size: 1.15rem;
+            margin: 2.5rem 0 1rem 0;
+            color: var(--accent-color);
             font-weight: 600;
         }
 
+        /* ELEMENTI INTERNI */
         code {
             background-color: var(--code-bg);
-            padding: 0.2em 0.4em;
-            border-radius: 4px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            padding: 0.25em 0.5em;
+            border-radius: 6px;
+            font-family: ui-monospace, 'Fira Code', 'Cascadia Code', monospace;
             font-size: 0.85em;
-            color: #b91c1c;
+            color: var(--code-text);
             border: 1px solid #e2e8f0;
         }
 
         .flow-box {
             background-color: #f8fafc;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 1.5rem;
+            border-left: 4px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
             margin: 1.5rem 0;
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
         }
 
-        .flow-box h4 {
-            margin-top: 0;
-            color: #475569;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
+        .flow-box h4 { 
+            margin-top: 0; 
+            color: #475569; 
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            letter-spacing: 0.08em; 
+        }
+        
+        .flow-box ol { margin: 0; padding-left: 1.5rem; }
+        .flow-box li { margin-bottom: 0.75rem; padding-left: 0.5rem;}
+        .flow-box li::marker { color: var(--accent-highlight); font-weight: bold; }
+
+        /* LISTE PERSONALIZZATE */
+        .tech-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+        .tech-list li { 
+            margin-bottom: 1.25rem; 
+            padding-left: 1.75rem; 
+            position: relative; 
+        }
+        .tech-list li::before { 
+            content: "→"; 
+            position: absolute; 
+            left: 0; 
+            top: 2px;
+            color: var(--accent-highlight); 
+            font-weight: 900; 
         }
 
-        .flow-box ol {
-            margin: 0;
-            padding-left: 1.5rem;
+        .tradeoff-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+        .tradeoff-list li { 
+            display: flex; 
+            flex-wrap: wrap; 
+            align-items: flex-start; 
+            margin-bottom: 1.25rem; 
+            padding-bottom: 1.25rem; 
+            border-bottom: 1px solid #f1f5f9; 
+        }
+        .tradeoff-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .tradeoff-list li span:last-child { flex: 1; min-width: 250px; line-height: 1.6; }
+
+        /* GRIGLIA A 3 COLONNE INTERNA */
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
-        .flow-box li {
-            margin-bottom: 0.75rem;
-            color: #334155;
-        }
-
-        .tech-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-
-        .tech-list li {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .tech-list li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #3b82f6;
-            font-weight: bold;
-        }
-
-        .tradeoff-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-
-        .tradeoff-list li {
+        .grid-col {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 1.75rem;
+            border-radius: 12px;
             display: flex;
+            flex-direction: column;
             align-items: flex-start;
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s ease;
+        }
+        
+        .grid-col:hover {
+            background: #ffffff;
+            box-shadow: var(--card-shadow);
         }
 
-        .tradeoff-list li:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        .grid-col p {
+            margin: 1rem 0 0 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
+        /* TAGS (Stile Pillola moderna) */
         .tag {
-            display: inline-block;
-            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            margin-right: 1rem;
-            min-width: 100px;
-            text-align: center;
-            flex-shrink: 0;
-            margin-top: 2px;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px; /* Pillola completa */
+            margin-right: 1.25rem;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
         }
 
-        .pro {
-            background-color: #dcfce7;
-            color: var(--pro-color);
-            border: 1px solid #bbf7d0;
-        }
-
-        .con {
-            background-color: #fee2e2;
-            color: var(--con-color);
-            border: 1px solid #fecaca;
-        }
-
-        strong {
-            font-weight: 600;
-            color: #0f172a;
-        }
-    </style>
-</BaseLayout>
+        .tag.pro { background-color: var(--pro-bg); color: var(--pro-color); }
+        .tag.con { background-color: var(--con-bg); color: var(--con-color); }
+        .tag.tech { background-color: var(--tech-bg); color: var(--tech-color); }
+        .tag.heart { background-color: var(--heart-bg); color: var(--heart-color); }
+        .tag.base { background-color:

@@ -1,0 +1,298 @@
+//
+// VARIABLES
+//
+// Definition of default project variables
+//
+
+// ------------------------------------ //
+// #FONTS
+// ------------------------------------ //
+
+//@import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,700');
+//@import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i,700');
+
+$font-family-main: 'Montserrat', sans-serif;
+$font-family-title: 'Merriweather', serif;
+
+$font-weight-extra-light: 200;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+$font-size-body: 16px;
+
+$font-size-xxs: 0.6875rem; // (11px)
+$font-size-xs: 0.75rem; // (12px)
+$font-size-s: 0.875rem; // (14px)
+$font-size-sm: 0.9375rem;  //(15px)
+$font-size-m: 1rem; // (16px)
+$font-size-intermedium: 1.125rem; // (18px)
+$font-size-ml: 1.25rem; // (20px)
+$font-size-l: 1.375rem; // (22px)
+$font-size-2l: 1.5rem;  // (24px)
+$font-size-ll: 1.75rem; // (28px)
+$font-size-2m: 2rem; // (32px)
+$font-size-xl: 2.25rem; // (36px)
+$font-size-xxl: 2.5rem; // (40px)
+$font-size-xxxl: 2.75rem; // (44px)
+$font-size-extra: 3.125rem; //(50px)
+
+// Icon size
+$open-toscana-icon-size: 120px;
+
+// ------------------------------------ //
+// #SPACING-UNIT
+// ------------------------------------ //
+$spacing-unit: 10px;
+
+
+// ------------------------------------ //
+// #LAYOUT
+// ------------------------------------ //
+
+$ui-width: 1230px;
+$width-container: 1230px;
+$page-width: 928px;
+
+
+// ------------------------------------ //
+// #MEDIA-QUERIES-BREAKPOINT
+// ------------------------------------ //
+
+$breakpoint-laptop-wide: 1029px;
+$breakpoint-boostrap-md: 992px;
+$breakpoint-laptop: 980px;
+$breakpoint-ipad-portrait: 768px;
+$breakpoint-boostrap-sm: 576px;
+$breakpoint-smartphone-landscape: 480px;
+
+
+// ------------------------------------ //
+// #COLOR-SCHEME
+// ------------------------------------ //
+$color-gray-00: #C1C1C1; //sfondo scuro
+$color-gray-01: #F6F4F2; // bg chiaro
+$color-gray-02: #eeeeee; //bordo input, sfondo blocchi home
+$color-gray-03: #919191; //color social gray/color text labels
+$color-gray-04: #555555;
+$color-gray-05: #222222;
+$color-gray-06: #66706B;
+$body-bg: #F5F5F5;
+
+$color-accessible-gray: #666666;
+
+// Base color scheme
+$color-partecipazione:  var(--main-color);
+$color-partecipazione-dark:  var(--main-color-dark);
+$color-partecipazione-light:  var(--main-color-light);
+$color-partecipazione-hover:  var(--main-color-hover);
+$color-partecipazione-darker:  var(--main-color-darker);
+// $color-partecipazione-rgba: --main-color-rgba;
+$color-text-yellow: var(--main-color-dark);
+//Other colors
+$color-partecipa-transparent: rgba(254,199,14,0.90);
+$color-partecipa-transparent-02: rgba(254,199,14,0.80);
+$color-button-yellow-text:var(--main-color-dark);
+$color-button-yellow-text-light:  var(--main-color-light);
+$color-servizi: #00906e;
+$color-agenda-digitale: #3BA5CB;
+$color-blue-dark: #2867B0;
+$color-startup-cosa: #83A2CB;
+$color-startup-come: #85C9A5;
+$color-startup-elenco: #BCC740;
+$color-dati: #3ba5cb;
+$color-red: #eb2224;
+$color-generic-blue: #4f7f96;
+$color-social: #3b5998;
+$color-orange: #dd4b39;
+
+$color-yellow-gray: #CBB68C;
+$color-light-orange: #FF7500;
+$color-spid: #0066CC;
+$color-facebook: #3b5998;
+$color-twitter: #1da1f2;
+$color-instagram: #833ab4;
+$color-linkedin: #00a0dc;
+$color-youtube: #ff0000;
+
+$color-documenti: #5A7F8E;
+
+$color-main: $color-red;
+$color-second: #EBF5FF; //bg map, navigation menu
+
+$color-servizi-hover: darken($color-servizi, 10%);
+$color-dati-hover: darken($color-dati, 10%);
+$color-disabled: $color-accessible-gray;
+
+// Colors success
+$color-success-text: #155724;
+$color-success-background: #d4edda;
+$color-success-border: #c3e6cb;
+// ------------------------------------ //
+// #COLORS
+// ------------------------------------ //
+// Text colors
+// COLORS
+$color-text: $color-gray-05;
+$color-text-dark: $color-gray-05;
+$color-text-light: $color-gray-04;
+$color-text-link: $color-main;
+$color-text-hover: darken($color-main, 10%); /* Used for text link in hover state */
+$color-text-link-hover: $color-text-hover;
+$color-text-form-placeholder: $color-gray-03;
+$color-text-label: $color-text-light;
+
+// Borders
+$color-border-light: $color-gray-01;
+$color-border-normal: $color-gray-00;
+$color-border-medium: $color-gray-02;
+
+// Backgrounds
+$color-background-light: $color-gray-01;
+$color-background-medium: $color-gray-02;
+$color-background-dark: $color-gray-00;
+$color-background-black: $color-gray-05;
+
+// END COLORS
+
+// ------------------------------------ //
+// #BUTTONS
+// ------------------------------------ //
+$button-border-width: 1px;
+$button-normal-height: 34px;
+$button-large-height: 56px;
+$button-l-height: 60px;
+$button-l-height-mobile: 45px;
+$button-round-small-size: 21px;
+$button-xl-font-size: $font-size-2m;
+
+// Normal button
+$color-button-text: $color-text-link;
+$color-button-text-hover: #ffffff;
+$color-button-text-disabled: rgba($color-button-text, .4);
+
+$color-button-bg: $color-generic-blue;
+$color-button-bg-hover: darken($color-generic-blue, 10%);
+
+$color-button-border: $color-border-normal;
+$color-button-border-hover: $color-gray-03;
+
+// Light button (no background or border, only text)
+$color-button-light-text: $color-text;
+$color-button-light-text-hover: $color-text-link-hover;
+$color-button-light-text-disabled: rgba($color-button-light-text, .4);
+$color-button-light-text-active: $color-text-link-hover;
+
+// Call to action button
+$color-button-cta-text: $color-main;
+$color-button-cta-text-hover: $color-main;
+$color-button-cta-text-disabled: rgba($color-main, .4);
+
+$color-button-cta-bg: $color-generic-blue;
+$color-button-cta-bg-hover: darken($color-generic-blue, 10%);
+$color-button-cta-bg-active: lighten($color-generic-blue, 10%);
+$color-button-cta-bg-disabled: rgba($color-generic-blue, .9);
+
+$color-button-cta-border: darken($color-generic-blue, 10); // $color-text-hover;
+
+// Alternative button
+$color-button-alt-text: $color-main;
+$color-button-alt-text-hover: $color-main;
+$color-button-alt-text-disabled: rgba($color-generic-blue, .4);
+
+$color-button-alt-bg: $color-main;
+$color-button-alt-bg-hover: darken($color-main, 10);
+$color-button-alt-bg-active: darken($color-main, 10);
+$color-button-alt-bg-disabled: rgba($color-generic-blue, .9);
+
+$color-button-alt-border: darken($color-generic-blue, 10);
+
+
+// ------------------------------------ //
+// #TRANSITIONS
+// ------------------------------------ //
+$transition-durations: 0.35s;
+
+// ------------------------------------ //
+// #IMAGE-PATH
+// ------------------------------------ //
+
+// $image-path: "src/images/";
+$image-path: "@theme_image_path@/";
+
+// ------------------------------------ //
+// #HEADER
+// ------------------------------------ //
+
+$header-height: 83px;
+$header-main-height: 112px;
+$header-height-mobile: 56px;
+$header-height-scrolled: 55px;
+
+$admin-toolbar-height: 55px;
+$admin-toolbar-height-mobile: 48px;
+
+$header-tab-height: 62px;
+
+// ------------------------------------ //
+// #HEADER
+// ------------------------------------ //
+
+$subheader-height: 192px;
+$subheader-height-medium: 400px;
+$subheader-height-big: 570px;
+$subheader-height-collabora: 380px;
+$subheader-height-scrolled: 106px;
+$subheader-height-scrolled-mobile: 106px;
+$subheader-height-index-intermedium: 200px;
+
+// ------------------------------------ //
+// #FORMS
+// ------------------------------------ //
+
+$form-input-height: $button-large-height;
+$form-input-small-height: 45px;
+$form-input-search-stanza-height: 50px;
+
+// ------------------------------------ //
+// #Z-INDEX
+// ------------------------------------ //
+
+$zindex-base: 2147483627; // Max allowd value = 2147483647
+$zindex-rt-base: 10; // Max allowd value = 2147483647
+
+$rt-navbar-z-index:            10 + $zindex-rt-base;
+$rt-simple-search-z-index:     20 + $zindex-rt-base;
+$rt-dropdown-z-index:          30 + $zindex-rt-base;
+$rt-autocomplete-z-index:      35 + $zindex-rt-base;
+$rt-modal-z-index:             40 + $zindex-rt-base;
+
+// ------------------------------------ //
+// #BOX-HEIGHT
+// ------------------------------------ //
+
+$box-height: 130px;
+$box-height-section-grid: 180px;
+$box-height-has-image: 235px;
+$box-height-laptop: 150px;
+$box-height-has-image-laptop: 325px;
+$box-height-desktop-wide: 170px;
+$box-height-has-image-desktop-wide: 350px;
+
+$box-shadow-filters: 0 0 10px rgba(0,0,0,0.2);
+
+// ------------------------------------ //
+// #NAVIGATION
+// ------------------------------------ //
+$navigation-background: rgba(#222222, 0.9);
+$navigation-width-mobile: 340px;
+$navigation-width: 466px;
+
+// ------------------------------------ //
+// #STEPS
+// ------------------------------------ //
+$step-size: 33px;
+$step-size-small: 25px;
+$step-decoration-size: 13px;
+$step-decoration-size-small: 9px;

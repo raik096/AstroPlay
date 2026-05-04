@@ -1,0 +1,64 @@
+/**
+ * BASE
+ *
+ * Basic style for tag and general classes
+ */
+
+/* ------------------------------------ *\
+   #TAGS
+\* ------------------------------------ */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background: $color-background-light;
+    color: $color-text;
+    font-family: $font-family-main;
+    font-size: $font-size-body;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    font-variant-ligatures: common-ligatures;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+*:focus, textarea:focus, input:focus, button:focus, a, a:hover, a:active, a:focus {
+    outline: none;
+}
+
+a {
+    color: $color-main;
+    transition-property: color;
+    transition-duration: $transition-durations;
+
+    &:hover {
+        color: $color-text-hover;
+        text-decoration: none;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+//ul, ol {
+    //margin: 0;
+    //padding: 0;
+    //list-style: none;
+//}
+

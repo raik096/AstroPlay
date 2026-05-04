@@ -1,0 +1,30 @@
+---
+const { text, alignment } = Astro.props;
+// Nota: 'text' arriva come JSON da Payload. Per ora lo stringifichiamo 
+// per vedere se i dati arrivano, poi useremo un parser.
+---
+
+<section class={`text-image ${alignment}`}>
+  <div class="text-content">
+    {/* Qui stampiamo il testo. In produzione useresti un parser per il RichText */}
+    <div class="prose">
+        <p>Contenuto editoriale (Allineamento: {alignment})</p>
+        <pre>{JSON.stringify(text, null, 2)}</pre> 
+    </div>
+  </div>
+  <div class="image-placeholder">
+    <div class="box">Immagine</div>
+  </div>
+</section>
+
+<style>
+  .text-image { display: flex; gap: 4rem; padding: 4rem 0; align-items: center; }
+  .text-image.right { flex-direction: row-reverse; }
+  .text-content { flex: 1; }
+  .image-placeholder { flex: 1; background: #e2e8f0; height: 300px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .box { color: #64748b; font-weight: bold; text-transform: uppercase; }
+  
+  @media (max-width: 768px) {
+    .text-image { flex-direction: column !important; }
+  }
+</style>

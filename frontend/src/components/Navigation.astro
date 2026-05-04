@@ -1,34 +1,68 @@
 ---
 // src/components/Navigation.astro
-let navPages = []; // Inizializziamo sempre come array vuoto
+
+let menuItems = [];
 
 try {
-    const response = await fetch('http://localhost:3000/api/pages?limit=5');
-    
-    if (response.ok) {
-        const data = await response.json();
-        // Usiamo l'operatore "Optional Chaining" (?.) e un fallback (|| [])
-        navPages = data?.docs || [];
-    }
+  // Aggiungiamo depth=1 per farci espandere la relazione e ottenere lo 'slug' della pagina
+  const response = await fetch('http://127.0.0.1:3000/api/navigation?sort=order&depth=1');
+  const data = await response.json();
+  menuItems = data.docs;
 } catch (error) {
-    console.error("Incapace di recuperare il menu dal CMS:", error);
-    // Se fallisce, navPages rimane un array vuoto e il sito non crasha
+  console.error("🚨 Errore fetch menu:", error);
 }
 ---
 
-<nav>
-    <a href="/">CLIENT-SR</a>
-    <a href="/news">SERVER-SR</a>
-    <a href="/about">ABOUT POC</a>
-    
-    {navPages && navPages.map((page: any) => (
-        <a href={`/${page.slug}`}>{page.title}</a>
-    ))}
+<nav class="navbar navbar-expand-md bg-white border-top border-bottom rt-main-menu" id="navigationCollapse">
+  <div class="rt-container">
+    <ul class="navbar-nav mr-auto d-flex flex-row gap-4">
+      
+      {/* Link fisso alla Home */}
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+
+      {/* Ciclo dinamico sulle pagine di Payload */}
+      {menuItems.map((item: any) => {
+        // Estraiamo lo slug dalla pagina relazionata (se esiste)
+        const slug = item.page?.slug; 
+        // Se non c'è lo slug, puntiamo a # come fallback
+        const href = slug ? `/${slug}` : '#';
+
+        return (
+          <li class="nav-item">
+            <a class="nav-link" href={href}>
+              {item.label}
+            </a>
+          </li>
+        );
+      })}
+
+    </ul>
+  </div>
 </nav>
 
 <style>
-    /* Aggiungi un po' di stile per renderlo guardabile */
-    nav { display: flex; gap: 1.5rem; padding: 1rem; background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
-    nav a { text-decoration: none; color: #1e293b; font-weight: 500; }
-    nav a:hover { color: #2563eb; }
+  /* Aggiungiamo un po' di stile per farlo sembrare proprio quello della Regione */
+  .rt-main-menu {
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  }
+  .navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+  }
+  .nav-link {
+    font-weight: 600;
+    color: #2d4156 !important;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    padding: 1rem 0 !important;
+    transition: color 0.2s ease;
+  }
+  .nav-link:hover {
+    color: #e98b2d !important; /* Il colore arancione/giallo del tema */
+  }
 </style>

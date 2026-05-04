@@ -1,0 +1,462 @@
+@font-face {
+  font-family: 'regione-icons';
+  src:  url('fonts/regione-icons.eot?4394s0');
+  src:  url('fonts/regione-icons.eot?4394s0#iefix') format('embedded-opentype'),
+    url('fonts/regione-icons.ttf?4394s0') format('truetype'),
+    url('fonts/regione-icons.woff?4394s0') format('woff'),
+    url('fonts/regione-icons.svg?4394s0#regione-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="rt-icon-"], [class*=" rt-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'regione-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.rt-icon-st-bioetica:before {
+  content: "\e98f";
+}
+.rt-icon-st-cittadiniperlasalute:before {
+  content: "\e987";
+}
+.rt-icon-st-farmaci:before {
+  content: "\e988";
+}
+.rt-icon-st-gravidanzaenascita:before {
+  content: "\e989";
+}
+.rt-icon-st-malattieecura:before {
+  content: "\e98a";
+}
+.rt-icon-st-ospedale1:before {
+  content: "\e98b";
+}
+.rt-icon-st-salutedeglianimali:before {
+  content: "\e98c";
+}
+.rt-icon-st-stilidivitaebenessere:before {
+  content: "\e98d";
+}
+.rt-icon-st-vaccinazioni:before {
+  content: "\e98e";
+}
+.rt-icon-urp:before {
+  content: "\e986";
+}
+.rt-icon-spid-icon:before {
+  content: "\e985";
+}
+.rt-icon-st-biblioteche:before {
+  content: "\e918";
+}
+.rt-icon-certificazioniedocumenti:before {
+  content: "\e917";
+}
+.rt-icon-ediliziaeurbanistica:before {
+  content: "\e908";
+}
+.rt-icon-giustizia:before {
+  content: "\e909";
+}
+.rt-icon-polizialocale:before {
+  content: "\e913";
+}
+.rt-icon-tecnologiaeinformazione:before {
+  content: "\e914";
+}
+.rt-icon-tributisanzioniepagamenti:before {
+  content: "\e915";
+}
+.rt-icon-educazioneeistruzione:before {
+  content: "\e916";
+}
+.rt-icon-scuola:before {
+  content: "\e912";
+}
+.rt-icon-st-formazione40:before {
+  content: "\e953";
+}
+.rt-icon-st-arti:before {
+  content: "\e95b";
+}
+.rt-icon-st-sostegnoalloccupazione:before {
+  content: "\e972";
+}
+.rt-icon-st-tutelaoccupazioneesostegnoalreddito:before {
+  content: "\e975";
+}
+.rt-icon-st-alternanzascuolalavoro:before {
+  content: "\e976";
+}
+.rt-icon-st-dirittoallostudio:before {
+  content: "\e977";
+}
+.rt-icon-st-ediliziascolastica:before {
+  content: "\e978";
+}
+.rt-icon-st-educazionedegliadulti:before {
+  content: "\e979";
+}
+.rt-icon-st-istruzioneeformazione-professionale:before {
+  content: "\e97a";
+}
+.rt-icon-st-istruzionetecnica-superiore:before {
+  content: "\e97b";
+}
+.rt-icon-st-scuoledinfanzia:before {
+  content: "\e97c";
+}
+.rt-icon-st-nididinfanzia:before {
+  content: "\e97d";
+}
+.rt-icon-st-qualitadellascuola:before {
+  content: "\e97e";
+}
+.rt-icon-st-scuolaprimariaesecondaria:before {
+  content: "\e97f";
+}
+.rt-icon-st-inbiciapiedi:before {
+  content: "\e980";
+}
+.rt-icon-st-latoscanadellosport:before {
+  content: "\e981";
+}
+.rt-icon-st-sportsenzabarriere:before {
+  content: "\e982";
+}
+.rt-icon-st-sportegiovani:before {
+  content: "\e983";
+}
+.rt-icon-st-sportesalute:before {
+  content: "\e984";
+}
+.rt-icon-st-pariopportunita:before {
+  content: "\e959";
+}
+.rt-icon-st-generic:before {
+  content: "\e92c";
+}
+.rt-icon-st-industria40:before {
+  content: "\e942";
+}
+.rt-icon-st-strade:before {
+  content: "\e940";
+}
+.rt-icon-st-pranzosanofuoricasa:before {
+  content: "\e937";
+}
+.rt-icon-st-attivitaestrattive:before {
+  content: "\e973";
+}
+.rt-icon-st-vas:before {
+  content: "\e92a";
+}
+.rt-icon-st-via:before {
+  content: "\e938";
+}
+.rt-icon-st-serviziocivile:before {
+  content: "\e95d";
+}
+.rt-icon-st-paesaggioepianificazione:before {
+  content: "\e974";
+}
+.rt-icon-st-agricolturasociale:before {
+  content: "\e919";
+}
+.rt-icon-st-agriturismo-alimentazione:before {
+  content: "\e91a";
+}
+.rt-icon-st-biologico:before {
+  content: "\e91b";
+}
+.rt-icon-st-boschieforeste:before {
+  content: "\e91c";
+}
+.rt-icon-st-fitosanitario:before {
+  content: "\e91d";
+}
+.rt-icon-st-prodottitipici:before {
+  content: "\e91e";
+}
+.rt-icon-st-zootecnia:before {
+  content: "\e91f";
+}
+.rt-icon-st-normativaregionaleogm:before {
+  content: "\e920";
+}
+.rt-icon-st-pescaecaccia:before {
+  content: "\e921";
+}
+.rt-icon-st-anziani:before {
+  content: "\e922";
+}
+.rt-icon-st-carcere:before {
+  content: "\e923";
+}
+.rt-icon-st-casa:before {
+  content: "\e924";
+}
+.rt-icon-st-disabilita:before {
+  content: "\e925";
+}
+.rt-icon-st-disagiosociale:before {
+  content: "\e926";
+}
+.rt-icon-st-famiglia:before {
+  content: "\e927";
+}
+.rt-icon-st-giovani:before {
+  content: "\e928";
+}
+.rt-icon-st-migranti:before {
+  content: "\e929";
+}
+.rt-icon-st-volontariato:before {
+  content: "\e92b";
+}
+.rt-icon-st-acque:before {
+  content: "\e92d";
+}
+.rt-icon-st-biodiversita:before {
+  content: "\e92e";
+}
+.rt-icon-st-difesadelsuolo:before {
+  content: "\e92f";
+}
+.rt-icon-st-economiacircolare:before {
+  content: "\e930";
+}
+.rt-icon-st-energia:before {
+  content: "\e931";
+}
+.rt-icon-st-inquinamento:before {
+  content: "\e932";
+}
+.rt-icon-st-mare:before {
+  content: "\e933";
+}
+.rt-icon-st-parchi:before {
+  content: "\e934";
+}
+.rt-icon-st-piramidealimentaretoscana:before {
+  content: "\e935";
+}
+.rt-icon-st-rifiuti:before {
+  content: "\e936";
+}
+.rt-icon-st-archiviogiunta:before {
+  content: "\e939";
+}
+.rt-icon-st-entilocali:before {
+  content: "\e93a";
+}
+.rt-icon-st-osservatorioelettorale:before {
+  content: "\e93b";
+}
+.rt-icon-st-partecipazione:before {
+  content: "\e93c";
+}
+.rt-icon-st-personegiuridiche:before {
+  content: "\e93d";
+}
+.rt-icon-st-pisteciclabili:before {
+  content: "\e93e";
+}
+.rt-icon-st-portieaeroporti:before {
+  content: "\e93f";
+}
+.rt-icon-st-trasportopubblico:before {
+  content: "\e941";
+}
+.rt-icon-st-artigianato:before {
+  content: "\e943";
+}
+.rt-icon-st-bandalarga:before {
+  content: "\e944";
+}
+.rt-icon-st-bandiecontratti:before {
+  content: "\e945";
+}
+.rt-icon-st-attrazioneinvestimenti:before {
+  content: "\e946";
+}
+.rt-icon-st-commercio:before {
+  content: "\e947";
+}
+.rt-icon-st-innovazione:before {
+  content: "\e948";
+}
+.rt-icon-st-responsabilitasociale:before {
+  content: "\e949";
+}
+.rt-icon-st-semplificazione:before {
+  content: "\e94a";
+}
+.rt-icon-st-supportoalleimprese:before {
+  content: "\e94b";
+}
+.rt-icon-st-agriturismo-turismo:before {
+  content: "\e94c";
+}
+.rt-icon-st-cicloturismo:before {
+  content: "\e94d";
+}
+.rt-icon-st-cammini:before {
+  content: "\e94e";
+}
+.rt-icon-st-costa:before {
+  content: "\e94f";
+}
+.rt-icon-st-montagna:before {
+  content: "\e950";
+}
+.rt-icon-st-turismosostenibile:before {
+  content: "\e951";
+}
+.rt-icon-st-terme:before {
+  content: "\e952";
+}
+.rt-icon-st-consumatori:before {
+  content: "\e954";
+}
+.rt-icon-st-discriminazione:before {
+  content: "\e955";
+}
+.rt-icon-st-eventi:before {
+  content: "\e956";
+}
+.rt-icon-st-internazionale:before {
+  content: "\e957";
+}
+.rt-icon-st-legalita:before {
+  content: "\e958";
+}
+.rt-icon-st-privacy:before {
+  content: "\e95a";
+}
+.rt-icon-st-informazionegeografica:before {
+  content: "\e95c";
+}
+.rt-icon-st-stilidivita:before {
+  content: "\e95e";
+}
+.rt-icon-st-servizioantincendio:before {
+  content: "\e95f";
+}
+.rt-icon-st-sicurezzasullavoro:before {
+  content: "\e960";
+}
+.rt-icon-st-sicurezzaalimentare:before {
+  content: "\e961";
+}
+.rt-icon-st-icurezzaurbana:before {
+  content: "\e962";
+}
+.rt-icon-st-sicurezzastradale:before {
+  content: "\e963";
+}
+.rt-icon-st-donazionietrapianti:before {
+  content: "\e964";
+}
+.rt-icon-st-emergenzae118:before {
+  content: "\e965";
+}
+.rt-icon-st-malattierare:before {
+  content: "\e966";
+}
+.rt-icon-st-medicinecomplementari:before {
+  content: "\e967";
+}
+.rt-icon-st-medicodibaseepediatra:before {
+  content: "\e968";
+}
+.rt-icon-st-ospedale:before {
+  content: "\e969";
+}
+.rt-icon-st-visiteesamieticket:before {
+  content: "\e96a";
+}
+.rt-icon-st-musei:before {
+  content: "\e96b";
+}
+.rt-icon-st-archivi:before {
+  content: "\e96c";
+}
+.rt-icon-st-artecontemporanea:before {
+  content: "\e96d";
+}
+.rt-icon-st-beniarchitettonici:before {
+  content: "\e96e";
+}
+.rt-icon-st-cinema:before {
+  content: "\e96f";
+}
+.rt-icon-st-editoria:before {
+  content: "\e970";
+}
+.rt-icon-st-fondieuropei:before {
+  content: "\e971";
+}
+.rt-icon-infrastruttureemobilita:before {
+  content: "\e904";
+}
+.rt-icon-istituzioni:before {
+  content: "\e90a";
+}
+.rt-icon-lavoro:before {
+  content: "\e90b";
+}
+.rt-icon-territorioepaesaggio:before {
+  content: "\e90e";
+}
+.rt-icon-emergenzaesicurezza:before {
+  content: "\e911";
+}
+.rt-icon-sociale:before {
+  content: "\e9ae";
+}
+.rt-icon-ambiente:before {
+  content: "\e900";
+}
+.rt-icon-agricolturaealimentazione:before {
+  content: "\e901";
+}
+.rt-icon-cultura:before {
+  content: "\e902";
+}
+.rt-icon-diritti:before {
+  content: "\e903";
+}
+.rt-icon-europa:before {
+  content: "\e905";
+}
+.rt-icon-formazione:before {
+  content: "\e906";
+}
+.rt-icon-salute:before {
+  content: "\e907";
+}
+.rt-icon-sport:before {
+  content: "\e90c";
+}
+.rt-icon-economia:before {
+  content: "\e90d";
+}
+.rt-icon-turismo:before {
+  content: "\e90f";
+}
+.rt-icon-universitaericerca:before {
+  content: "\e910";
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/comunità" transform="translate(7.000000, 12.000000)" stroke="#222222">
+            <circle id="Oval-3" cx="33" cy="28" r="23"></circle>
+            <circle id="Oval" fill="#FFFFFF" fill-rule="evenodd" cx="10" cy="28" r="5"></circle>
+            <circle id="Oval-Copy" fill="#FFFFFF" fill-rule="evenodd" cx="33" cy="5" r="5"></circle>
+            <circle id="Oval-Copy-2" fill="#FFFFFF" fill-rule="evenodd" cx="33" cy="51" r="5"></circle>
+            <circle id="Oval-Copy-3" fill="#FFFFFF" fill-rule="evenodd" cx="56" cy="28" r="5"></circle>
+            <path d="M33,46 C35.7614237,46 38,48.2385763 38,51 C38,53.7614237 35.7614237,56 33,56 C30.2385763,56 28,53.7614237 28,51 C28,48.2385763 30.2385763,46 33,46 Z M10,23 C12.7614237,23 15,25.2385763 15,28 C15,30.7614237 12.7614237,33 10,33 C7.23857625,33 5,30.7614237 5,28 C5,25.2385763 7.23857625,23 10,23 Z M56,23 C58.7614237,23 61,25.2385763 61,28 C61,30.7614237 58.7614237,33 56,33 C53.2385763,33 51,30.7614237 51,28 C51,25.2385763 53.2385763,23 56,23 Z M33,0 C35.7614237,0 38,2.23857625 38,5 C38,7.76142375 35.7614237,10 33,10 C30.2385763,10 28,7.76142375 28,5 C28,2.23857625 30.2385763,0 33,0 Z" id="Combined-Shape" fill="#FFFFFF" fill-rule="evenodd" transform="translate(33.000000, 28.000000) rotate(-225.000000) translate(-33.000000, -28.000000) "></path>
+        </g>
+    </g>
+</svg>

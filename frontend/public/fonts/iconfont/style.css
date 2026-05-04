@@ -1,0 +1,329 @@
+@font-face {
+    font-family: 'icomoon';
+    src:  url('fonts/icomoon.eot?6mvkwx');
+    src:  url('fonts/icomoon.eot?6mvkwx#iefix') format('embedded-opentype'),
+      url('fonts/icomoon.ttf?6mvkwx') format('truetype'),
+      url('fonts/icomoon.woff?6mvkwx') format('woff'),
+      url('fonts/icomoon.svg?6mvkwx#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-base:before {
+    content: "\e944";
+}
+.icon-votiva:before {
+    content: "\e943";
+}
+.icon-consiglio:before {
+    content: "\e940";
+}
+.icon-convivenza:before {
+    content: "\e941";
+}
+.icon-trasferimento-estero:before {
+    content: "\e942";
+}
+.icon-open-toscana:before {
+    content: "\e93f";
+}
+.icon-impianti:before {
+    content: "\e93e";
+}
+.icon-fornitore:before {
+    content: "\e93d";
+}
+.icon-autocert:before {
+    content: "\e93c";
+}
+.icon-difesa-suolo:before {
+    content: "\e93b";
+}
+.icon-certificato-casa:before {
+    content: "\e93a";
+}
+.icon-pincode:before {
+    content: "\e939";
+}
+.icon-alboingegneri:before {
+    content: "\e938";
+}
+.icon-schedario:before {
+    content: "\e937";
+}
+.icon-imu:before {
+    content: "\e935";
+}
+.icon-tari:before {
+    content: "\e934";
+}
+.icon-palazzo:before {
+    content: "\e933";
+}
+.icon-terzosettore:before {
+    content: "\e932";
+}
+.icon-auto-ztl:before {
+    content: "\e931";
+}
+.icon-varie:before {
+    content: "\e936";
+}
+.icon-enti-locali:before {
+    content: "\e930";
+}
+.icon-lavoratori:before {
+    content: "\e92f";
+}
+.icon-titolo-studio:before {
+    content: "\e92e";
+}
+.icon-dati-anagrafe:before {
+    content: "\e92d";
+}
+.icon-scrutatore:before {
+    content: "\e92c";
+}
+.icon-straniero:before {
+    content: "\e92b";
+}
+.icon-residenza:before {
+    content: "\e927";
+}
+.icon-agevolazioni:before {
+    content: "\e925";
+}
+.icon-asilo-nido:before {
+    content: "\e926";
+}
+.icon-libro-aperto:before {
+    content: "\e924";
+}
+.icon-agibilita:before {
+    content: "\e923";
+}
+.icon-edilizia:before {
+    content: "\e921";
+}
+.icon-ascensore:before {
+    content: "\e922";
+}
+.icon-scuolabus:before {
+    content: "\e920";
+}
+.icon-dieta:before {
+    content: "\e91f";
+}
+.icon-anagrafe:before {
+    content: "\e91b";
+}
+.icon-mensa:before {
+    content: "\e91c";
+}
+.icon-multe:before {
+    content: "\e91d";
+}
+.icon-tributi:before {
+    content: "\e91e";
+}
+.icon-pratiche-edilizia:before {
+    content: "\e91a";
+}
+.icon-scuola:before {
+    content: "\e919";
+}
+.icon-caccia:before {
+    content: "\e602";
+}
+.icon-card:before {
+    content: "\e603";
+}
+.icon-comunico:before {
+    content: "\e604";
+}
+.icon-durc:before {
+    content: "\e605";
+}
+.icon-fascicolo-sanitario:before {
+    content: "\e606";
+}
+.icon-fatturazione:before {
+    content: "\e607";
+}
+.icon-garanzia-giovani:before {
+    content: "\e608";
+}
+.icon-gare:before {
+    content: "\e609";
+}
+.icon-giustizia:before {
+    content: "\e60a";
+}
+.icon-giustizicivile:before {
+    content: "\e60b";
+}
+.icon-login:before {
+    content: "\e60c";
+}
+.icon-musei:before {
+    content: "\e60d";
+}
+.icon-pagamenti:before {
+    content: "\e60e";
+}
+.icon-pesca:before {
+    content: "\e60f";
+}
+.icon-ticket-sanitario:before {
+    content: "\e611";
+}
+.icon-archivio-foto:before {
+    content: "\e612";
+}
+.icon-avviso-bonario:before {
+    content: "\e613";
+}
+.icon-burt:before {
+    content: "\e614";
+}
+.icon-giovanisi:before {
+    content: "\e615";
+}
+.icon-prezzario-lavori-pubblici:before {
+    content: "\e616";
+}
+.icon-ricerca-bandi-finanziamento:before {
+    content: "\e617";
+}
+.icon-trasporti-pubblici:before {
+    content: "\e618";
+}
+.icon-tartufi:before {
+    content: "\e619";
+}
+.icon-funghi:before {
+    content: "\e61a";
+}
+.icon-uffici-territoriali:before {
+    content: "\e900";
+}
+.icon-rinnovo-tessera-sanitaria:before {
+    content: "\e901";
+}
+.icon-salute:before {
+    content: "\e902";
+}
+.icon-sirt:before {
+    content: "\e903";
+}
+.icon-spid:before {
+    content: "\e904";
+}
+.icon-star:before {
+    content: "\e905";
+}
+.icon-certificazione-ticket:before {
+    content: "\e906";
+}
+.icon-concorso-medicina:before {
+    content: "\e907";
+}
+.icon-facebook-with-circle:before {
+    content: "\e908";
+}
+.icon-twitter-with-circle:before {
+    content: "\e909";
+}
+.icon-youtube-with-circle:before {
+    content: "\e90a";
+}
+.icon-bollo-auto:before {
+    content: "\e90b";
+}
+.icon-SISPC:before {
+    content: "\e90c";
+}
+.icon-isee:before {
+    content: "\e90d";
+}
+.icon-autocertificazione:before {
+    content: "\e90e";
+}
+.icon-sostegno-famiglie:before {
+    content: "\e90f";
+}
+.icon-ticket-med:before {
+    content: "\e910";
+}
+.icon-gestione-assistenti-di-studio:before {
+    content: "\e911";
+}
+.icon-prescrizione-elettronica:before {
+    content: "\e912";
+}
+.icon-fascicolo-formativo:before {
+    content: "\e913";
+}
+.icon-biblioteche:before {
+    content: "\e914";
+}
+.icon-bolloauto:before {
+    content: "\e915";
+}
+.icon-vaccinazioni:before {
+    content: "\e916";
+}
+.icon-graduatoria-medici:before {
+    content: "\e917";
+}
+.icon-demanio-idrico:before {
+    content: "\e918";
+}
+.icon-servizi-vaccinazioni:before {
+    content: "\e928";
+}
+.icon-corsi:before {
+    content: "\e929";
+}
+.icon-scelta-medico:before {
+    content: "\e92a";
+}
+.icon-search:before {
+    content: "\f002";
+}
+.icon-user:before {
+    content: "\f007";
+}
+.icon-home:before {
+    content: "\f015";
+}
+.icon-clock-o:before {
+    content: "\f017";
+}
+.icon-camera:before {
+    content: "\f030";
+}
+.icon-video-camera:before {
+    content: "\f03d";
+}
+.icon-suitcase:before {
+    content: "\f0f2";
+}
+.icon-address-book:before {
+    content: "\f2b9";
+}

@@ -1,0 +1,250 @@
+/**
+ * LIFERAY-SEARCH
+ *
+ * Liferay search customizations
+ */
+
+/* ------------------------------------ *\
+   #LIFERAY-SEARCH
+\* ------------------------------------ */
+.rt-sidebar--search {
+    .portlet-header {
+        @include accessible-text;
+    }
+
+    .panel {
+        margin-bottom: $spacing-unit;
+        background-color: transparent;
+        border: none;
+    }
+
+    .panel-default .panel-heading {
+        background-color: transparent;
+    }
+
+    .panel-title {
+        border-bottom: 1px solid $color-border-normal;
+
+        &.h4 {
+            font-size: $font-size-ml;
+        }
+
+        .collapse-icon {
+            padding-right: $spacing-unit*3;
+            padding-left: 0;
+
+            .collapse-icon-open {
+                right: 0;
+                font-size: $font-size-s;
+            }
+        }
+    }
+
+    .panel-body {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .facet-value {
+        transition: color $transition-durations ease;
+
+        &:hover,
+        &:focus {
+            color: $color-text-hover;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 0;
+            height: 0;
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        a {
+            display: block;
+            color: $color-text;
+
+            &:hover,
+            &:focus {
+                color: $color-text-hover;
+            }
+        }
+    }
+
+    .term-name {
+        display: block;
+        margin-bottom: $spacing-unit;
+        padding-bottom: $spacing-unit;
+        font-weight: $font-weight-medium;
+        border-bottom: 1px solid $color-border-normal;
+        font-size: $font-size-m;
+
+        &.facet-term-selected {
+            color: $color-servizi;
+            border-bottom-color: $color-servizi;
+        }
+    }
+
+    .search-reset {
+        
+        color: $color-servizi;
+
+        small {
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    .term-count {
+        @include accessible-text;
+    }
+
+    .modified-custom-range {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-end;
+        // padding-top: $spacing-unit;
+        padding-bottom: $spacing-unit;
+        border-bottom: 1px solid $color-border-normal;
+
+        .col-md-6 {
+            flex: 1;
+            // max-width: 40%;
+            padding: 0;
+        }
+
+        .control-label {
+            font-size: $font-size-s;
+        }
+
+        .btn {
+            flex: 0 0 $form-input-small-height;
+            max-width: $form-input-small-height;
+            margin-top: $spacing-unit/2;
+            @extend .rt-btn;
+            padding: $spacing-unit/2;
+            font-weight: $font-weight-bold;
+
+            .lfr-btn-label {
+                @include accessible-text;
+            }
+
+            &::before {
+                @include font-awesome('\f002');
+                font-size: $font-size-m;
+            }
+        }
+
+        input[type="text"] {
+            border-top: none;
+            border-bottom: none;
+        }
+
+        input[type="text"],
+        .btn {
+            height: $form-input-small-height;
+            border-radius: 0;
+        }
+    }
+}
+
+/* Search results body */
+.portlet-search-results {
+    .portlet-header {
+        padding: $spacing-unit*2;
+    }
+
+    .portlet-body {
+        .search-total-label {
+            margin-top: 0;
+        }
+    }
+}
+
+.search-bar-suggestions input.form-control.input-group-inset.input-group-inset-after.search-bar-keywords-input {
+    background: #fff;
+    border-radius: 0;
+    height: 46px;
+    line-height: 46px;
+    margin-left: 50%;
+	z-index: 1;
+}
+.rt-header__bottom-area.rt-header-section__bottom-area .search-bar-suggestions input.form-control.input-group-inset.input-group-inset-after.search-bar-keywords-input{
+    margin-left: 0%;
+}
+
+.rt-header__bottom-area.rt-header-section__bottom-area .input-group.search-bar-suggestions .input-group .input-group-inset-item-after {
+    z-index: 5;
+    box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.22);
+}
+
+.input-group.search-bar-suggestions .input-group .input-group-inset-item-after {
+    border: 0px;
+}
+
+.search-bar-suggestions input.form-control.input-group-inset.input-group-inset-after.search-bar-keywords-input:focus {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.sidebar-regione-toscana.rt-content.container div#Content.show .panel-body {
+    padding: 0;
+}
+
+.col-md-9.portlet-column.portlet-column-last {
+    padding-left: 30px !important;
+}
+
+.display-list .search-document-tags {
+    display: none;
+}
+
+p.list-group-subtext {
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 0;
+    color: #212529;
+}
+
+.list-group-title a {
+    font-weight: 700;
+}
+
+list-group-title a:hover {
+    color: #c81214;
+}
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+}
+
+
+@media all and (max-width: $breakpoint-smartphone-landscape) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) and (max-width: $breakpoint-laptop-wide) {
+}
+
+@media all and (min-width: $breakpoint-laptop) {
+}
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+}
+
+@media all and (min-width: $ui-width) {
+}
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+
+}

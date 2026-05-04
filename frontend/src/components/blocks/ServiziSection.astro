@@ -1,0 +1,46 @@
+---
+// src/components/blocks/ServiziSection.astro
+
+// 1. Riceviamo i dati dal blocco di Payload
+const { titoloSezione, listaServizi = [] } = Astro.props;
+---
+
+<section class="rt-section rt-section--grid rt-section--services" aria-label="Servizi">
+  <div class="rt-container">
+    
+    <div class="rt-section-title-wrapper">
+      {/* Il titolo è dinamico, scelto dal redattore */}
+      <h2 class="rt-section-title">{titoloSezione || 'Servizi in Evidenza'}</h2>
+    </div>
+
+    <div class="rt-section__wrapper" id="rt-service-container">
+      
+      {/* 2. IL CICLO MAP: Ripete questo blocco HTML per ogni elemento nell'array */}
+      {listaServizi.map((servizio: any) => (
+        <div class="rt-box rt-box--service">
+          
+          <div class="rt-box__title">
+            <a href={servizio.linkURL || '#'}>
+              {/* L'icona cambia in base a quello che sceglie il redattore */}
+              <i aria-hidden="true" class={servizio.classeIcona || 'rt-icon-salute'}></i> 
+              {servizio.nomeServizio}
+            </a>
+            <div class="rt-box__text">{servizio.descrizioneBreve}</div>
+          </div>
+          
+          <div class="rt-box__footer">
+            <div class="rt-box__tags">
+              {/* Stampiamo i tag (es. "Cittadino", "Impresa") */}
+              {servizio.tagUtente && (
+                <span class="rt-box__tags-item">{servizio.tagUtente}</span>
+              )}
+            </div>
+          </div>
+
+        </div>
+      ))}
+      {/* Fine del ciclo */}
+
+    </div>
+  </div>
+</section>

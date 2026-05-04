@@ -1,30 +1,57 @@
 ---
 // src/components/Footer.astro
-import DocLink from './Social.astro';
 ---
-<style>
-  footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 4rem;
-    padding: 2rem;
-    border-top: 1px solid #e2e8f0;
-    color: #64748b;
-    font-size: 0.9rem;
-  }
-  .links {
-    display: flex;
-    gap: 0.75rem;
-  }
-</style>
 
-<footer>
-    <p>Risorse ufficiali per l'architettura PoC:</p>
-    <div class="links">
-        <DocLink title="Astro Docs" url="https://docs.astro.build" />
-        <DocLink title="Payload CMS Docs" url="https://payloadcms.com/docs" />
-        <DocLink title="GitHub Repo" url="https://github.com/withastro/astro" />
+<footer accesskey="F" tabindex="0" class="rt-footer" id="footer" role="contentinfo">
+  <section class="rt-footer__main-area">
+    <div class="rt-container">
+      <div class="rt-footer-doble-logos">
+        <div class="rt-footer__main-logo">
+          <picture>
+            <source srcset="/images/logo-footer-open-mobile.png, /images/logo-footer-open-mobile@2x.png 2x" media="(max-width: 767px)">
+            <img alt="Logo Open Toscana" src="/images/logo-footer.png" srcset="/images/logo-footer@2x.png 2x">
+          </picture>
+        </div>
+        
+        <div class="rt-footer__secondary-logo">
+          <picture>
+            <source srcset="/images/toscana-digitale-logo-footer.png, /images/toscana-digitale-logo-footer@2x.png 2x" media="(max-width: 767px)">
+            <img alt="Logo Toscana Digitale" src="/images/toscana-digitale-logo-footer.png" srcset="/images/toscana-digitale-logo-footer@2x.png 2x">
+          </picture>
+        </div>
+      </div>
+
+      <div class="rt-footer__main-infos">
+        <span class="rt-footer__main-infos-item">Assessorato alle Infrastrutture digitali, rapporti con gli enti locali e sicurezza</span>
+        <span class="rt-footer__main-infos-item">Via di Novoli 26 - 50127 Firenze</span>
+        <a href="mailto:info@open.toscana.it" class="rt-footer__main-infos-item" title="Invia una mail a" aria-label="Invia una mail a">info@open.toscana.it</a>
+      </div>
+
+      <div class="rt-footer__main-porcreo">
+        <picture class="rt-footer__main-porcreo-logos">
+          <img alt="Logo PORCreO" src="/images/loghi-porcreo.png" srcset="/images/loghi-porcreo@2x.png 2x">
+        </picture>
+        <div class="rt-footer__main-porcreo-text">Operazione realizzata col finanziamento/co-finanziamento della Regione Toscana a valere sui fondi POR CreO FESR 2014/2020, ASSE II, Linea di Azione 2.2.2</div>
+      </div>
     </div>
+  </section>
+
+  <section class="rt-footer__infos">
+    <div class="rt-container">
+      <nav class="rt-footer__navigation">
+        <ul class="rt-footer__navigation-list">
+          <li class="rt-footer__navigation-item"><a aria-label="link new tab" tabindex="0" title="Vai alla pagina Note Legali" target="_blank" href="https://www.regione.toscana.it/note-legali">Note legali</a></li>
+          <li class="rt-footer__navigation-item"><a aria-label="link new tab" tabindex="0" title="Vai alla pagina Privacy" target="_blank" href="https://www.regione.toscana.it/privacy">Privacy</a></li>
+          <li class="rt-footer__navigation-item"><a aria-label="link new tab" tabindex="0" title="Vai alla pagina Accessibilit&agrave;" target="_blank" href="https://www.regione.toscana.it/-/accessibilita-e-uso-del-sito">Accessibilità</a></li>
+        </ul>
+      </nav>
+
+      <div class="rt-footer__logo">
+        <picture>
+          <source srcset="/images/logo-regione-footer-mobile.png, /images/logo-regione-footer-mobile@2x.png 2x" media="(max-width: 767px)">
+          <img alt="Logo Regione Toscana" src="/images/logo-regione-footer.png" srcset="/images/logo-regione-footer@2x.png 2x">
+        </picture>
+      </div>
+    </div>
+  </section>
 </footer>

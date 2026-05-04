@@ -10,6 +10,7 @@ import { Media } from './collections/Media'
 import { Friends } from './collections/Friends'
 import { News } from './collections/News'
 import { Pages } from './collections/Pages'
+import { Navigation } from './collections/Navigation'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -21,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Friends, News, Pages],
+  collections: [Users, Media, Friends, News, Pages, Navigation],
   editor: lexicalEditor(),
   secret: 'UnaStringaSegretaMoltoLungaEComplessaPerIlPoC123!',
   typescript: {

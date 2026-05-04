@@ -1,0 +1,186 @@
+/**
+ * PAGE FAI UNA PROPOSTA
+ *
+ * Layout for "fai una proposts"
+ * Style for liferay markup
+ */
+
+/* ------------------------------------ *\
+   #PAGE-PROPOSTA-FORM
+\* ------------------------------------ */
+/* Fai una proposta Portlet class */
+.portlet-boundary_com_liferay_dynamic_data_mapping_form_web_portlet_DDMFormPortlet_ {
+   .portlet-forms {
+      padding-top: $spacing-unit*2;
+      padding-bottom: $spacing-unit*2;
+      max-width: 960px;
+      margin-right: auto;
+      margin-left: auto;
+
+   }
+
+   .ddm-form-name {
+      font-size: $font-size-l;
+   }
+
+   .portlet-forms .ddm-form-basic-info .ddm-form-name {
+      margin-bottom: $spacing-unit*2;
+   }
+
+   .lfr-ddm-form-page {
+      padding: $spacing-unit;
+      background: #ffffff;
+   }
+
+   .required-warning {
+      padding-bottom: $spacing-unit*2;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-xs;
+   }
+
+   .form-group label {
+      font-weight: $font-weight-medium;
+   }
+
+   // /* Repeater buttons */
+   // .lfr-ddm-form-container .lfr-ddm-form-field-repeatable-toolbar a {
+   //    color: $color-partecipazione-dark;
+   // }
+
+   /* Repeater remove button */
+   .lfr-ddm-form-container .lfr-ddm-form-field-container .lfr-ddm-form-field-repeatable-delete-button {
+      left: $spacing-unit*2;
+   }
+
+   .input-group-append {
+      .select-button {
+         @extend .rt-btn;
+         min-width: 160px;
+         height: $form-input-height;
+         border-top-right-radius: 0;
+         border-bottom-right-radius: 0;
+         font-size: $font-size-sm;
+      }
+   }
+
+   .lfr-ddm-form-submit {
+      @extend .rt-btn;
+      @extend .rt-btn-yellow;
+
+      &:hover,
+      &:focus {
+         background-color: $color-partecipazione-darker;
+      }
+
+      &::after {
+         color: #ffffff;
+      }
+   }
+
+
+   /* Success */
+   .ddm-form-success-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-flow: column nowrap;
+      padding: $spacing-unit*2;
+      min-height: 30vh;
+      background-color: $color-success-background;
+      border: 1px solid $color-success-border;
+      // $color-success-border: #c3e6cb;
+
+      &::before {
+         @include font-awesome-light('\f058');
+         margin-bottom: $spacing-unit*2;
+         font-size: $font-size-xxl;
+         color: $color-success-text;
+         opacity: 0.6;
+      }
+
+      .ddm-form-name,
+      .ddm-form-description {
+         text-align: center;
+
+      }
+
+      .ddm-form-description {
+         font-size: $font-size-m;
+      }
+
+      .ddm-form-name {
+         margin-bottom: $spacing-unit*2;
+      }
+   }
+}
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop-wide) {
+  
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait) {
+  
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+
+}
+
+@media all and (max-width: $breakpoint-smartphone-landscape) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+  /* Fai una proposta Portlet class */
+   .portlet-boundary_com_liferay_dynamic_data_mapping_form_web_portlet_DDMFormPortlet_ {
+      // padding: $spacing-unit*3 0;
+
+      .ddm-form-name {
+         font-size: $font-size-xl;
+      }
+
+      .portlet-forms .ddm-form-basic-info .ddm-form-name {
+         margin-bottom: $spacing-unit*2.5;
+      }
+
+      .lfr-ddm-form-page {
+         padding: $spacing-unit*2;
+      }
+
+      .required-warning {
+         font-size: $font-size-s;
+      }
+
+
+      .input-group-append {
+         .select-button {
+            min-width: 160px;
+            font-size: $font-size-sm;
+         }
+      }
+
+         /* Success */
+      .ddm-form-success-page {
+         padding: $spacing-unit*4 0;
+         &::before {
+            margin-bottom: $spacing-unit*3;
+            font-size: 90px;
+         }
+      }
+   }
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) and (max-width: $breakpoint-laptop-wide - 1) {
+}
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+}
+
+@media all and (min-width: $breakpoint-boostrap-md) {  
+}
+
+@media all and (min-width: $ui-width) {
+}
