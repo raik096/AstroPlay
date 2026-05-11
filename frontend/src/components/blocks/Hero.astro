@@ -1,24 +1,49 @@
 ---
-// Riceviamo i dati definiti nel file HeroBlock.ts
-const { heading, subheading } = Astro.props;
+// src/components/blocks/Hero.astro
+const { slides } = Astro.props;
 ---
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>{heading}</h1>
-    {subheading && <p>{subheading}</p>}
-  </div>
-</section>
+<div class="portlet-boundary portlet-boundary_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_ portlet-static portlet-static-end portlet-barebone">
+    <section class="portlet">
+        <div class="portlet-content">
+            <div class="portlet-content-container">
+                <div class="portlet-body">
 
-<style>
-  .hero {
-    background: #0f172a;
-    color: white;
-    padding: 6rem 2rem;
-    text-align: center;
-    border-radius: 12px;
-    margin-bottom: 2rem;
-  }
-  h1 { font-size: 3.5rem; margin: 0; line-height: 1.1; }
-  p { font-size: 1.25rem; opacity: 0.8; margin-top: 1rem; }
-</style>
+                    <div class="rt-slider-wrapper">
+                        <div id="main-slider" class="rt-slider rt-slider--main-slider">
+                            <ul class="slides rt-slider__list">
+                                
+                                {slides?.map((slide: any) => {
+                                    // Recupero URL immagine in modo sicuro
+                                    const imageUrl = slide.image?.url ? `http://127.0.0.1:3000${slide.image.url}` : '';
+                                    const imageAlt = slide.image?.alt || "Immagine contenuto slide";
+
+                                    return (
+                                        <li class="rt-slider__slide rt-slider__slide-servizi">
+                                            <img alt={imageAlt} src={imageUrl} />
+                                            
+                                            <div class="rt-slider__slide-content">
+                                                <h2 class="rt-slider__slide-title" set:html={slide.title}></h2>
+
+                                                {/* Se c'è un link su Payload, stampa il bottone */}
+                                                {slide.link && (
+                                                    <div class="rt-slider__slide-footer">
+                                                        <a title="Vai al dettaglio" aria-label="Vai al dettaglio" href={slide.link} class="rt-btn rt-btn-light rt-btn-round">
+                                                            <span class="rt-btn-accessible-label">Vai al dettaglio</span>
+                                                            <i aria-hidden="true" class="far fa-chevron-right"></i>
+                                                        </a>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+</div>

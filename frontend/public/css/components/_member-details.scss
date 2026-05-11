@@ -1,0 +1,183 @@
+/**
+ * MEMBER DETAILS
+ *
+ * Giunta member page details
+ */
+
+/* ------------------------------------ *\
+   #MEMBER-DETAILS
+\* ------------------------------------ */
+
+.rt-member-details {
+    .rt-member-details__contacts {
+        display: flex;
+        align-items: center;
+        padding-bottom: $spacing-unit;
+    }
+
+    .rt-member-details__email,
+    .rt-member-details__social-item {
+        font-weight: $font-weight-bold;
+        color: $color-text;
+
+        &:hover,
+        &:focus {
+            color: $color-text-hover;
+        }
+
+    }
+
+    .rt-member-details__email {
+        display: flex;
+        height: 100%;
+        padding-bottom: $spacing-unit;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid $color-main;
+
+        [class*="fa"] {
+            margin-left: $spacing-unit;
+            font-size: $font-size-ml;
+        }
+
+
+    }
+
+    .rt-member-details__social {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+        border-bottom: 1px solid $color-border-normal;
+    }
+
+    .rt-member-details__social-item {
+        display: block;
+        padding-right: $spacing-unit;
+        padding-bottom: $spacing-unit;
+        padding-left: $spacing-unit;
+        font-size: $font-size-ml;
+    }
+
+
+    .rt-member-details__skills {
+        padding-top: $spacing-unit*2;
+    }
+
+    .rt-member-details__skills-list {
+        padding-left: $spacing-unit*2.5;
+
+        .rt-member-details__skills-list-item {
+            padding: $spacing-unit/2 0;
+            font-size: $font-size-s;
+
+            &::before {
+                content: "\2022";
+                display: inline-block;
+                width: $spacing-unit*2;
+                margin-left: -$spacing-unit*2;
+                color: $color-main;
+                font-weight: $font-weight-bold;
+            }
+        }
+    }
+}
+
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+
+
+    .rt-member-details {
+        .rt-member-details__contacts {
+
+        }
+
+        .rt-member-details__social {
+        }
+
+        .rt-member-details__social-item {
+        }
+    }
+
+}
+
+@media all and (max-width: $breakpoint-smartphone-landscape) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+    .rt-member-details {
+        .rt-member-details__contacts {
+
+        }
+
+        .rt-member-details__email {
+            padding-bottom: $spacing-unit*2;
+            font-size: $font-size-ml;
+
+            [class*="fa"] {
+                font-size: $font-size-l;
+            }
+
+        }
+
+        .rt-member-details__social {
+
+        }
+
+        .rt-member-details__social-item {
+            padding-bottom: $spacing-unit*2;
+            font-size: $font-size-l;
+        }
+
+        .rt-member-details__skills {
+            padding-top: $spacing-unit*3;
+        }
+
+        .rt-member-details__skills-list {
+            display: flex;
+            flex-flow: row wrap;
+            padding-left: 0;
+
+            .rt-member-details__skills-list-item {
+                flex: 0 0 49%;
+                max-width: 49%;
+                margin-right: 2%;
+                padding: $spacing-unit/2 0 $spacing-unit/2 $spacing-unit*3.5;
+                font-size: $font-size-m;
+
+                &::before {
+                    width: $spacing-unit*2.5;
+                    margin-left: -$spacing-unit*2.5;
+                    font-size: $font-size-ml;
+                }
+
+                &:nth-of-type(2n + 2) {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) and (max-width: $breakpoint-laptop-wide) {
+
+}
+
+@media all and (min-width: $breakpoint-laptop) {
+}
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+}
+
+@media all and (min-width: $ui-width) {
+}
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+
+}

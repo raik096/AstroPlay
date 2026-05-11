@@ -1,0 +1,79 @@
+---
+// src/components/blocks/NewsBlock.astro
+const { title, limit = 3 } = Astro.props;
+
+const sectionTitle = title || "News/eventi";
+
+// 1. Fetch delle news vere dal database Payload
+let newsItems = [];
+try {
+    const response = await fetch(`http://127.0.0.1:3000/api/news?limit=${limit}&sort=-createdAt`);
+    const data = await response.json();
+    newsItems = data.docs || [];
+} catch (e) {
+    console.error("🚨 Errore fetch News:", e);
+}
+
+// 2. Funzione per formattare la data stile "24.07.25"
+const formatDate = (dateString: string) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' }).replace(/\//g, '.');
+};
+---
+
+<div class="rt-wrapper">
+    <div class="rt-container">
+        <section class="rt-section rt-section--box rt-section--box-col-3 rt-section--news">
+            
+            <div class="rt-section-title-wrapper rt-section-title-wrapper--xl has-button">
+                <h2 class="rt-section-title">{sectionTitle}</h2>
+                <a title="Vedi tutte le news" aria-label="Vedi tutte le news" href="/news" class="rt-btn rt-btn-light">
+                    Vedi tutti 
+                    <i style="color: rgba(0,144,110,0.8);" aria-hidden="true" class="far fa-chevron-right"></i>
+                </a>
+            </div>
+
+            <div class="rt-section__wrapper">
+                
+                {newsItems.length > 0 ? (
+                    newsItems.map((news: any) => {
+                        // Costruiamo l'URL dell'immagine in base ai dati di Payload
+                        const imageUrl = news.coverImage?.url 
+                            ? `http://127.0.0.1:3000${news.coverImage.url}` 
+                            : 'https://picsum.photos/seed/placeholder/800/600';
+                        
+                        return (
+                            <div class="rt-box-news">
+                                
+                                <div class="rt-box-news__image" style={`background-image: url('${imageUrl}')`}>
+                                    <div class="rt-box-news__date">
+                                        {formatDate(news.createdAt)}
+                                    </div>
+                                </div>
+                                
+                                <div class="rt-box-news__text">
+                                    <div class="rt-box-news__title">
+                                        <a href={`/news/${news.slug}`} title={news.title} aria-label={news.title}>
+                                            {news.title}
+                                        </a>
+                                    </div>
+                                    <a style="background:rgba(0,144,110,0.8);" title={news.title} aria-label={news.title} href={`/news/${news.slug}`} class="rt-btn rt-btn-light rt-btn-round">
+                                        <span class="rt-btn-accessible-label">{news.title}</span>
+                                        <i aria-hidden="true" class="far fa-chevron-right"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        );
+                    })
+                ) : (
+                    <div class="alert-no-news">
+                        Nessuna notizia trovata. Aggiungi i primi articoli su Payload!
+                    </div>
+                )}
+
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,588 @@
+/**
+ * BUTTONS
+ *
+ * Style for all types of buttons
+ */
+
+/* ------------------------------------ *\
+   #STANDARD-BUTTON
+\* ------------------------------------ */
+
+.rt-btn,
+.btn-primary,
+.btn-default,
+.btn-primary.btn-default {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: $button-large-height;
+    padding: $spacing-unit;
+    border: none;
+    border-radius: 0;
+    background-color: $color-button-bg;
+    color: #ffffff;
+    font-size: $font-size-ml;
+    font-weight: $font-weight-medium;
+    line-height: 1;
+    text-transform: uppercase;
+    vertical-align: top;
+    text-decoration: none;
+    cursor: pointer;
+    transition-property: border, background-color, color;
+    transition-duration: $transition-durations;
+
+    &:hover {
+        background-color: $color-button-bg-hover;
+        border-color: $color-button-border-hover;
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    /* Disabled */
+    &.disabled, &:disabled, &.disabled:hover, &:disabled:hover {
+        color: $color-gray-01;
+        border-color: $color-button-border;
+        background-color: lighten(desaturate($color-button-bg, 60%), 10%);
+        cursor: not-allowed;
+    }
+
+    /* Active */
+    &.active, &:active, &.active:hover, &:active:hover, &.is-active, &.is-active:hover {
+        color: $color-button-text-hover;
+        border-color: $color-button-text-hover;
+        background-color: lighten($color-button-bg, 5%);
+    }
+
+    /* Label, sometimes inside a SPAN*/
+    .label {
+
+    }
+
+    /* Icon inside button */
+    .icon {
+        // display: inline-block;
+        display: inline;
+        vertical-align: top;
+        font-size: $font-size-xs;
+        line-height: $button-normal-height - ($button-border-width*2);
+        margin: 0 3px;
+    }
+
+    &:not(.rt-search-item__button):not(.rt-btn-round) {
+        i, [class*="fa"] {
+            margin-left: auto;
+            padding-left: $spacing-unit*2;
+        }
+    }
+
+    &.rt-btn-red {
+        background-color: $color-main;
+
+        &:hover,
+        &:focus {
+            background-color: $color-text-link-hover;
+        }
+
+        .active, &:active, &.active:hover, &:active:hover, &.is-active, &.is-active:hover {
+            background-color: lighten($color-main, 5%);
+        }
+    }
+
+    &.rt-btn-green {
+        background-color: $color-servizi;
+
+        &:hover,
+        &:focus {
+            background-color: $color-servizi-hover;
+        }
+
+        .active, &:active, &.active:hover, &:active:hover, &.is-active, &.is-active:hover {
+            background-color: lighten($color-servizi, 5%);
+        }
+    }
+
+    &.rt-btn-yellow {
+        background: $color-text-yellow;
+
+        &:hover,
+        &:focus {
+            background-color:$color-button-yellow-text;
+        }
+
+        .active, &:active, &.active:hover, &:active:hover, &.is-active, &.is-active:hover {
+            background-color: $color-button-yellow-text-light;
+        }
+    }
+
+    &.rt-btn-yellow-light {
+        background: $color-partecipazione;
+
+        &:hover,
+        &:focus {
+            background-color: $color-partecipazione-hover;
+        }
+
+        .active, &:active, &.active:hover, &:active:hover, &.is-active, &.is-active:hover {
+            background-color: $color-partecipazione-light;
+        }
+    }
+
+    &.rt-btn-grey {
+        background: $color-gray-04;
+
+        &:hover,
+        &:focus {
+            background-color: darken($color-gray-04,10%);
+        }
+
+        .active, &:active, &.active:hover, &:active:hover, &.is-active, &.is-active:hover {
+            background-color: lighten($color-gray-04, 5%);
+        }
+    }
+
+    &.rt-btn-white {
+        background: #ffffff;
+        color: $color-text;
+
+        [class*="fa"] {
+            color: $color-text-yellow;
+        }
+
+        &:hover,
+        &:focus {
+            color: $color-partecipazione-hover;
+        }
+
+        .active, &:active, &.active:hover, &:active:hover, &.is-active, &.is-active:hover {
+            color: $color-partecipazione-darker;
+        }
+    }
+
+   
+}
+
+.lfr-ddm-form-submit {
+    background-color: #ffffff;
+    border-radius: 0;
+    color: $color-text;
+    font-size: $font-size-l;
+
+    &::after {
+        margin-left: $spacing-unit*2;
+        @include font-awesome('\f061');
+        color: $color-text-yellow;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: #ffffff;
+        color: $color-partecipazione-hover;
+    }
+
+    .active, &:active, &.active:hover, &:active:hover, &.is-active, &.is-active:hover {
+        background-color: #ffffff;
+        color: $color-partecipazione-darker;
+    }
+}
+
+.rt-portal-content button.dropdown-toggle.component-action.portlet-options.btn.btn-outline-borderless.btn-sm.btn-outline-secondary {
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+html:not(#__):not(#___) .cadmin [type=radio] {
+    position: relative; 
+}
+
+/* ------------------------------------ *\
+   #LIGHT-BUTTON
+\* ------------------------------------ */
+/* No background */
+.rt-btn-light {
+    padding: 0 4px;
+    color: $color-button-light-text;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    text-decoration: none;
+    // line-height: $button-normal-height;
+
+    [class*="fa"] {
+        margin-left: $spacing-unit;
+        color: $color-partecipazione-dark;
+        transition: all $transition-durations ease;
+    }
+
+    .rt-section--servizi & {
+        [class*="fa"] {
+            color: $color-servizi;
+        }
+    }
+
+    &:hover {
+        color: $color-button-light-text-hover;
+        background-color: transparent;
+
+        [class*="fa"] {
+            color: $color-button-light-text-hover;
+        }
+    }
+
+    /* Disabled */
+    &.disabled, &:disabled, &.disabled:hover, &:disabled:hover {
+        color: $color-button-light-text-disabled;
+        background-color: transparent;
+        border: 0;
+        cursor: not-allowed;
+
+        [class*="fa"] {
+            color: $color-button-light-text-disabled;
+        }
+    }
+
+    /* Active */
+    &.active, &:active, &.active:hover, &:active:hover {
+        color: lighten($color-main, 5%);
+        background-color: transparent;
+        border: 0;
+
+        [class*="fa"] {
+            color: lighten($color-main, 5%);
+        }
+    }
+
+    &.rt-btn-border {
+        border-bottom: 1px solid $color-border-normal;
+
+        .rt-col-half & {
+            margin-bottom: $spacing-unit*2;
+        }
+    }
+}
+
+.rt-btn-view {
+    padding-bottom: $spacing-unit*1.5;
+    padding-left: 0;
+    font-size: $font-size-ml;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $color-text-hover;
+        border-color: $color-text-hover;
+    }
+
+    .rt-box &,
+    .rt-box-news & {
+        min-width: initial;
+        padding-bottom: 0;
+        font-weight: $font-weight-bold;
+        text-transform: none;
+        color: $color-text-yellow;
+        font-size: $font-size-s;
+    }
+
+}
+
+.rt-btn-white {
+    background: #ffffff;
+}
+
+//$button-normal-height
+.rt-btn-round {
+    justify-content: center;
+    align-items: center;
+    width: $button-normal-height;
+    height: $button-normal-height;
+    min-width: $button-normal-height;
+    padding: 0;
+    border-radius: $button-normal-height;
+    line-height: $button-normal-height;
+    border: none;
+    background: $color-partecipazione;
+    font-size: $font-size-s;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+
+    [class*="fa"] {
+        margin-left: 0;
+        color: #ffffff;
+        font-size: $font-size-ml;
+        transition: all $transition-durations ease;
+    }
+
+    &:hover,
+    &:focus {
+        background: #ffffff;
+        color: $color-main;
+
+        [class*="fa"] {
+            color: $color-text-yellow;
+        }
+    }
+}
+
+/* Read content button */
+
+.rt-btn-read {
+    height: auto;
+    //font-weight: $font-weight-bold;
+    line-height: 1.6;
+    font-size: $font-size-s;
+}
+
+.rt-btn-read-small {
+    text-transform: none;
+    font-weight: $font-weight-bold;
+
+    // &::before {
+    //     content: '…';
+    // }
+}
+
+/* Play video button */
+
+.rt-btn-video {
+    .fa-youtube {
+        color: $color-main;
+        font-size: $font-size-l;
+    }
+}
+
+/* Share content button */
+
+.rt-btn-share {
+    height: $button-normal-height;
+    padding: 0 $spacing-unit;
+    background: #ffffff;
+    border-radius: $button-normal-height;
+    font-weight: $font-weight-medium;
+    border: 1px solid $color-border-normal;
+    font-size: $font-size-xs;
+    white-space: nowrap;
+    text-transform: none;
+
+    [class*="fa"] {
+        margin-left: $spacing-unit;
+        color: $color-text-light;
+        font-size: $font-size-ml;
+        transition: all $transition-durations ease;
+    }
+
+    .rt-btn-round__label {
+        margin-right: $spacing-unit/2;
+    }
+
+    &:hover,
+    &:focus {
+        background: #ffffff;
+        border-color: $color-border-light;
+        color: $color-main;
+
+        [class*="fa"] {
+            color: $color-main;
+        }
+    }
+}
+
+/* ------------------------------------ *\
+   #CALL-TO-ACTION-BUTTON
+\* ------------------------------------ */
+
+.rt-btn-cta {
+    font-size: $font-size-s;
+}
+
+/* ------------------------------------ *\
+   #BUTTON-WRAPPER
+\* ------------------------------------ */
+
+.rt-btn-wrapper {
+    display: flex;
+    width: 100%;
+
+    &.rt-btn-wrapper--right-align {
+        justify-content: flex-end;
+    }
+}
+
+
+/* ------------------------------------ *\
+   #BUTTON-SIZES
+\* ------------------------------------ */
+
+.rt-btn-l,
+.rt-btn-xl {
+    height: $button-l-height-mobile;
+    padding-right: $spacing-unit*2;
+    padding-left: $spacing-unit*2;
+    line-height: $button-l-height-mobile;
+    font-size: $font-size-ml;
+}
+
+
+.rt-btn-xl {
+    height: $button-l-height-mobile;
+    padding-right: $spacing-unit*2;
+    padding-left: $spacing-unit*2;
+    line-height: $button-l-height-mobile;
+    font-size: $font-size-ml;
+}
+
+/* ------------------------------------ *\
+   #BUTTON-BOLDER
+\* ------------------------------------ */
+.rt-btn-bolder {
+    font-weight: $font-weight-bold;
+}
+
+/* ------------------------------------ *\
+   #BUTTON-ACCESSIBLE-LABEL
+\* ------------------------------------ */
+.rt-btn-accessible-label {
+    @include accessible-text;
+}
+
+/* ------------------------------------ *\
+   #GO-TO-LINK
+\* ------------------------------------ */
+
+.rt-go-to {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    box-shadow: 0 0 15px -5px rgba(183,183,183,0.5);
+    border-radius: 3px;
+    position: relative;
+    color: $color-text-form-placeholder;
+    font-size: $font-size-s;
+
+    &:hover,
+    &:focus {
+        color: $color-text-hover;
+    }
+    
+    input[type="text"] {
+        flex: 1;
+        padding-right: $spacing-unit*4;
+        background: transparent;
+        position: relative;
+    }
+
+    [class*="fa"] {
+        padding: $spacing-unit*2;
+        position: absolute;
+        right: 0;
+        @include vertical-centering;
+        color: $color-text-light;
+        font-size: $font-size-intermedium;
+
+        &:hover,
+        &:focus {
+            color: $color-text-hover;
+        }
+    }
+}
+
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+    .rt-btn {
+        width: 100%;
+        padding: $spacing-unit;
+        font-size: $font-size-m;
+
+        .rt-section-title-wrapper & {
+            margin-top: $spacing-unit;
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+
+    .rt-btn-view {
+        display: flex;
+        margin-bottom: $spacing-unit;
+    }
+
+    .rt-btn-share,
+    .rt-btn-round {
+        width: auto;
+    }
+
+    .lfr-ddm-form-submit {
+        font-size: $font-size-ml;
+    }
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+    .rt-btn {
+        min-width: 190px;
+        font-size: $font-size-intermedium;
+
+        .rt-form-item--action & {
+            width: 364px;
+        }
+
+        .rt-section-title-wrapper & {
+            align-items: flex-end;
+
+            [class*="fa"] {
+                line-height: 1.2;
+            }
+        }
+    }
+
+    .rt-btn-wrapper {
+        padding-top: $spacing-unit;
+    }
+
+    .rt-btn-read {
+        font-size: $font-size-m;
+    }
+
+    .rt-btn-l {
+        height: $button-l-height;
+        line-height: $button-l-height;
+        font-size: $font-size-ml;
+    }
+
+    .rt-btn-xl {
+        padding-right: $spacing-unit*2;
+        padding-left: $spacing-unit*2;
+        font-size: $button-xl-font-size;
+    }
+
+    .rt-btn-video {
+        .fa-youtube {
+            font-size: $font-size-2m;
+        }
+    }
+
+    .rt-btn-share {
+        min-width: 134px;
+        font-size: $font-size-xs;
+    }
+
+    .rt-btn-round {
+        min-width: $button-normal-height;
+    }
+
+    .rt-btn-cta {
+        min-width: 260px;
+        font-size: $font-size-m;
+    }
+
+    .rt-btn-full {
+        width: 100%;
+    }
+
+    .rt-btn-light.rt-btn-border {
+        .rt-col-half & {
+       
+            margin-bottom: $spacing-unit*3.5;
+        }
+    }
+}

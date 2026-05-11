@@ -1,46 +1,73 @@
 ---
-// src/components/blocks/ServiziSection.astro
-
-// 1. Riceviamo i dati dal blocco di Payload
-const { titoloSezione, listaServizi = [] } = Astro.props;
+// src/components/blocks/ServiziBlock.astro
 ---
 
-<section class="rt-section rt-section--grid rt-section--services" aria-label="Servizi">
-  <div class="rt-container">
-    
-    <div class="rt-section-title-wrapper">
-      {/* Il titolo è dinamico, scelto dal redattore */}
-      <h2 class="rt-section-title">{titoloSezione || 'Servizi in Evidenza'}</h2>
-    </div>
-
-    <div class="rt-section__wrapper" id="rt-service-container">
-      
-      {/* 2. IL CICLO MAP: Ripete questo blocco HTML per ogni elemento nell'array */}
-      {listaServizi.map((servizio: any) => (
-        <div class="rt-box rt-box--service">
-          
-          <div class="rt-box__title">
-            <a href={servizio.linkURL || '#'}>
-              {/* L'icona cambia in base a quello che sceglie il redattore */}
-              <i aria-hidden="true" class={servizio.classeIcona || 'rt-icon-salute'}></i> 
-              {servizio.nomeServizio}
-            </a>
-            <div class="rt-box__text">{servizio.descrizioneBreve}</div>
-          </div>
-          
-          <div class="rt-box__footer">
-            <div class="rt-box__tags">
-              {/* Stampiamo i tag (es. "Cittadino", "Impresa") */}
-              {servizio.tagUtente && (
-                <span class="rt-box__tags-item">{servizio.tagUtente}</span>
-              )}
+<div class="rt-wrapper">
+    <div class="rt-container">
+        
+        <div class="rt-subheader rt-subheader--search rt-subheader--services">
+            <div class="rt-container">
+                <div class="rt-subheader__content">
+                    <i class="openico-servizi" aria-hidden="true"></i>
+                    <div class="rt-subheader__text">
+                        <h1 class="rt-subheader__title">Servizi</h1>
+                        <h2 class="rt-subheader__subtitle">Tutti i servizi online a portata di click</h2>
+                    </div>
+                </div>
+                <div class="rt-subheader__search">
+                    <div class="rt-search-bar" role="search">
+                        <form id="my-form" style="display:flex;">
+                            <div class="rt-form-item rt-form-item--text rt-form-item--icon">
+                                <input placeholder="Cerca servizi" type="text" aria-label="Cerca servizi">
+                                <a href="#"><i aria-hidden="true" class="far fa-search"></i></a>
+                            </div>
+                            <div class="rt-form-item rt-form-item--text rt-form-item--icon" style="margin-left:10px;">
+                                <input placeholder="Cerca per comune/ente" type="text" aria-label="Cerca per comune/ente">
+                                <a href="#"><i aria-hidden="true" class="far fa-search"></i></a>
+                            </div>
+                            <div class="rt-form-item rt-form-item--select" style="margin-left:10px;">
+                                <div class="rt-form-item__select-wrapper rt-form-item__select-wrapper-light">
+                                    <select class="rt-select" aria-label="Categoria">
+                                        <option value="tutti">Tutte le categorie</option>
+                                    </select>
+                                    <i aria-hidden="true" class="fas fa-caret-down"></i>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div> <div class="container rt-content" id="content">
+            <div class="row">
+                <div class="col-md-12 portlet-column portlet-column-only">
+                    <section class="rt-section rt-section--grid rt-section--grid-3 rt-section--services">
+                        <div class="rt-section__wrapper">
+                            
+                            <div class="rt-box rt-box--service">
+                                <div class="rt-box__title">
+                                    <a href="#"><i aria-hidden="true" class="rt-icon-salute"></i>Cambio medico</a>
+                                    <div class="rt-box__text">Servizio per la gestione della scelta e revoca del medico di medicina generale...</div>
+                                </div>
+                                <div class="rt-box__footer">
+                                    <div class="rt-box__tags"><i aria-hidden="true" class="fas fa-tags"></i><span>Regione Toscana</span></div>
+                                    <div class="rt-box__actions"><i aria-hidden="true" class="far fa-id-card"></i></div>
+                                </div>
+                            </div>
 
-        </div>
-      ))}
-      {/* Fine del ciclo */}
-
-    </div>
-  </div>
-</section>
+                            <div class="rt-box rt-box--service">
+                                <div class="rt-box__title">
+                                    <a href="#"><i aria-hidden="true" class="rt-icon-lavoro"></i>Centri per l'impiego</a>
+                                    <div class="rt-box__text">Consultazione della banca dati georeferenziata degli Uffici per il Lavoro...</div>
+                                </div>
+                                <div class="rt-box__footer">
+                                    <div class="rt-box__tags"><i aria-hidden="true" class="fas fa-tags"></i><span>Regione Toscana</span></div>
+                                    <div class="rt-box__actions"><i aria-hidden="true" class="far fa-id-card"></i></div>
+                                </div>
+                            </div>
+                            
+                            </div>
+                    </section>
+                </div>
+            </div>
+        </div> </div>
+</div>

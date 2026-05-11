@@ -1,40 +1,76 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
-const { pageTitle } = Astro.props;
+import CookieBanner from "../components/CookieBanner.astro";
+
+// Aggiunto un valore di default "Pagina" per evitare crash se il titolo manca
+const { pageTitle = "Pagina" } = Astro.props;
 ---
+
 <html lang="it">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{pageTitle} - Open Toscana</title>
-    
-    <link rel="stylesheet" href="https://open.toscana.it/o/open-toscana-restyled-theme/css/clay.css" />
-    <link rel="stylesheet" href="https://open.toscana.it/o/open-toscana-restyled-theme/css/main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-</head>
-<body class="public-page">
-    
+  <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <title>{pageTitle} - Open Toscana</title>
+      
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/flexslider.min.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+      
+      <link rel="stylesheet" href="/css/clay.css" />
+      <link rel="stylesheet" href="/css/main.css" />
+      
+  </head>
+  
+  <body class="public-page site guest-site">
     <nav aria-label="Collegamenti Veloci" class="sr-only sr-only-focusable">
       <a href="#main-content">Salta al contenuto principale</a>
     </nav>
 
     <div class="pt-0 rt-portal-content" id="wrapper">
-      
       <Header />
 
-      <main id="main-content">
-        <slot />
+      <main id="main-content" class="ot-100-layouttpl rt-home-content">
+        <div class="rt-row-main-content portlet-layout row">
+          <div class="col-md-12 portlet-column portlet-column-only">
+            <div class="portlet-body">
+              
+              <slot />
+
+            </div>
+          </div>
+        </div>
       </main>
 
       <Footer />
-
+      <CookieBanner />
     </div>
-    <script is:inline src="/js/vendors/flexslider/jquery.flexslider.js"></script>
-    <script is:inline src="/js/vendors/slick/slick.js"></script>
-    
-</body>
+
+    <script>
+      // Script per gestire la classe is-scrolled (compatta l'header quando si scende)
+      window.addEventListener("scroll", () => {
+        document.body.classList.toggle("is-scrolled", window.scrollY > 0);
+      });
+    </script>
+
+    <script is:inline src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/jquery.flexslider-min.js"></script>
+
+    <script is:inline>
+      // Aspettiamo che la pagina sia caricata per far partire lo slider
+      $(window).on('load', function() {
+        if ($('.rt-slider--main-slider').length) {
+          $('.rt-slider--main-slider').flexslider({
+            animation: "slide",
+            controlNav: true,
+            directionNav: false,
+            slideshowSpeed: 5000 // Cambia slide ogni 5 secondi
+          });
+        }
+      });
+    </script>
+
+  </body>
 </html>

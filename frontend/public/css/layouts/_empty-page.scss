@@ -1,0 +1,91 @@
+/**
+ * EMPTY-PAGE
+ *
+ * Error pages and empty states layout
+ */
+
+/* ------------------------------------ *\
+   #EMPTY-STATES
+\* ------------------------------------ */
+
+/* Empty state page */
+.rt-empty-state {
+    display: flex;
+
+    &__status,
+    &__action {
+        font-size: $font-size-m;
+    }
+
+    &__action {
+        a {
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    .rt-social-media {
+        padding-top: $spacing-unit * 2;
+        justify-content: flex-start;
+    }
+}
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+    /* Empty state page */
+    .rt-empty-state {
+        flex-flow: column-reverse nowrap;
+        align-items: center;
+
+        .rt-page-title {
+            font-size: $font-size-ml;
+        }
+
+        &__image {
+            max-width: 150px;
+        }
+
+        &__logo {
+            max-width: 180px;
+            margin: 0 auto $spacing-unit;
+        }
+
+        &__text {
+            margin-bottom: $spacing-unit;
+            text-align: center;
+        }
+
+        .rt-social-media {
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+    /* Empty state page */
+    .rt-empty-state {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__image {
+            @include flex-item-width(500px);
+            margin-right: $spacing-unit * 3;
+        }
+
+        &__logo {
+            max-width: 360px;
+            margin-bottom: $spacing-unit * 3;
+        }
+
+        .rt-page-title {
+            margin-bottom: $spacing-unit;
+        }
+    }
+}

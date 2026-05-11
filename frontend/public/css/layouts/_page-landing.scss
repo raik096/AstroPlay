@@ -1,0 +1,103 @@
+/**
+ * LANDING PAGE
+ *
+ * Layout for landing page
+ */
+
+/* ------------------------------------ *\
+   #LANDING-PAGE
+\* ------------------------------------ */
+.rt-landing {
+   .rt-btn-light.rt-btn-border {
+      margin-bottom: $spacing-unit*5;
+      padding-right: 0;
+      padding-left: 0;
+      font-size: $font-size-sm;
+
+      [class*="fa"] {
+         color: $color-social;
+         font-size: $font-size-ml;
+      }
+   }
+
+   .rt-page-title-landing {
+      font-weight: $font-weight-bold;
+      color: $color-main;
+   }
+}
+
+/* Donwload section */
+.rt-landing-download {
+   .rt-landing-download__title {
+      margin-bottom: $spacing-unit*2;
+      color: $color-main;
+      font-weight: $font-weight-bold;
+   }
+
+   .rt-landing-download__buttons {
+      display: flex;
+   }
+
+   .rt-landing-download__app-btn {
+      margin-right: $spacing-unit;
+   }
+}
+
+/* Sidebar widget */
+.rt-widget {
+   .rt-widget__title {
+      margin-bottom: $spacing-unit*3;
+      padding: $spacing-unit 0;
+      border-bottom: 1px solid $color-border-normal;
+      text-transform: uppercase;
+      font-size: $font-size-sm;
+   }
+
+   .rt-widget__buttons {
+      display: flex;
+      flex-flow: column nowrap;
+   }
+
+   .rt-widget__btn {
+      margin-bottom: $spacing-unit*2;
+   }
+}
+
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+   .rt-widget {
+      &__app {
+         display: none;
+      }
+   }
+
+}
+
+@media all and (max-width: $breakpoint-smartphone-landscape) {
+}
+
+@media all and (min-width: $ui-width) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+
+}
+
+@media all and (min-width: $breakpoint-laptop) {
+   .rt-landing {
+      .col-lg-9 {
+         
+      }
+   }
+}
+

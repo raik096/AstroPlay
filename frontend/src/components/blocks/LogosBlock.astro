@@ -1,0 +1,29 @@
+---
+// src/components/blocks/LogosBlock.astro
+const { logos } = Astro.props;
+---
+
+<div class="rt-wrapper rt-wrapper-fullwidth">
+    <section class="rt-wrapper-fullwidth__container rt-row-loghi">
+    {logos && logos.map((item: any) => {
+        const imageUrl = item.image?.url ? `http://127.0.0.1:3000${item.image.url}` : '';
+        
+        return (
+            <a 
+                class="rt-row-loghi__logo" 
+                href={item.link || '#'} 
+                title={item.title} 
+                aria-label={item.title}
+                target={item.link?.startsWith('http') ? "_blank" : "_self"}
+                rel="noopener noreferrer"
+            >
+                <img 
+                    alt={item.title} 
+                    src={imageUrl} 
+                    srcset={`${imageUrl} 2x`} 
+                />
+            </a>
+        );
+    })}
+    </section>
+</div>

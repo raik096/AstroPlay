@@ -1,0 +1,79 @@
+/**
+ *  CHART
+ *
+ *  Chart style
+ */
+
+/* ------------------------------------ *\
+   #CHART
+\* ------------------------------------ */
+
+.rt-chart {
+    padding: $spacing-unit;
+
+    .rt-chart__caption {
+        font-weight: $font-weight-light;
+        color: $color-gray-06;
+        font-size: $font-size-m;
+        line-height: 1.2;
+    }
+}
+
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+
+}
+
+
+@media all and (max-width: $breakpoint-smartphone-landscape) {
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+    .rt-chart {
+        .rt-chart__caption {
+            font-size: $font-size-intermedium;
+        }
+    }
+}
+
+@media all and (min-width: $breakpoint-laptop) {
+
+}
+
+
+@media all and (min-width: $breakpoint-laptop-wide) {
+
+}
+
+@media all and (max-width: $ui-width - 1) {
+    .rt-chart {
+        .rt-chart__chart {
+            margin-bottom: $spacing-unit*2;
+        }
+    }
+}
+
+@media all and (min-width: $ui-width) {
+    .rt-chart {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+
+        .rt-chart__chart {
+            @include flex-item-width(60%);
+        }
+
+        .rt-chart__caption {
+            flex: 0 1 40%;
+            max-width: 40%;
+            padding: 0 $spacing-unit*2;
+        }
+    }
+}

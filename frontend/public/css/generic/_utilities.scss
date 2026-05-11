@@ -1,0 +1,44 @@
+/**
+ * UTILITIES
+ *
+ * Utilities classes and styles
+ */
+
+
+/* ------------------------------------ *\
+   #TEXT-ELLIPSIS
+\* ------------------------------------ */
+.rt-text-ellipsis {
+    &::after {
+        content: '\2026';
+    }
+}
+
+
+/* ------------------------------------ *\
+   #HIDDEN-LABEL
+\* ------------------------------------ */
+.rt-hidden-label {
+    @include accessible-text;
+}
+
+
+/* ------------------------------------ *\
+   #MENU-ANIMATION
+\* ------------------------------------ */
+@-webkit-keyframes toggle-sticky-menu {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-moz-keyframes toggle-sticky-menu {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-o-keyframes toggle-sticky-menu {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes toggle-sticky-menu {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }

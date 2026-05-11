@@ -1,0 +1,137 @@
+---
+// src/components/CookieConsent.astro
+---
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.css">
+
+<a id="btnCookies" href="javascript:void(0)" title="Preferenze dei cookie">
+    Preferenze dei cookie
+</a>
+
+<script is:inline src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.js"></script>
+
+<script is:inline>
+    var cc = initCookieConsent();
+
+    cc.run({
+        current_lang : 'it',
+        autoclear_cookies : true,
+        cookie_name: 'cc_cookie_10182',
+        cookie_expiration : 182,
+        page_scripts: true,
+        gui_options: {
+            consent_modal: {
+                layout: 'box',
+                position: 'bottom right',
+                transition: 'slide'
+            },
+            settings_modal: {
+                layout: 'box',
+                transition: 'slide'
+            }
+        },
+        onAccept: function (cookie) {
+            // Logica dopo l'accettazione
+        },
+        onFirstAction: function(user_preferences, cookie){
+            location.reload();
+        },
+        onChange: function (cookie, changed_preferences) {
+            location.reload();
+        },
+        languages: {
+            'it': {
+                consent_modal: {
+                    title: 'Usiamo i cookie!',
+                    description: 'Questo sito web utilizza cookie essenziali per garantire il suo corretto funzionamento ed eventuali cookie di tracciamento per capire come interagisci con esso. Questi ultimi saranno impostati solo dopo il consenso. <br/><button type="button" data-cc="c-settings" class="cc-link">Fammi scegliere</button>',
+                    primary_btn: {
+                        text: 'Accetta tutti',
+                        role: 'accept_all'
+                    },
+                    secondary_btn: {
+                        text: 'Rifiuta tutti',
+                        role: 'accept_necessary'
+                    }
+                },
+                settings_modal: {
+                    title: "Impostazioni dei cookie",
+                    save_settings_btn: 'Salva le scelte',
+                    accept_all_btn: 'Accetta tutti',
+                    reject_all_btn: 'Rifiuta tutti',
+                    close_btn_label: 'Close',
+                    cookie_table_headers: [
+                        {col1: 'Nome'},
+                        {col2: 'Dominio'},
+                        {col3: 'Breve descrizione'}
+                    ],
+                    blocks: [
+                        {
+                            title: "Panoramica sulla privacy",
+                            description: "Questo sito utilizza i cookie per migliorare la tua esperienza di navigazione..."
+                        },
+                        {
+                            title: "Necessari",
+                            description: "I cookie necessari sono assolutamente essenziali per il corretto funzionamento del sito web.",
+                            toggle: { readonly: true, value: "necessary", enabled: true }
+                        },
+                        {
+                            title: "Terze Parti",
+                            description: "I cookie di terze parti sono quei cookie rilasciati non direttamente dal sito ma da sistemi terzi...",
+                            toggle: { readonly: false, value: "third-party", enabled: false }
+                        }
+                    ]
+                }
+            }
+        }
+    });
+
+    // Colleghiamo il click del bottone alla modale della libreria
+    document.getElementById('btnCookies').addEventListener('click', function (e) {
+        e.preventDefault();
+        cc.showSettings(0);
+    });
+</script>
+
+<style is:global>
+    /* STILI ESATTI INCOLLATI DA TE PER IL BOTTONE (Fuso tra .btn, .btn-secondary e #btnCookies) */
+    #btnCookies {
+        position: fixed;
+        visibility: visible;
+        bottom: 0;
+        right: 15px;
+        z-index: 15;
+        
+        background-color: #6c757d;
+        border: 0.0625rem solid #6c757d;
+        border-radius: 0.25rem;
+        /* Rimuoviamo il raggio in basso come da tua richiesta */
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        padding: 0.375rem 0.75rem;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        vertical-align: middle;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    #btnCookies:hover, #btnCookies:focus {
+        background-color: #5a6268;
+        border-color: #545b62;
+        color: #fff;
+        text-decoration: none;
+        outline: none;
+    }
+
+    /* Forza il colore verde del bottone primario della modale per matchare Open Toscana */
+    #s-all-bn, #c-p-bn {
+        background-color: #00906e !important;
+    }
+</style>

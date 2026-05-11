@@ -1,0 +1,142 @@
+---
+// src/components/blocks/VideoBlock.astro
+const { videoUrl, caption } = Astro.props;
+
+const videoTitle = caption || "Video in evidenza";
+
+// Estrae l'ID per generare sia il link Embed pulito, sia il link originale di YouTube
+function getYouTubeUrls(url: string) {
+    if (!url) return { embed: null, original: null };
+    try {
+        const urlObj = new URL(url);
+        let videoId = urlObj.searchParams.get('v');
+        // Gestione dei link corti youtu.be
+        if (!videoId && urlObj.hostname === 'youtu.be') {
+            videoId = urlObj.pathname.slice(1);
+        }
+        if (videoId) {
+            return {
+                embed: `https://www.youtube.com/embed/${videoId}`,
+                original: `https://www.youtube.com/watch?v=${videoId}`
+            };
+        }
+        return { embed: null, original: null };
+    } catch (e) {
+        return { embed: null, original: null };
+    }
+}
+
+// Generiamo gli URL per il video principale
+const urls = videoUrl 
+    ? getYouTubeUrls(videoUrl) 
+    : { embed: "https://www.youtube.com/embed/I_bsVYEHoNs", original: "https://www.youtube.com/watch?v=I_bsVYEHoNs" };
+
+const embedUrl = urls.embed;
+const originalUrl = urls.original;
+
+// Array statico per i due video secondari (esattamente come nel tuo codice)
+const secondaryVideos = [
+    { title: "Rete SUAP", embed: "https://www.youtube.com/embed/O2AZ7S2iHY8", original: "https://www.youtube.com/watch?v=O2AZ7S2iHY8" },
+    { title: "Fascicolo Sanitario", embed: "https://www.youtube.com/embed/soZLfUMyBR4", original: "https://www.youtube.com/watch?v=soZLfUMyBR4" }
+];
+---
+
+<div class="rt-wrapper rt-videos">
+    <div class="rt-container">
+        
+        <div class="rt-section-title-wrapper">
+            <h2 class="rt-section-title">
+                <i aria-hidden="true" class="fab fa-youtube"></i> VIDEO
+            </h2>
+        </div>
+        
+        <div class="rt-box-video rt-box-video--highlight">
+            <div class="rt-box-video__video cookie-video-container" data-embed={embedUrl}>
+                
+                <span class="d-inline-block p-4">
+                    Non hai accettato i cookie per le terze parti, guarda il video al seguente 
+                    <a href={originalUrl} rel="noopener noreferrer" target="_blank">link</a>
+                    o <a href="javascript:cc.showSettings(0);">aggiorna le preferenze dei cookie</a>
+                </span>
+
+            </div>
+            <div class="rt-box-video__infos">
+                <h3 class="rt-box-video__title">{videoTitle}</h3>
+            </div>
+        </div>
+        
+        <div class="rt-videos__list">
+            {secondaryVideos.map((vid) => (
+                <div class="rt-box-video">
+                    <div class="rt-box-video__video cookie-video-container" data-embed={vid.embed}>
+                        
+                        <span class="d-inline-block p-4">
+                            Non hai accettato i cookie per le terze parti, guarda il video al seguente 
+                            <a href={vid.original} rel="noopener noreferrer" target="_blank">link</a>
+                            o <a href="javascript:cc.showSettings(0);">aggiorna le preferenze dei cookie</a>
+                        </span>
+
+                    </div>
+                    <div class="rt-box-video__infos">
+                        <h3 class="rt-box-video__title">{vid.title}</h3>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Questo script gira nel browser appena la pagina ha finito di caricare
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // 1. Funzione per leggere il cookie salvato dalla libreria
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) {
+                return decodeURIComponent(parts[1].split(';')[0]);
+            }
+            return null;
+        }
+
+        const cookieStr = getCookie('cc_cookie_10182');
+        let hasThirdParty = false;
+
+        // 2. Controllo se l'utente ha accettato le 'third-party'
+        if (cookieStr) {
+            try {
+                // Il cookie della libreria salva un JSON
+                const cookieData = JSON.parse(cookieStr);
+                if (cookieData.level && cookieData.level.includes('third-party')) {
+                    hasThirdParty = true;
+                }
+            } catch(e) {
+                console.error("Errore lettura cookie consent", e);
+            }
+        }
+
+        // 3. Se ha accettato, inietto l'Iframe al posto del testo!
+        if (hasThirdParty) {
+            const containers = document.querySelectorAll('.cookie-video-container');
+            
+            containers.forEach(container => {
+                const embedUrl = container.getAttribute('data-embed');
+                if (embedUrl) {
+                    // Creiamo l'iframe e sovrascriviamo lo <span> del placeholder
+                    container.innerHTML = `
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            src="${embedUrl}" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                        ></iframe>
+                    `;
+                }
+            });
+        }
+    });
+</script>

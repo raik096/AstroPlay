@@ -189,8 +189,8 @@ export interface Friend {
 export interface News {
   id: number;
   title: string;
-  excerpt?: string | null;
-  publishedDate?: string | null;
+  slug: string;
+  coverImage: number | Media;
   content?: {
     root: {
       type: string;
@@ -206,8 +206,6 @@ export interface News {
     };
     [k: string]: unknown;
   } | null;
-  category?: ('tech' | 'events' | 'company') | null;
-  author?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -222,8 +220,14 @@ export interface Page {
   layout?:
     | (
         | {
-            heading: string;
-            subheading?: string | null;
+            slides?:
+              | {
+                  title: string;
+                  image: number | Media;
+                  link?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -273,10 +277,58 @@ export interface Page {
             blockName?: string | null;
             blockType: 'serviziSection';
           }
+        | VideoBlock
+        | NewsBlock
+        | LogosBlock
       )[]
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  /**
+   * Inserisci il link completo del video.
+   */
+  videoUrl: string;
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'videoBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsBlock".
+ */
+export interface NewsBlock {
+  title: string;
+  /**
+   * Quante notizie vuoi far apparire in questa sezione?
+   */
+  limit?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock".
+ */
+export interface LogosBlock {
+  logos?:
+    | {
+        image: number | Media;
+        link?: string | null;
+        title: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logosBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -438,11 +490,9 @@ export interface FriendsSelect<T extends boolean = true> {
  */
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
-  excerpt?: T;
-  publishedDate?: T;
+  slug?: T;
+  coverImage?: T;
   content?: T;
-  category?: T;
-  author?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -459,8 +509,14 @@ export interface PagesSelect<T extends boolean = true> {
         hero?:
           | T
           | {
-              heading?: T;
-              subheading?: T;
+              slides?:
+                | T
+                | {
+                    title?: T;
+                    image?: T;
+                    link?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -498,9 +554,48 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        videoBlock?: T | VideoBlockSelect<T>;
+        newsBlock?: T | NewsBlockSelect<T>;
+        logosBlock?: T | LogosBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  videoUrl?: T;
+  caption?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsBlock_select".
+ */
+export interface NewsBlockSelect<T extends boolean = true> {
+  title?: T;
+  limit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogosBlock_select".
+ */
+export interface LogosBlockSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        image?: T;
+        link?: T;
+        title?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

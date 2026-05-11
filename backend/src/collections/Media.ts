@@ -2,15 +2,9 @@ import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
   slug: 'media',
-  access: {
-    read: () => true,
-  },
+  upload: true, // Abilita il caricamento dei file
+  access: { read: () => true },
   fields: [
-    {
-      name: 'alt',
-      type: 'text',
-      required: true,
-    },
+    { name: 'alt', type: 'text', required: true },
   ],
-  upload: true,
 }

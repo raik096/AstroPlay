@@ -6,20 +6,46 @@ import Hero from '../components/blocks/Hero.astro';
 import TextImage from '../components/blocks/TextImage.astro';
 import FormBlock from '../components/blocks/FormBlock.astro';
 import ServiziSection from '../components/blocks/ServiziSection.astro';
+import VideoBlock from '../components/blocks/VideoBlock.astro';
+import NewsBlock from '../components/blocks/NewsBlock.astro';
+import LogosBlock from '../components/blocks/LogosBlock.astro';
 
+// 2. FORZIAMO LA MODALITÀ SERVER (SSR)
 export const prerender = false;
 
+// 3. CATTURIAMO LO SLUG DALL'URL
+
 const { slug } = Astro.params;
-let pageData = null;
+
+// 1. Gestione intelligente dello slug per la Home
+// Se lo slug è undefined o vuoto (siamo in radice /), cerchiamo "home"
+const targetSlug = slug || 'home'; 
+let pageData = null
+
+
+console.log(`\n🌍 [ASTRO] URL richiesto: /${slug || ''}`);
+console.log(`🔄 [ASTRO] Chiedo a Payload lo slug = ${targetSlug}...`);
 
 try {
-    const response = await fetch(`http://127.0.0.1:3000/api/pages?where[slug][equals]=${slug}`);
+    // Usiamo targetSlug nella fetch
+    const response = await fetch(`http://127.0.0.1:3000/api/pages?where[slug][equals]=${targetSlug}`);
     const data = await response.json();
-    pageData = data.docs[0];
-} catch (e) {
-    console.error("🚨 Errore fetch pagina:", e);
+    
+    if (data.docs && data.docs.length > 0) {
+        pageData = data.docs[0];
+        console.log(`✅ [ASTRO] Successo! Trovata pagina: "${pageData.title}"`);
+    }
+} catch (e: any) {
+    console.error("🚨 [ASTRO] Errore di connessione a Payload:", e.message);
 }
 
+// 2. Se abbiamo cercato "home" ma siamo sull'URL "/home", facciamo pulizia 
+// (opzionale, per avere l'URL pulito senza la scritta /home)
+if (slug === 'home' && pageData) {
+    return Astro.redirect('/');
+}
+
+// 3. SE NON C'È LA PAGINA, MOSTRA 404
 if (!pageData) {
     return Astro.redirect('/404');
 }
@@ -27,8 +53,11 @@ if (!pageData) {
 const blockComponents = {
     hero: Hero,
     textImage: TextImage,
-    formBlock: FormBlock, 
-    serviziSection: ServiziSection, 
+    formBlock: FormBlock,
+    serviziSection: ServiziSection,
+    videoBlock: VideoBlock, 
+    newsBlock: NewsBlock,
+    logosBlock: LogosBlock
 };
 ---
 
@@ -49,21 +78,3 @@ const blockComponents = {
         })}
     </article>
 </BaseLayout>
-
-<style>
-    .dynamic-page { 
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .debug-warning {
-        background: #fef3c7;
-        color: #92400e;
-        padding: 1rem;
-        margin: 1rem;
-        border: 1px dashed #f59e0b;
-        border-radius: 8px;
-        text-align: center;
-        font-family: monospace;
-    }
-</style>

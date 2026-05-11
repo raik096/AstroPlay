@@ -5,7 +5,9 @@ import { HeroBlock } from '../blocks/HeroBlock'
 import { TextImageBlock } from '../blocks/TextImageBlock'
 import { FormBlock } from '../blocks/FormBlock'
 import { ServiziSectionBlock } from '../blocks/ServiziSectionBlock'
-
+import { VideoBlock } from '../blocks/VideoBlock'
+import { NewsBlock } from '../blocks/NewsBlock'
+import { LogosBlock } from '../blocks/LogosBlock'
 
 const triggerVercelBuild = async () => {
   const webhookURL = 'https://api.vercel.com/v1/integrations/deploy/prj_xyz123'; 
@@ -49,7 +51,7 @@ export const Pages: CollectionConfig = {
         if (operation === 'create') {
           try {
             await req.payload.create({
-              collection: 'navigation', // Assicurati di aver creato Navigation.ts!
+              collection: 'navigation',
               data: {
                 label: doc.title,
                 page: doc.id,
@@ -86,6 +88,9 @@ export const Pages: CollectionConfig = {
         TextImageBlock,
         FormBlock,
         ServiziSectionBlock,
+        VideoBlock,
+        NewsBlock,
+        LogosBlock
       ],
     },
   ],

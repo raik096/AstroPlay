@@ -1,24 +1,17 @@
-// src/blocks/HeroBlock.ts
 import type { Block } from 'payload'
 
 export const HeroBlock: Block = {
-  slug: 'hero', // L'ID univoco di questo blocco
-  labels: {
-    singular: 'Blocco Hero',
-    plural: 'Blocchi Hero',
-  },
+  slug: 'hero',
   fields: [
     {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      label: 'Titolo Principale',
+      name: 'slides',
+      type: 'array', // Permette di aggiungere più slide
+      minRows: 1,
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
+        { name: 'link', type: 'text' },
+      ],
     },
-    {
-      name: 'subheading',
-      type: 'text',
-      label: 'Sottotitolo',
-    },
-    // Potresti aggiungere anche un campo 'image' per lo sfondo!
   ],
 }

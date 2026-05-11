@@ -1,0 +1,149 @@
+/**
+ * NEWSLETTER
+ *
+ * Layout for newsletter 
+ */
+
+/* ------------------------------------ *\
+   #NEWSLETTER
+\* ------------------------------------ */
+
+.rt-form-newsletter {
+    .rt-form-required {
+        margin-bottom: $spacing-unit*2;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-s;
+    }
+
+    .rt-form-item {
+        margin-bottom: $spacing-unit;
+
+        label {
+            margin-bottom: $spacing-unit/5;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    .rt-form-item__wrapper-input {
+        padding: $spacing-unit*2;
+        background: $color-partecipazione-dark;
+        border-radius: $spacing-unit;
+    }
+
+    .rt-btn {
+        background: #ffffff;
+        color: $color-text;
+        font-weight: $font-weight-bold;
+
+        &:hover,
+        &:focus {
+            color: $color-text-hover;
+        }
+    }
+
+    .rt-form-text {
+        margin-bottom: $spacing-unit;
+        font-size: $font-size-xs;
+        line-height: 1.6;
+
+        &--emphasis {
+            text-transform: uppercase;
+        }
+    }
+
+    .rt-newsletter-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        opacity: 0.2;
+        font-size: 120px;
+    }
+}
+
+/* Hide web component js-added markup */
+[id="newsletter"] {
+    .elementi {
+        display: none;
+    }
+}
+
+
+/* ------------------------------------ *\
+   #MEDIA-QUERIES
+\* ------------------------------------ */
+
+@media all and (max-width: $breakpoint-laptop) {
+}
+
+@media all and (max-width: $breakpoint-ipad-portrait - 1) {
+    .rt-form-newsletter {
+        .rt-newsletter-icon {
+            display: none;
+        }
+    }
+
+}
+
+@media all and (min-width: $breakpoint-ipad-portrait) {
+
+    .rt-form-newsletter__inner {
+        display: flex;
+    }
+
+
+    .rt-form-newsletter {
+        .rt-form-item__wrapper-input {
+            // display: flex;
+            // flex-flow: row wrap;
+            @include flex-item-width(50%);
+        }
+
+        .rt-form-item__wrapper-text {
+            display: flex;
+            flex-flow: column nowrap;
+            padding-right: $spacing-unit*3;
+            flex: 1;
+        }
+
+
+        .rt-form-item {
+            // &--half {
+            //     @include flex-item-width(49%);
+            //     margin-right: 2%;
+
+            //     &:nth-of-type(2) {
+            //         margin-right: 0;
+            //     }
+            // }
+
+            // &--email {
+            //     @include flex-item-width(100%);
+            // }
+        }
+
+        .rt-form-item--action {
+            margin-top: auto;
+
+            .rt-btn {
+                align-self: flex-end;
+                width: auto;
+                min-width: 200px;
+            }
+        }
+
+        .rt-form-text {
+            // margin-bottom: $spacing-unit*2;
+            font-size: $font-size-m;
+            
+            &--small {
+                font-size: $font-size-sm;
+            }
+        }
+    }
+   
+}
+
+
+@media all and (min-width: $breakpoint-laptop) {
+}

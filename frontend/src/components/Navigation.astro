@@ -16,26 +16,32 @@ try {
   <div class="rt-container">
     <ul class="navbar-nav mr-auto d-flex flex-row gap-4">
       
-      {/* Link fisso alla Home */}
-      <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-      </li>
+    {/* Ciclo dinamico sulle voci di Payload */}
+    {menuItems.map((item: any) => {
+      
+      // Estraiamo lo slug dalla pagina che hai selezionato nel menu a tendina
+      // NOTA: assumo che il tuo campo si chiami "page" nel backend.
+      const slug = item.page?.slug; 
 
-      {/* Ciclo dinamico sulle pagine di Payload */}
-      {menuItems.map((item: any) => {
-        // Estraiamo lo slug dalla pagina relazionata (se esiste)
-        const slug = item.page?.slug; 
-        // Se non c'è lo slug, puntiamo a # come fallback
-        const href = slug ? `/${slug}` : '#';
+      let href = '#'; // Fallback in caso di errore
 
-        return (
-          <li class="nav-item">
-            <a class="nav-link" href={href}>
-              {item.label}
-            </a>
-          </li>
-        );
-      })}
+      if (slug) {
+        // LA MAGIA: Se hai selezionato la pagina 'home', il link diventa "/"
+        // Per tutte le altre pagine (es. 'dashboard', 'about'), il link diventa "/dashboard"
+        href = slug === 'home' ? '/' : `/${slug}`;
+      }
+
+      // Il campo "Etichetta Menu" nello screenshot si chiama "label" (o similare)
+      const etichetta = item.label || item.page?.title;
+
+      return (
+        <li class="nav-item">
+          <a class="nav-link" href={href}>
+            {etichetta}
+          </a>
+        </li>
+      );
+    })}
 
     </ul>
   </div>
