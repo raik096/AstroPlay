@@ -11,6 +11,7 @@ import { Friends } from './collections/Friends'
 import { News } from './collections/News'
 import { Pages } from './collections/Pages'
 import { Navigation } from './collections/Navigation'
+import { Widgets } from './collections/Widgets'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Friends, News, Pages, Navigation],
+  collections: [Users, Media, Friends, News, Pages, Navigation, Widgets],
   editor: lexicalEditor(),
   secret: 'UnaStringaSegretaMoltoLungaEComplessaPerIlPoC123!',
   typescript: {

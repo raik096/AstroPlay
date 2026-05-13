@@ -73,6 +73,7 @@ export interface Config {
     news: News;
     pages: Page;
     navigation: Navigation;
+    widgets: Widget;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     news: NewsSelect<false> | NewsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
+    widgets: WidgetsSelect<false> | WidgetsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -344,6 +346,31 @@ export interface Navigation {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "widgets".
+ */
+export interface Widget {
+  id: number;
+  name: string;
+  tagName: string;
+  jsFile: number | Media;
+  cssFile?: (number | null) | Media;
+  /**
+   * Configurazioni passate come attributi HTML
+   */
+  initialProps?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -389,6 +416,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'navigation';
         value: number | Navigation;
+      } | null)
+    | ({
+        relationTo: 'widgets';
+        value: number | Widget;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -605,6 +636,19 @@ export interface NavigationSelect<T extends boolean = true> {
   label?: T;
   page?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "widgets_select".
+ */
+export interface WidgetsSelect<T extends boolean = true> {
+  name?: T;
+  tagName?: T;
+  jsFile?: T;
+  cssFile?: T;
+  initialProps?: T;
   updatedAt?: T;
   createdAt?: T;
 }

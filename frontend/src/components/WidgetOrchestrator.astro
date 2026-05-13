@@ -1,0 +1,58 @@
+---
+// src/components/WidgetOrchestrator.astro
+const { widgetName } = Astro.props;
+
+let widget = null;
+let errorMessage = null;
+
+try {
+    // 1. Usiamo encodeURIComponent per gestire gli spazi nel nome in modo sicuro
+    const apiUrl = `http://127.0.0.1:3000/api/widgets?where[name][equals]=${encodeURIComponent(widgetName)}&depth=1`;
+    
+    // Stampiamo nel TERMINALE DI ASTRO cosa stiamo cercando
+    console.log("Cerco widget su Payload:", apiUrl); 
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    
+    if (data.docs && data.docs.length > 0) {
+        widget = data.docs[0];
+        console.log("✅ Widget Trovato! Tag:", widget.tagName);
+    } else {
+        errorMessage = `⚠️ Widget "${widgetName}" non trovato nel database di Payload.`;
+        console.log(errorMessage);
+    }
+} catch (e) {
+    errorMessage = `🚨 Errore di connessione a Payload: ${e.message}`;
+    console.error(errorMessage);
+}
+
+// 2. Se non c'è il widget, invece di sparire, STAMPIAMO L'ERRORE A SCHERMO!
+if (!widget) {
+    return (
+        <div style="border: 2px dashed red; padding: 20px; color: red; font-weight: bold;">
+            {errorMessage}
+        </div>
+    );
+}
+
+// 3. Prepariamo i dati in modo sicuro
+const jsUrl = widget.jsFile ? `http://127.0.0.1:3000${widget.jsFile.url}` : null;
+const cssUrl = widget.cssFile ? `http://127.0.0.1:3000${widget.cssFile.url}` : null;
+const Tag = widget.tagName; 
+
+// Assicuriamoci che initialProps sia un oggetto (se è vuoto su Payload causerebbe un crash)
+const props = widget.initialProps || {};
+---
+
+{/* Mostriamo un alert se manca il file JS */}
+{!jsUrl && <div style="color: orange;">⚠️ Attenzione: Nessun file JS associato al widget su Payload!</div>}
+
+{cssUrl && <link rel="stylesheet" href={cssUrl} />}
+{jsUrl && <script is:inline src={jsUrl} type="module"></script>}
+
+<Tag {...props}></Tag>
+
+<div style="font-size: 10px; color: #ccc; margin-top: 10px;">
+    [Area occupata dal custom element: &lt;{Tag}&gt;]
+</div>
