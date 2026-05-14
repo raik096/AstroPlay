@@ -5,9 +5,13 @@ export const Navigation: CollectionConfig = {
   admin: {
     useAsTitle: 'label',
     defaultColumns: ['label', 'page', 'order'],
+    group: 'Contenuti',
   },
   access: {
     read: () => true,
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => !!user,
   },
   fields: [
     {

@@ -2,6 +2,12 @@ import type { CollectionConfig } from 'payload'
 
 export const Widgets: CollectionConfig = {
   slug: 'widgets',
+  access: {
+      read: () => true, 
+      create: ({ req: { user } }) => !!user,
+      update: ({ req: { user } }) => !!user,
+      delete: ({ req: { user } }) => !!user,
+  },
   admin: {
     useAsTitle: 'name',
     group: 'Contenuti',
@@ -22,7 +28,7 @@ export const Widgets: CollectionConfig = {
     {
       name: 'jsFile',
       type: 'upload',
-      relationTo: 'media', // Colleghiamo il file JS caricato nei Media
+      relationTo: 'media',
       required: true,
       label: 'File JavaScript (Bundle)',
     },
@@ -36,6 +42,8 @@ export const Widgets: CollectionConfig = {
       name: 'initialProps',
       type: 'json',
       label: 'Proprietà iniziali (JSON)',
+      // 👉 AGGIUNGI QUESTO:
+      defaultValue: {}, 
       admin: {
         description: 'Configurazioni passate come attributi HTML',
       }

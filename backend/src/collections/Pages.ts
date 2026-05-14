@@ -10,7 +10,12 @@ import { NewsBlock } from '../blocks/NewsBlock'
 import { LogosBlock } from '../blocks/LogosBlock'
 
 const triggerVercelBuild = async () => {
-  const webhookURL = 'https://api.vercel.com/v1/integrations/deploy/prj_xyz123'; 
+  const webhookURL = process.env.VERCEL_DEPLOY_WEBHOOK;
+
+  if (!webhookURL) {
+    console.warn('⚠️ VERCEL_DEPLOY_WEBHOOK non configurato. Salto il trigger della build.');
+    return;
+  }
 
   try {
     console.log('📡 Lancio il webhook per ricostruire le pagine statiche di Astro...');
@@ -34,10 +39,14 @@ export const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
+    group: 'Contenuti',
   },
 
   access: {
-    read: () => true, 
+    read: () => true,
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => !!user,
   },
   
   hooks: {

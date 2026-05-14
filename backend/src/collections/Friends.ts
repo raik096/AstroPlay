@@ -2,8 +2,14 @@ import type { CollectionConfig } from 'payload'
 
 export const Friends: CollectionConfig = {
   slug: 'friends',
+  admin: {
+    group: 'Dati Esterni',
+  },
   access: {
     read: () => true,
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => !!user,
   },
   fields: [
     { name: 'firstName', type: 'text' },
@@ -18,6 +24,10 @@ export const Friends: CollectionConfig = {
       path: '/seed',
       method: 'get',
       handler: async (req) => {
+        if (!req.user) {
+          return Response.json({ error: 'Non autorizzato' }, { status: 401 });
+        }
+
         try {
           const response = await fetch('https://dummyjson.com/users?limit=5');
           const data = await response.json();
@@ -26,7 +36,7 @@ export const Friends: CollectionConfig = {
 
           for (const utente of data.users) {
             await req.payload.create({
-              collection: 'friends' as any, // Deve coincidere con lo slug!
+              collection: 'friends',
               data: {
                 firstName: utente.firstName,
                 lastName: utente.lastName,

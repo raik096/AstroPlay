@@ -2,8 +2,16 @@ import type { CollectionConfig } from 'payload'
 
 export const News: CollectionConfig = {
   slug: 'news',
-  admin: { useAsTitle: 'title' },
-  access: { read: () => true },
+  admin: { 
+    useAsTitle: 'title',
+    group: 'Contenuti',
+  },
+  access: { 
+    read: () => true,
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => !!user,
+  },
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true, unique: true },
