@@ -1,18 +1,22 @@
 ---
-// Importa il componente che hai creato!
-// (Assicurati che il percorso sia corretto rispetto a dove ti trovi)
+// src/pages/sportelli.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
 import WidgetOrchestrator from '../components/WidgetOrchestrator.astro';
+
+// Se è una pagina specifica, definiamo il nome del widget a mano
+const widgetName = "Sportelli URP";
 ---
 
-<html>
-  <head>
-    <title>Pagina Sportelli</title>
-  </head>
-  <body>
-    
-    <h1>Pagina di Test degli Sportelli URP</h1>
-    
-    <WidgetOrchestrator widgetName="Sportelli URP" />
+<BaseLayout pageTitle="Ricerca Sportelli">
+  
+  <div class="rtds-container rtds-my-10">
+    <h1 class="rtds-heading-1 rtds-mb-6">Cerca il tuo Sportello</h1>
+    <p class="rtds-body rtds-mb-8">
+      Utilizza lo strumento qui sotto per trovare lo sportello URP più vicino a te, visualizzare gli orari e prenotare un appuntamento.
+    </p>
 
-  </body>
-</html>
+    <WidgetOrchestrator widgetName={widgetName} />
+
+  </div>
+
+</BaseLayout>

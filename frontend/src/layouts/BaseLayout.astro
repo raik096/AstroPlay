@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import Navigation from "../components/Navigation.astro"; // 👉 IMPORTATO IL MENU
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
@@ -31,6 +32,8 @@ const { pageTitle = "Pagina" } = Astro.props;
 
     <div class="pt-0 rt-portal-content" id="wrapper">
       <Header />
+      
+      <Navigation />
 
       <main id="main-content" class="ot-100-layouttpl rt-home-content">
         <div class="rt-row-main-content portlet-layout row">

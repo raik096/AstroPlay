@@ -18,30 +18,28 @@ try {
       
     {/* Ciclo dinamico sulle voci di Payload */}
     {menuItems.map((item: any) => {
-      
-      // Estraiamo lo slug dalla pagina che hai selezionato nel menu a tendina
-      // NOTA: assumo che il tuo campo si chiami "page" nel backend.
-      const slug = item.page?.slug; 
+          
+          const rawSlug = item.page?.slug; 
+          let href = '#'; 
 
-      let href = '#'; // Fallback in caso di errore
+          if (rawSlug) {
+            // Rimuoviamo eventuali slash iniziali accidentali inseriti su Payload
+            const cleanSlug = rawSlug.replace(/^\//, '');
 
-      if (slug) {
-        // LA MAGIA: Se hai selezionato la pagina 'home', il link diventa "/"
-        // Per tutte le altre pagine (es. 'dashboard', 'about'), il link diventa "/dashboard"
-        href = slug === 'home' ? '/' : `/${slug}`;
-      }
+            // Generiamo il link corretto in modo sicuro
+            href = cleanSlug === 'home' ? '/' : `/${cleanSlug}`;
+          }
 
-      // Il campo "Etichetta Menu" nello screenshot si chiama "label" (o similare)
-      const etichetta = item.label || item.page?.title;
+          const etichetta = item.label || item.page?.title;
 
-      return (
-        <li class="nav-item">
-          <a class="nav-link" href={href}>
-            {etichetta}
-          </a>
-        </li>
-      );
-    })}
+          return (
+            <li class="nav-item">
+              <a class="nav-link" href={href}>
+                {etichetta}
+              </a>
+            </li>
+          );
+        })}
 
     </ul>
   </div>
