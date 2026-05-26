@@ -39,11 +39,6 @@ try {
     console.error("🚨 [ASTRO] Errore di connessione a Payload:", e.message);
 }
 
-// 2. Se abbiamo cercato "home" ma siamo sull'URL "/home", facciamo pulizia 
-// (opzionale, per avere l'URL pulito senza la scritta /home)
-if (slug === 'home' && pageData) {
-    return Astro.redirect('/');
-}
 
 // 3. SE NON C'È LA PAGINA, MOSTRA 404
 if (!pageData) {
@@ -51,7 +46,7 @@ if (!pageData) {
 }
 
 const blockComponents = {
-    hero: Hero,
+    'hero-block': Hero,
     textImage: TextImage,
     formBlock: FormBlock,
     serviziSection: ServiziSection,
